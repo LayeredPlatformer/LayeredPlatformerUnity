@@ -54,7 +54,8 @@ public class TimeAffected : MonoBehaviour
 			components = GetComponents<Component>();
 			for (int i=0; i<components.Length; i++)
 			{
-				if (!(components[i] is Renderer || components[i] is TimeAffected) || components[i] is Transform)
+				if (!(components[i] is Renderer || components[i] is TimeAffected)
+					|| components[i] is Transform || components[i] is PlatformCharacter3D)
 					Destroy(components[i]);
 			}
 		}
