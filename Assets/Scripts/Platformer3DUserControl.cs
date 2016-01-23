@@ -37,5 +37,4 @@ public class Platformer3DUserControl : MonoBehaviour
 
     }
 
-   
 }

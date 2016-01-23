@@ -3,12 +3,13 @@ using System.Collections;
 
 public class TimeAffected : MonoBehaviour
 {
-	int updateDelay = 1;
-	protected bool canUpdatePast = false;
 	public bool isParent = true;
-	TimeAffected otherSelf;
+
+	protected bool canUpdatePast = false;
+	protected TimeAffected shadow;
+
+	int updateDelay = 1;
 	SpriteRenderer rend;
-	Transform oldTransform;
 	Component[] components = new Component[0];
 
 	int counter = 0;
@@ -23,13 +24,12 @@ public class TimeAffected : MonoBehaviour
 
 		if (isParent)
 		{
-			oldTransform = transform;
 			Invoke("toggleCanUpdatePast", updateDelay);
 			GameObject otherGO = (GameObject) Instantiate(gameObject, transform.position, transform.localRotation);
-			otherSelf = otherGO.GetComponent<TimeAffected>();
-			otherSelf.isParent = false;
-			otherSelf.initialize();
-			otherSelf.toggleReality();
+			shadow = otherGO.GetComponent<TimeAffected>();
+			shadow.isParent = false;
+			shadow.initialize();
+			shadow.toggleReality();
 		}
 	}
 
@@ -39,7 +39,7 @@ public class TimeAffected : MonoBehaviour
 		counter++;
 
 		if (canUpdatePast)
-			otherSelf.transform.position = previousPositions[(counter + previousPositions.Length) % previousPositions.Length];
+			shadow.transform.position = previousPositions[(counter + previousPositions.Length) % previousPositions.Length];
 	}
 	
 	void toggleCanUpdatePast ()
@@ -56,7 +56,10 @@ public class TimeAffected : MonoBehaviour
 			{
 				if (!(components[i] is Renderer || components[i] is TimeAffected)
 					|| components[i] is Transform || components[i] is PlatformCharacter3D)
+				{
 					Destroy(components[i]);
+//					Debug.Log("removed component: " + i);
+				}
 			}
 		}
 		toggleOpacity();
