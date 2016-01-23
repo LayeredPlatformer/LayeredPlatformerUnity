@@ -19,13 +19,12 @@ public class ColoredController : MonoBehaviour
 
 	protected void initialize()
 	{
-		Debug.Log("color: " + color);
 		if (color == LayersEnum.Colors.red)
-			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.first);
+			transform.Translate(0, 0, (float)LayersEnum.Positions.first);
 		else if (color == LayersEnum.Colors.blue)
-			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.middle);
+			transform.Translate(0, 0, (float)LayersEnum.Positions.middle);
 		else if (color == LayersEnum.Colors.green)
-			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.last);
+			transform.Translate(0, 0, (float)LayersEnum.Positions.last);
 	}
 
 	protected void step()
