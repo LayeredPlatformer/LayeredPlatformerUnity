@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\ColoredController.cs" />
      <Compile Include="Assets\Scripts\GruntController.cs" />
+     <Compile Include="Assets\Scripts\LayersEnum.cs" />
      <Compile Include="Assets\Scripts\PlatformCharacter3D.cs" />
      <Compile Include="Assets\Scripts\Platformer3DUserControl.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
