@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TimeAffected : MonoBehaviour
+public class TimeAffected : LayeredController
 {
 	public bool isParent = true;
 
@@ -9,18 +9,17 @@ public class TimeAffected : MonoBehaviour
 	protected TimeAffected shadow;
 
 	int updateDelay = 1;
+	int counter = 0;
 	SpriteRenderer rend;
 	Component[] components = new Component[0];
-
-	int counter = 0;
-
-	Vector2[] previousPositions;
+	Vector3[] previousPositions;
 
 	// Use this for initialization
 	public void initialize ()
 	{
+		base.initialize();
 		rend = GetComponent<SpriteRenderer>();
-		previousPositions = new Vector2[60*updateDelay];
+		previousPositions = new Vector3[60*updateDelay];
 
 		if (isParent)
 		{
@@ -35,7 +34,8 @@ public class TimeAffected : MonoBehaviour
 
 	protected void step()
 	{
-		previousPositions[counter % (previousPositions.Length)] = (Vector2) transform.position;
+		base.step();
+		previousPositions[counter % (previousPositions.Length)] = transform.position;
 		counter++;
 
 		if (canUpdatePast)

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GruntController : ColoredController
+public class GruntController : LayeredController
 {
 
 	// Use this for initialization
