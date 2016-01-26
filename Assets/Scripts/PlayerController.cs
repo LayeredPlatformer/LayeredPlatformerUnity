@@ -7,8 +7,8 @@ public class PlayerController : TimeAffected
 	// Use this for initialization
 	public void Start()
 	{
-        Initialize();
         GetComponent<LayeredController>().LayerChanged += UpdateLayerTransparencyOnLayerChange;
+        Initialize();
 	}
 	
 	// Update is called once per frame
