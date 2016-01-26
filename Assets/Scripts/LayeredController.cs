@@ -71,22 +71,6 @@ public class LayeredController : MonoBehaviour
         }
     }
 
-	protected void CycleLayers()
-	{
-        if (Layer == LayersEnum.Colors.Red)
-        {
-            Layer = LayersEnum.Colors.Blue;
-        }
-        else if (Layer == LayersEnum.Colors.Blue)
-        {
-            Layer = LayersEnum.Colors.Green;
-        }
-        else if (Layer == LayersEnum.Colors.Green)
-        {
-            Layer = LayersEnum.Colors.Red;
-        }
-	}
-
     public class LayerChangedEventArgs : EventArgs
     {
         public LayersEnum.Colors NewLayer { get; set; }

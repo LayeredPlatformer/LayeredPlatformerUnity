@@ -32,7 +32,23 @@ public class PlayerController : TimeAffected
         }
 	}
 
-	private void ShadowBlink()
+    private void CycleLayers()
+    {
+        if (Layer == LayersEnum.Colors.Red)
+        {
+            Layer = LayersEnum.Colors.Blue;
+        }
+        else if (Layer == LayersEnum.Colors.Blue)
+        {
+            Layer = LayersEnum.Colors.Green;
+        }
+        else if (Layer == LayersEnum.Colors.Green)
+        {
+            Layer = LayersEnum.Colors.Red;
+        }
+    }
+
+    private void ShadowBlink()
 	{
 		transform.position = Shadow.transform.position;
 		Layer = LayersEnum.ZToColor(transform.position.z);
@@ -44,7 +60,7 @@ public class PlayerController : TimeAffected
 
 		for (int i = 0; i < colorLayers.Length; i++)
 		{
-			var layeredController = colorLayers[i].GetComponent<LayeredController>();;
+			var layeredController = colorLayers[i].GetComponent<LayeredController>();
             if (layeredController.Layer != Layer)
             {
                 SetGameObjectChildrenOpacity(colorLayers[i], 0.5f);
