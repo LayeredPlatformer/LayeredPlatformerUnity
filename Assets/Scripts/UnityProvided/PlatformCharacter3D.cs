@@ -12,8 +12,10 @@ public class PlatformCharacter3D : MonoBehaviour
     private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
     [SerializeField]
     private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
+#pragma warning disable 0649
     [SerializeField]
     private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+#pragma warning restore 0649
 
     private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded

@@ -4,7 +4,7 @@ using System;
 
 public class LayeredController : MonoBehaviour
 {
-    public event EventHandler LayerChanged;
+    public event EventHandler LayerChangedEventHandler;
 
 #pragma warning disable 0649
     [SerializeField]
@@ -22,7 +22,7 @@ public class LayeredController : MonoBehaviour
         set
         {
             _layer = value;
-            OnLayerChanged();
+            OnLayerChanged(value);
         }
     }
 
@@ -40,7 +40,7 @@ public class LayeredController : MonoBehaviour
 
 	protected virtual void Initialize()
 	{
-        LayerChanged += UpdatePositionOnLayerChange;
+        LayerChangedEventHandler += UpdatePositionOnLayerChange;
         Layer = Layer.FindByLabel(_layerLabel);
 	}
 
@@ -49,11 +49,11 @@ public class LayeredController : MonoBehaviour
 
 	}
 
-    protected virtual void OnLayerChanged()
+    protected virtual void OnLayerChanged(Layer newLayer)
     {
-        if (LayerChanged != null)
+        if (LayerChangedEventHandler != null)
         {
-            LayerChanged(this, new LayerChangedEventArgs { NewLayer = Layer });
+            LayerChangedEventHandler(this, new LayerChangedEventArgs { NewLayer = newLayer });
         }
     }
 

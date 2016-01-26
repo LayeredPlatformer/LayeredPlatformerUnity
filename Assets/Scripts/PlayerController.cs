@@ -7,7 +7,7 @@ public class PlayerController : TimeAffected
 	// Use this for initialization
 	public void Start()
 	{
-        GetComponent<LayeredController>().LayerChanged += UpdateLayerTransparencyOnLayerChange;
+        GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
         Initialize();
 	}
 	
@@ -45,14 +45,8 @@ public class PlayerController : TimeAffected
 		for (int i = 0; i < colorLayers.Length; i++)
 		{
 			var layeredController = colorLayers[i].GetComponent<LayeredController>();
-            if (layeredController.Layer != Layer)
-            {
-                SetGameObjectChildrenOpacity(colorLayers[i], 0.5f);
-            }
-            else
-            {
-                SetGameObjectChildrenOpacity(colorLayers[i], 1f);
-            }
+            var opacity = layeredController.Layer == Layer ? 1f : 0.5f;
+            SetGameObjectChildrenOpacity(colorLayers[i], opacity);
 		}
 	}
 
