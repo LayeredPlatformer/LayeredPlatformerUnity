@@ -23,7 +23,7 @@ public class PlayerController : TimeAffected
 
 		if (Input.GetKeyDown(KeyCode.F))
 		{
-			CycleLayers();
+			Layer++;
 		}
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -32,26 +32,10 @@ public class PlayerController : TimeAffected
         }
 	}
 
-    private void CycleLayers()
-    {
-        if (Layer == LayersEnum.Colors.Red)
-        {
-            Layer = LayersEnum.Colors.Blue;
-        }
-        else if (Layer == LayersEnum.Colors.Blue)
-        {
-            Layer = LayersEnum.Colors.Green;
-        }
-        else if (Layer == LayersEnum.Colors.Green)
-        {
-            Layer = LayersEnum.Colors.Red;
-        }
-    }
-
     private void ShadowBlink()
 	{
 		transform.position = Shadow.transform.position;
-		Layer = LayersEnum.ZToColor(transform.position.z);
+        Layer = Layer.FindByZ(transform.position.z);
 	}
 
 	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)

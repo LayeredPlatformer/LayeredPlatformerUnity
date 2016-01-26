@@ -6,10 +6,14 @@ public class LayeredController : MonoBehaviour
 {
     public event EventHandler LayerChanged;
 
+#pragma warning disable 0649
     [SerializeField]
-	private LayersEnum.Colors _layer;
+    private Layer.Labels _layerLabel;
+#pragma warning restore 0649
 
-    public LayersEnum.Colors Layer
+    private Layer _layer;
+
+    public Layer Layer
     {
         get
         {
@@ -37,7 +41,7 @@ public class LayeredController : MonoBehaviour
 	protected virtual void Initialize()
 	{
         LayerChanged += UpdatePositionOnLayerChange;
-        OnLayerChanged();
+        Layer = Layer.FindByLabel(_layerLabel);
 	}
 
 	protected virtual void Step()
@@ -56,23 +60,11 @@ public class LayeredController : MonoBehaviour
     protected void UpdatePositionOnLayerChange(object sender, EventArgs args)
     {
         var newLayer = ((LayerChangedEventArgs)args).NewLayer;
-
-        if (newLayer == LayersEnum.Colors.Red)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.First);
-        }
-        else if (newLayer == LayersEnum.Colors.Blue)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.Middle);
-        }
-        else if (newLayer == LayersEnum.Colors.Green)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.Last);
-        }
+        transform.position = new Vector3(transform.position.x, transform.position.y, newLayer.Z);
     }
 
     public class LayerChangedEventArgs : EventArgs
     {
-        public LayersEnum.Colors NewLayer { get; set; }
+        public Layer NewLayer { get; set; }
     }
 }
