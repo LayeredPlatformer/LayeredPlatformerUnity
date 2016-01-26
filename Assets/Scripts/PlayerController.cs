@@ -35,7 +35,7 @@ public class PlayerController : TimeAffected
 	private void ShadowBlink()
 	{
 		transform.position = Shadow.transform.position;
-		UpdateLayer(LayersEnum.ZToColor(transform.position.z));
+		Layer = LayersEnum.ZToColor(transform.position.z);
 	}
 
 	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)
@@ -45,7 +45,7 @@ public class PlayerController : TimeAffected
 		for (int i = 0; i < colorLayers.Length; i++)
 		{
 			var layeredController = colorLayers[i].GetComponent<LayeredController>();;
-            if (layeredController._layer != _layer)
+            if (layeredController.Layer != Layer)
             {
                 SetGameObjectChildrenOpacity(colorLayers[i], 0.5f);
             }

@@ -6,10 +6,24 @@ public class LayeredController : MonoBehaviour
 {
     public event EventHandler LayerChanged;
 
-	public LayersEnum.Colors _layer;
+    [SerializeField]
+	private LayersEnum.Colors _layer;
 
-	// Use this for initialization
-	void Start()
+    public LayersEnum.Colors Layer
+    {
+        get
+        {
+            return _layer;
+        }
+        set
+        {
+            _layer = value;
+            OnLayerChanged();
+        }
+    }
+
+    // Use this for initialization
+    void Start()
 	{
 		Initialize();
 	}
@@ -23,7 +37,7 @@ public class LayeredController : MonoBehaviour
 	protected virtual void Initialize()
 	{
         LayerChanged += UpdatePositionOnLayerChange;
-        UpdateLayer(_layer);
+        OnLayerChanged();
 	}
 
 	protected virtual void Step()
@@ -35,15 +49,9 @@ public class LayeredController : MonoBehaviour
     {
         if (LayerChanged != null)
         {
-            LayerChanged(this, new LayerChangedEventArgs { NewLayer = _layer });
+            LayerChanged(this, new LayerChangedEventArgs { NewLayer = Layer });
         }
     }
-
-	protected void UpdateLayer(LayersEnum.Colors newLayer)
-	{
-		_layer = newLayer;
-        OnLayerChanged();
-	}
 
     protected void UpdatePositionOnLayerChange(object sender, EventArgs args)
     {
@@ -65,17 +73,17 @@ public class LayeredController : MonoBehaviour
 
 	protected void CycleLayers()
 	{
-        if (_layer == LayersEnum.Colors.Red)
+        if (Layer == LayersEnum.Colors.Red)
         {
-            UpdateLayer(LayersEnum.Colors.Blue);
+            Layer = LayersEnum.Colors.Blue;
         }
-        else if (_layer == LayersEnum.Colors.Blue)
+        else if (Layer == LayersEnum.Colors.Blue)
         {
-            UpdateLayer(LayersEnum.Colors.Green);
+            Layer = LayersEnum.Colors.Green;
         }
-        else if (_layer == LayersEnum.Colors.Green)
+        else if (Layer == LayersEnum.Colors.Green)
         {
-            UpdateLayer(LayersEnum.Colors.Red);
+            Layer = LayersEnum.Colors.Red;
         }
 	}
 
