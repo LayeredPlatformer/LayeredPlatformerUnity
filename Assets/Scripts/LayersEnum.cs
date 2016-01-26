@@ -17,22 +17,30 @@ public class LayersEnum
 		Last = 6
 	}
 
-	public static Colors ZToColor(float zz)
+	public static Colors ZToColor(float z)
 	{
-		Positions z = (Positions)zz;
-		if (z == Positions.First)
-			return Colors.Red;
-		else if (z == Positions.Middle)
-			return Colors.Blue;
+		var layerPosition = (Positions)z;
+        if (layerPosition == Positions.First)
+        {
+            return Colors.Red;
+        }
+        else if (layerPosition == Positions.Middle)
+        {
+            return Colors.Blue;
+        }
 		return Colors.Green;
 	}
 
-	public static float ColorToZ(Colors c)
+	public static float ColorToZ(Colors color)
 	{
-		if (c == Colors.Red)
-			return (float)Positions.First;
-		else if (c == Colors.Blue)
-			return (float)Positions.Middle;
+        if (color == Colors.Red)
+        {
+            return (float)Positions.First;
+        }
+        else if (color == Colors.Blue)
+        {
+            return (float)Positions.Middle;
+        }
 		return (float)Positions.Last;
 	}
 }
