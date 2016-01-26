@@ -7,6 +7,7 @@ public class PlayerController : TimeAffected
 	void Start ()
 	{
 		base.initialize();
+        GetComponent<LayeredController>().LayerChanged += ((sender, args) => updateLayerTransparency());
 	}
 	
 	// Update is called once per frame
@@ -20,7 +21,6 @@ public class PlayerController : TimeAffected
 		if (Input.GetKeyDown(KeyCode.F))
 		{
 			cycleLayers();
-			updateLayerTransparency();
 		}
 
 		if (Input.GetKeyDown(KeyCode.S))
@@ -31,7 +31,6 @@ public class PlayerController : TimeAffected
 	{
 		transform.position = shadow.transform.position;
 		updateLayer(LayersEnum.zToColor(transform.position.z));
-		updateLayerTransparency();
 	}
 
 	void updateLayerTransparency()

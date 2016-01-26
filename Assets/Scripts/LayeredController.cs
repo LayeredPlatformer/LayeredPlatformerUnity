@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class LayeredController : MonoBehaviour
 {
+    public event EventHandler LayerChanged;
+
 	public LayersEnum.Colors _layer;
 
 	// Use this for initialization
@@ -17,19 +20,29 @@ public class LayeredController : MonoBehaviour
 		step();
 	}
 
-	protected void initialize()
+	protected virtual void initialize()
 	{
 		updateLayer(_layer);
 	}
 
-	protected void step()
+	protected virtual void step()
 	{
 
 	}
 
-	protected void updateLayer(LayersEnum.Colors l)
+    protected virtual void OnLayerChanged(EventArgs args)
+    {
+        if (LayerChanged != null)
+        {
+            LayerChanged(this, args);
+        }
+    }
+
+	protected void updateLayer(LayersEnum.Colors newLayer)
 	{
-		_layer = l;
+		_layer = newLayer;
+        OnLayerChanged(new LayerChangedEventArgs { NewLayer = newLayer });
+
 		if (_layer == LayersEnum.Colors.red)
 			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.first);
 		else if (_layer == LayersEnum.Colors.blue)
@@ -48,4 +61,8 @@ public class LayeredController : MonoBehaviour
 			updateLayer(LayersEnum.Colors.red);
 	}
 
+    private class LayerChangedEventArgs : EventArgs
+    {
+        public LayersEnum.Colors NewLayer { get; set; }
+    }
 }
