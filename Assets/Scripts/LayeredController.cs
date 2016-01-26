@@ -22,7 +22,8 @@ public class LayeredController : MonoBehaviour
 
 	protected virtual void Initialize()
 	{
-		UpdateLayer(_layer);
+        LayerChanged += UpdatePositionOnLayerChange;
+        UpdateLayer(_layer);
 	}
 
 	protected virtual void Step()
@@ -30,32 +31,37 @@ public class LayeredController : MonoBehaviour
 
 	}
 
-    protected virtual void OnLayerChanged(EventArgs args)
+    protected virtual void OnLayerChanged()
     {
         if (LayerChanged != null)
         {
-            LayerChanged(this, args);
+            LayerChanged(this, new LayerChangedEventArgs { NewLayer = _layer });
         }
     }
 
 	protected void UpdateLayer(LayersEnum.Colors newLayer)
 	{
 		_layer = newLayer;
-        OnLayerChanged(new LayerChangedEventArgs { NewLayer = newLayer });
+        OnLayerChanged();
+	}
 
-        if (_layer == LayersEnum.Colors.Red)
+    protected void UpdatePositionOnLayerChange(object sender, EventArgs args)
+    {
+        var newLayer = ((LayerChangedEventArgs)args).NewLayer;
+
+        if (newLayer == LayersEnum.Colors.Red)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.First);
         }
-        else if (_layer == LayersEnum.Colors.Blue)
+        else if (newLayer == LayersEnum.Colors.Blue)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.Middle);
         }
-        else if (_layer == LayersEnum.Colors.Green)
+        else if (newLayer == LayersEnum.Colors.Green)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.Last);
         }
-	}
+    }
 
 	protected void CycleLayers()
 	{
@@ -73,7 +79,7 @@ public class LayeredController : MonoBehaviour
         }
 	}
 
-    private class LayerChangedEventArgs : EventArgs
+    public class LayerChangedEventArgs : EventArgs
     {
         public LayersEnum.Colors NewLayer { get; set; }
     }

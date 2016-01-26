@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerController : TimeAffected
 {
@@ -7,7 +8,7 @@ public class PlayerController : TimeAffected
 	public void Start()
 	{
         Initialize();
-        GetComponent<LayeredController>().LayerChanged += ((sender, args) => UpdateLayerTransparency());
+        GetComponent<LayeredController>().LayerChanged += UpdateLayerTransparencyOnLayerChange;
 	}
 	
 	// Update is called once per frame
@@ -37,7 +38,7 @@ public class PlayerController : TimeAffected
 		UpdateLayer(LayersEnum.ZToColor(transform.position.z));
 	}
 
-	private void UpdateLayerTransparency()
+	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)
 	{
 		var colorLayers = GameObject.FindGameObjectsWithTag("ColorLayer");
 
