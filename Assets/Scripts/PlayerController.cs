@@ -6,7 +6,7 @@ public class PlayerController : TimeAffected
 	// Use this for initialization
 	void Start ()
 	{
-		base.initialize();
+		base.Initialize();
         GetComponent<LayeredController>().LayerChanged += ((sender, args) => updateLayerTransparency());
 	}
 	
@@ -16,7 +16,7 @@ public class PlayerController : TimeAffected
 		if (!isParent)
 			return;
 
-		base.step();
+		base.Step();
 
 		if (Input.GetKeyDown(KeyCode.F))
 		{
@@ -29,7 +29,7 @@ public class PlayerController : TimeAffected
 
 	void shadowBlink()
 	{
-		transform.position = shadow.transform.position;
+		transform.position = Shadow.transform.position;
 		UpdateLayer(LayersEnum.zToColor(transform.position.z));
 	}
 

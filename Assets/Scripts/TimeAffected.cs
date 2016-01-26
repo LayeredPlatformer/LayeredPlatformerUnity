@@ -5,59 +5,59 @@ public class TimeAffected : LayeredController
 {
 	public bool isParent = true;
 
-	protected bool canUpdatePast = false;
-	protected TimeAffected shadow;
+	protected bool CanUpdatePast = false;
+	protected TimeAffected Shadow;
 
-	int updateDelay = 1;
-	int counter = 0;
-	SpriteRenderer rend;
-	Component[] components = new Component[0];
-	Vector3[] previousPositions;
+	private int _updateDelay = 1;
+	private int _counter = 0;
+	private SpriteRenderer _rend;
+	private Component[] _components = new Component[0];
+	private Vector3[] _previousPositions;
 
 	// Use this for initialization
-	public void initialize ()
+	protected new void Initialize()
 	{
 		base.Initialize();
-		rend = GetComponent<SpriteRenderer>();
-		previousPositions = new Vector3[60*updateDelay];
+		_rend = GetComponent<SpriteRenderer>();
+		_previousPositions = new Vector3[60*_updateDelay];
 
 		if (isParent)
 		{
-			Invoke("toggleCanUpdatePast", updateDelay);
+			Invoke("toggleCanUpdatePast", _updateDelay);
 			GameObject otherGO = (GameObject) Instantiate(gameObject, transform.position, transform.localRotation);
-			shadow = otherGO.GetComponent<TimeAffected>();
-			shadow.isParent = false;
-			shadow.initialize();
-			shadow.toggleReality();
+			Shadow = otherGO.GetComponent<TimeAffected>();
+			Shadow.isParent = false;
+			Shadow.Initialize();
+			Shadow.toggleReality();
 		}
 	}
 
-	protected void step()
+	protected new void Step()
 	{
 		base.Step();
-		previousPositions[counter % (previousPositions.Length)] = transform.position;
-		counter++;
+		_previousPositions[_counter % (_previousPositions.Length)] = transform.position;
+		_counter++;
 
-		if (canUpdatePast)
-			shadow.transform.position = previousPositions[(counter + previousPositions.Length) % previousPositions.Length];
+		if (CanUpdatePast)
+			Shadow.transform.position = _previousPositions[(_counter + _previousPositions.Length) % _previousPositions.Length];
 	}
 	
 	void toggleCanUpdatePast ()
 	{
-		canUpdatePast = !canUpdatePast;
+		CanUpdatePast = !CanUpdatePast;
 	}
 
 	public void toggleReality()
 	{
-		if (components.Length == 0)
+		if (_components.Length == 0)
 		{
-			components = GetComponents<Component>();
-			for (int i=0; i<components.Length; i++)
+			_components = GetComponents<Component>();
+			for (int i=0; i<_components.Length; i++)
 			{
-				if (!(components[i] is Renderer || components[i] is TimeAffected)
-					|| components[i] is Transform || components[i] is PlatformCharacter3D)
+				if (!(_components[i] is Renderer || _components[i] is TimeAffected)
+					|| _components[i] is Transform || _components[i] is PlatformCharacter3D)
 				{
-					Destroy(components[i]);
+					Destroy(_components[i]);
 //					Debug.Log("removed component: " + i);
 				}
 			}
@@ -67,9 +67,9 @@ public class TimeAffected : LayeredController
 
 	void toggleOpacity()
 	{
-		if (rend.color.a == .5f)
-			rend.color = new Color(rend.color.r, rend.color.g, rend.color.b, 1f);
+		if (_rend.color.a == .5f)
+			_rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, 1f);
 		else
-			rend.color = new Color(rend.color.r, rend.color.g, rend.color.b, .5f);
+			_rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, .5f);
 	}
 }
