@@ -43,22 +43,22 @@ public class LayeredController : MonoBehaviour
 		_layer = newLayer;
         OnLayerChanged(new LayerChangedEventArgs { NewLayer = newLayer });
 
-		if (_layer == LayersEnum.Colors.red)
-			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.first);
-		else if (_layer == LayersEnum.Colors.blue)
-			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.middle);
-		else if (_layer == LayersEnum.Colors.green)
-			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.last);
+		if (_layer == LayersEnum.Colors.Red)
+			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.First);
+		else if (_layer == LayersEnum.Colors.Blue)
+			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.Middle);
+		else if (_layer == LayersEnum.Colors.Green)
+			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.Last);
 	}
 
 	protected void CycleLayers()
 	{
-		if (_layer == LayersEnum.Colors.red)
-			UpdateLayer(LayersEnum.Colors.blue);
-		else if (_layer == LayersEnum.Colors.blue)
-			UpdateLayer(LayersEnum.Colors.green);
-		else if (_layer == LayersEnum.Colors.green)
-			UpdateLayer(LayersEnum.Colors.red);
+		if (_layer == LayersEnum.Colors.Red)
+			UpdateLayer(LayersEnum.Colors.Blue);
+		else if (_layer == LayersEnum.Colors.Blue)
+			UpdateLayer(LayersEnum.Colors.Green);
+		else if (_layer == LayersEnum.Colors.Green)
+			UpdateLayer(LayersEnum.Colors.Red);
 	}
 
     private class LayerChangedEventArgs : EventArgs

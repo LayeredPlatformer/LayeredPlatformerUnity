@@ -4,14 +4,14 @@ using System.Collections;
 public class PlayerController : TimeAffected
 {
 	// Use this for initialization
-	void Start ()
+	public void Start()
 	{
 		base.Initialize();
-        GetComponent<LayeredController>().LayerChanged += ((sender, args) => updateLayerTransparency());
+        GetComponent<LayeredController>().LayerChanged += ((sender, args) => UpdateLayerTransparency());
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	public void Update()
 	{
 		if (!isParent)
 			return;
@@ -24,16 +24,16 @@ public class PlayerController : TimeAffected
 		}
 
 		if (Input.GetKeyDown(KeyCode.S))
-			shadowBlink();
+			ShadowBlink();
 	}
 
-	void shadowBlink()
+	private void ShadowBlink()
 	{
 		transform.position = Shadow.transform.position;
-		UpdateLayer(LayersEnum.zToColor(transform.position.z));
+		UpdateLayer(LayersEnum.ZToColor(transform.position.z));
 	}
 
-	void updateLayerTransparency()
+	private void UpdateLayerTransparency()
 	{
 		GameObject[] colorLayers = GameObject.FindGameObjectsWithTag("ColorLayer");
 
@@ -41,13 +41,13 @@ public class PlayerController : TimeAffected
 		{
 			LayeredController lc = colorLayers[i].GetComponent<LayeredController>();;
 			if (lc._layer != _layer)
-				setGameObjectChildrenOpacity(colorLayers[i], 0.5f);
+				SetGameObjectChildrenOpacity(colorLayers[i], 0.5f);
 			else
-				setGameObjectChildrenOpacity(colorLayers[i], 1f);
+				SetGameObjectChildrenOpacity(colorLayers[i], 1f);
 		}
 	}
 
-	private static void setGameObjectChildrenOpacity(GameObject gameObject, float opacity)
+	private static void SetGameObjectChildrenOpacity(GameObject gameObject, float opacity)
 	{
 		var renderers = gameObject.GetComponentsInChildren<Renderer>();
 		foreach (var renderer in renderers)

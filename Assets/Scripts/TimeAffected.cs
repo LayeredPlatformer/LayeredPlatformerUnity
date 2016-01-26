@@ -23,12 +23,12 @@ public class TimeAffected : LayeredController
 
 		if (isParent)
 		{
-			Invoke("toggleCanUpdatePast", _updateDelay);
+			Invoke("ToggleCanUpdatePast", _updateDelay);
 			GameObject otherGO = (GameObject) Instantiate(gameObject, transform.position, transform.localRotation);
 			Shadow = otherGO.GetComponent<TimeAffected>();
 			Shadow.isParent = false;
 			Shadow.Initialize();
-			Shadow.toggleReality();
+			Shadow.ToggleReality();
 		}
 	}
 
@@ -42,12 +42,12 @@ public class TimeAffected : LayeredController
 			Shadow.transform.position = _previousPositions[(_counter + _previousPositions.Length) % _previousPositions.Length];
 	}
 	
-	void toggleCanUpdatePast ()
+	public void ToggleCanUpdatePast()
 	{
 		CanUpdatePast = !CanUpdatePast;
 	}
 
-	public void toggleReality()
+	public void ToggleReality()
 	{
 		if (_components.Length == 0)
 		{
@@ -62,10 +62,10 @@ public class TimeAffected : LayeredController
 				}
 			}
 		}
-		toggleOpacity();
+		ToggleOpacity();
 	}
 
-	void toggleOpacity()
+	public void ToggleOpacity()
 	{
 		if (_rend.color.a == .5f)
 			_rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, 1f);
