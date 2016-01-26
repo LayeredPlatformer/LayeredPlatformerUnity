@@ -20,7 +20,7 @@ public class PlayerController : TimeAffected
 
 		if (Input.GetKeyDown(KeyCode.F))
 		{
-			cycleLayers();
+			CycleLayers();
 		}
 
 		if (Input.GetKeyDown(KeyCode.S))
@@ -30,7 +30,7 @@ public class PlayerController : TimeAffected
 	void shadowBlink()
 	{
 		transform.position = shadow.transform.position;
-		updateLayer(LayersEnum.zToColor(transform.position.z));
+		UpdateLayer(LayersEnum.zToColor(transform.position.z));
 	}
 
 	void updateLayerTransparency()

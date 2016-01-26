@@ -17,7 +17,7 @@ public class TimeAffected : LayeredController
 	// Use this for initialization
 	public void initialize ()
 	{
-		base.initialize();
+		base.Initialize();
 		rend = GetComponent<SpriteRenderer>();
 		previousPositions = new Vector3[60*updateDelay];
 
@@ -34,7 +34,7 @@ public class TimeAffected : LayeredController
 
 	protected void step()
 	{
-		base.step();
+		base.Step();
 		previousPositions[counter % (previousPositions.Length)] = transform.position;
 		counter++;
 

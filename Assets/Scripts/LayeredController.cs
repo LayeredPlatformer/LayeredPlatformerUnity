@@ -9,23 +9,23 @@ public class LayeredController : MonoBehaviour
 	public LayersEnum.Colors _layer;
 
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
-		initialize();
+		Initialize();
 	}
 
 	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
-		step();
+		Step();
 	}
 
-	protected virtual void initialize()
+	protected virtual void Initialize()
 	{
-		updateLayer(_layer);
+		UpdateLayer(_layer);
 	}
 
-	protected virtual void step()
+	protected virtual void Step()
 	{
 
 	}
@@ -38,7 +38,7 @@ public class LayeredController : MonoBehaviour
         }
     }
 
-	protected void updateLayer(LayersEnum.Colors newLayer)
+	protected void UpdateLayer(LayersEnum.Colors newLayer)
 	{
 		_layer = newLayer;
         OnLayerChanged(new LayerChangedEventArgs { NewLayer = newLayer });
@@ -51,14 +51,14 @@ public class LayeredController : MonoBehaviour
 			transform.position = new Vector3(transform.position.x, transform.position.y, (float)LayersEnum.Positions.last);
 	}
 
-	protected void cycleLayers()
+	protected void CycleLayers()
 	{
 		if (_layer == LayersEnum.Colors.red)
-			updateLayer(LayersEnum.Colors.blue);
+			UpdateLayer(LayersEnum.Colors.blue);
 		else if (_layer == LayersEnum.Colors.blue)
-			updateLayer(LayersEnum.Colors.green);
+			UpdateLayer(LayersEnum.Colors.green);
 		else if (_layer == LayersEnum.Colors.green)
-			updateLayer(LayersEnum.Colors.red);
+			UpdateLayer(LayersEnum.Colors.red);
 	}
 
     private class LayerChangedEventArgs : EventArgs
