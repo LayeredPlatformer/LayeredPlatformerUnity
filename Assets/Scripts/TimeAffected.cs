@@ -8,7 +8,7 @@ public class TimeAffected : LayeredController
 	protected bool CanUpdatePast = false;
 	protected TimeAffected Shadow;
 
-	private int _updateDelay = 1;
+	public float UpdateDelaySeconds = 1;
 	private int _counter = 0;
 	private SpriteRenderer _rend;
 	private Component[] _components = new Component[0];
@@ -19,11 +19,11 @@ public class TimeAffected : LayeredController
 	{
 		base.Initialize();
 		_rend = GetComponent<SpriteRenderer>();
-		_previousPositions = new Vector3[60*_updateDelay];
+		_previousPositions = new Vector3[(int)(60*UpdateDelaySeconds)];
 
 		if (isParent)
 		{
-			Invoke("ToggleCanUpdatePast", _updateDelay);
+			Invoke("ToggleCanUpdatePast", UpdateDelaySeconds);
 			var otherGO = (GameObject) Instantiate(gameObject, transform.position, transform.localRotation);
 			Shadow = otherGO.GetComponent<TimeAffected>();
 			Shadow.isParent = false;

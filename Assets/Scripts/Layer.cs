@@ -7,17 +7,17 @@ public class Layer
 {
     public enum Labels { Red, Blue, Green }
 
-    public int Index { get; set; }
+    public int Index { get; private set; }
 
-    public float Z { get; set; }
+    public float Z { get; private set; }
 
-    public Labels Label { get; set; }
+    public Labels Label { get; private set; }
 
     public static Layer[] AllLayers =
     {
-        new Layer { Index = 0, Z = 0, Label = Labels.Red },
-        new Layer { Index = 1, Z = 3, Label = Labels.Blue },
-        new Layer { Index = 2, Z = 6, Label = Labels.Green }
+        new Layer(index: 0, z: 0, label: Labels.Red),
+        new Layer(index: 1, z: 3, label: Labels.Blue),
+        new Layer(index: 2, z: 6, label: Labels.Green)
     };
 
     public static Layer FindByZ(float z)
@@ -37,5 +37,11 @@ public class Layer
     public static Layer operator --(Layer old)
     {
         return AllLayers[(old.Index - 1 + AllLayers.Length) % AllLayers.Length];
+    }
+
+    private Layer(int index, float z, Labels label) {
+        Index = index;
+        Z = z;
+        Label = label;
     }
 }
