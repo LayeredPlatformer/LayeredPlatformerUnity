@@ -4,6 +4,10 @@ using System;
 
 public class PlayerController : TimeAffected
 {
+	private float _basicAttackRange = 2;
+	private float _basicAttackDamage = 3;
+	private float _basicAttackImpactForce = 500;
+
 	// Use this for initialization
 	public void Start()
 	{
@@ -15,21 +19,37 @@ public class PlayerController : TimeAffected
 	public void Update()
 	{
         if (!isParent)
-        {
             return;
-        }
 
         Step();
 
 		if (Input.GetKeyDown(KeyCode.F))
-		{
 			Layer++;
-		}
 
         if (Input.GetKeyDown(KeyCode.S))
-        {
             ShadowBlink();
-        }
+
+		if (Input.GetKeyDown(KeyCode.E))
+			Attack();
+	}
+
+	private void Attack()
+	{
+		Debug.Log("attacking");
+		int targetableLayerMask = 1 << 8;
+		// in a function
+		RaycastHit hit;
+		//TODO: as a group, decide what this attack does
+		if ( Physics.Raycast(transform.position, -transform.right, out hit, _basicAttackRange, targetableLayerMask) )
+		{
+			Debug.Log("hit targetable");
+			hit.collider.GetComponent<Targetable>().DealDamage(_basicAttackDamage, transform.position, _basicAttackImpactForce);
+		}
+		if ( Physics.Raycast(transform.position, transform.right, out hit, _basicAttackRange, targetableLayerMask) )
+		{
+			Debug.Log("hit targetable");
+			hit.collider.GetComponent<Targetable>().DealDamage(_basicAttackDamage, transform.position, _basicAttackImpactForce);
+		}
 	}
 
     private void ShadowBlink()
