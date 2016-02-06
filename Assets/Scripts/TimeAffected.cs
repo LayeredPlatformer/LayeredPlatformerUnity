@@ -78,4 +78,11 @@ public class TimeAffected : LayeredController
             _rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, .5f);
         }
 	}
+
+    protected void ShadowBlink()
+	{
+		transform.position = Shadow.transform.position;
+        Layer = Layer.FindByZ(transform.position.z);
+	}
+
 }

@@ -52,12 +52,6 @@ public class PlayerController : TimeAffected
 		}
 	}
 
-    private void ShadowBlink()
-	{
-		transform.position = Shadow.transform.position;
-        Layer = Layer.FindByZ(transform.position.z);
-	}
-
 	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)
 	{
 		var colorLayers = GameObject.FindGameObjectsWithTag("ColorLayer");
