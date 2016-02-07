@@ -4,15 +4,39 @@ using System;
 
 public class PlayerController : TimeAffected
 {
-	private float _basicAttackRange = 2;
-	private float _basicAttackDamage = 3;
-	private float _basicAttackImpactForce = 500;
+	private GearController _bigGear;
+	private GearController _smallGear;
+	private GameObject _bigGearPrefab;
+	private GameObject _smallGearPrefab;
+	private float _bigGearSpeed = 1f;
+	private float _smallGearSpeed = 1f;
+	private float _bigGearTravelTime = .2f;
+	private float _smallGearTravelTime = .5f;
+	private float _bigGearDefaultRotationSpeed = 1f;
+	private float _smallGearDefaultRotationSpeed = 2f;
+	private float _bigGearMaxDist = 2f;
+	private float _smallGearDamage = 5f;
+	private float _bigGearDamage = 10f;
 
 	// Use this for initialization
 	public void Start()
 	{
+        if (!isParent)
+            return;
+
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
         Initialize();
+
+		_bigGearPrefab = (GameObject) Resources.Load("BigGear");
+		_smallGearPrefab = (GameObject) Resources.Load("SmallGear");
+		_bigGear = Instantiate(_bigGearPrefab).GetComponent<GearController>();
+		_smallGear = Instantiate(_smallGearPrefab).GetComponent<GearController>();
+		_bigGear.Player = this;
+		_smallGear.Player = this;
+		_bigGear.RotationSpeed = _bigGearDefaultRotationSpeed;
+		_smallGear.RotationSpeed = _smallGearDefaultRotationSpeed;
+		_bigGear.Damage = _bigGearDamage;
+		_smallGear.Damage = _smallGearDamage;
 	}
 	
 	// Update is called once per frame
@@ -21,7 +45,7 @@ public class PlayerController : TimeAffected
         if (!isParent)
             return;
 
-        Step();
+        base.Step();
 
 		if (Input.GetKeyDown(KeyCode.F))
 			Layer++;
@@ -29,26 +53,20 @@ public class PlayerController : TimeAffected
         if (Input.GetKeyDown(KeyCode.S))
             ShadowBlink();
 
-		if (Input.GetKeyDown(KeyCode.E))
-			Attack();
-	}
-
-	private void Attack()
-	{
-		Debug.Log("attacking");
-		int targetableLayerMask = 1 << 8;
-		// in a function
-		RaycastHit hit;
-		//TODO: as a group, decide what this attack does
-		if ( Physics.Raycast(transform.position, -transform.right, out hit, _basicAttackRange, targetableLayerMask) )
+		if (Input.GetMouseButtonDown(1))
 		{
-			Debug.Log("hit targetable");
-			hit.collider.GetComponent<Targetable>().DealDamage(_basicAttackDamage, transform.position, _basicAttackImpactForce);
+			Vector3 worldPos = Camera.main.ScreenToWorldPoint(
+				new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z+Layer.Z));
+			_smallGear.Throw(worldPos, _smallGearSpeed, _smallGearTravelTime);
 		}
-		if ( Physics.Raycast(transform.position, transform.right, out hit, _basicAttackRange, targetableLayerMask) )
+
+		if (Input.GetMouseButtonDown(0))
 		{
-			Debug.Log("hit targetable");
-			hit.collider.GetComponent<Targetable>().DealDamage(_basicAttackDamage, transform.position, _basicAttackImpactForce);
+			Vector3 worldPos = Camera.main.ScreenToWorldPoint(
+				new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z+Layer.Z));
+			Ray dir = new Ray(transform.position, worldPos - transform.position);
+			Vector3 attackPos = dir.GetPoint(_bigGearMaxDist);
+			_bigGear.Throw(attackPos, _bigGearSpeed, _bigGearTravelTime);
 		}
 	}
 
@@ -74,4 +92,5 @@ public class PlayerController : TimeAffected
 			renderer.material.color = layerColor;
 		}
 	}
+
 }

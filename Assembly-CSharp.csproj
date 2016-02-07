@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\GearController.cs" />
      <Compile Include="Assets\Scripts\GruntController.cs" />
      <Compile Include="Assets\Scripts\Layer.cs" />
      <Compile Include="Assets\Scripts\LayeredController.cs" />
