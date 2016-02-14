@@ -15,8 +15,8 @@ public class PlayerController : TimeAffected
 	private float _bigGearDefaultRotationSpeed = 1f;
 	private float _smallGearDefaultRotationSpeed = 2f;
 	private float _bigGearMaxDist = 2f;
-	private float _smallGearDamage = 5f;
-	private float _bigGearDamage = 10f;
+	private float _smallGearDamage = 1f;
+	private float _bigGearDamage = 3f;
 
 	// Use this for initialization
 	public void Start()
