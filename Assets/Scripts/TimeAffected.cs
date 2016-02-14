@@ -50,7 +50,7 @@ public class TimeAffected : LayeredController
 		_previousPositions[_counter % (_previousPositions.Length)] = transform.position;
 		_counter++;
 
-        if (CanUpdatePast)
+		if (CanUpdatePast && !ShadowBlinking)
             Shadow.transform.position = _previousPositions[(_counter + _previousPositions.Length) % _previousPositions.Length];
 	}
 	
