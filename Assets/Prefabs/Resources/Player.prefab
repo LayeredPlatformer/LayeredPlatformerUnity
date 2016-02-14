@@ -45,6 +45,7 @@ GameObject:
   - 114: {fileID: 11418872}
   - 65: {fileID: 6525304}
   - 114: {fileID: 11489438}
+  - 114: {fileID: 11474722}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -163,6 +164,21 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &11474722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118c520993f8b483887bf801ddb5ebd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DesiredHealth: 5
+  DeadBodies: []
+  DeadBodyForce: 10
+  DesiredHealAmount: 0
 --- !u!114 &11489438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,7 +229,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: DesiredHealth
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 150652}

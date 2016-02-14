@@ -4,21 +4,27 @@ using System.Collections;
 public class TimeAffected : LayeredController
 {
 	public bool isParent = true;
+	public float UpdateDelaySeconds = 1;
+	public GameObject Portal = null;
 
 	protected bool CanUpdatePast = false;
 	protected TimeAffected Shadow;
+	protected bool ShadowBlinking = false;
 
-	public float UpdateDelaySeconds = 1;
 	private int _counter = 0;
 	private SpriteRenderer _rend;
 	private Component[] _components = new Component[0];
 	private Vector3[] _previousPositions;
+	private float _shadowBlinkDuration = .1f;
+	private float _shadowBlinkSlowAmount = .1f;
+	private GameObject _shadowBlinkEffect;
 
 	// Use this for initialization
 	protected new void Initialize()
 	{
 		base.Initialize();
 		_rend = GetComponent<SpriteRenderer>();
+		_shadowBlinkEffect = (GameObject) Resources.Load("ShadowBlinkEffect");
 		_previousPositions = new Vector3[(int)(60*UpdateDelaySeconds)];
 
 		if (isParent)
@@ -34,6 +40,12 @@ public class TimeAffected : LayeredController
 
 	protected new void Step()
 	{
+		if (Portal != null)
+			Portal.transform.position = transform.position;
+
+		if (!isParent)
+			return;
+
 		base.Step();
 		_previousPositions[_counter % (_previousPositions.Length)] = transform.position;
 		_counter++;
@@ -75,8 +87,39 @@ public class TimeAffected : LayeredController
 
     protected void ShadowBlink()
 	{
+		if (ShadowBlinking)
+			return;
+		Invoke("ShadowBlinkStart", _shadowBlinkDuration/2);
+		Shadow.createPortal();
+		createPortal();
+		ShadowBlinking = true;
+		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkDuration/2);
+	}
+
+	private void ShadowBlinkStart()
+	{
 		transform.position = Shadow.transform.position;
         Layer = Layer.FindByZ(transform.position.z);
+	}
+
+	private void SlowTime(float amount, float duration)
+	{
+		Time.timeScale = amount;
+		Time.fixedDeltaTime = .02f * amount;
+		Invoke("RestoreTime", duration);
+	}
+
+	private void RestoreTime()
+	{
+		Time.timeScale = 1f;
+		Time.fixedDeltaTime = .02f;
+		ShadowBlinking = false;
+		Destroy(Shadow.Portal);
+	}
+
+	public void createPortal()
+	{
+		Portal = (GameObject) Instantiate(_shadowBlinkEffect, transform.position, Quaternion.identity);
 	}
 
 }

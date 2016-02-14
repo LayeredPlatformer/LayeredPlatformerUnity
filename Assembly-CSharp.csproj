@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\TimeAffected.cs" />
      <Compile Include="Assets\Scripts\UnityProvided\PlatformCharacter3D.cs" />
      <Compile Include="Assets\Scripts\UnityProvided\Platformer3DUserControl.cs" />
+     <Compile Include="Assets\Scripts\Utility.cs" />
      <Compile Include="Assets\Tiler\Scripts\Brush\CopyBrush.cs" />
      <Compile Include="Assets\Tiler\Scripts\Brush\Filter.cs" />
      <Compile Include="Assets\Tiler\Scripts\Brush\IBrush.cs" />

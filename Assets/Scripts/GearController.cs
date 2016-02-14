@@ -43,7 +43,7 @@ public class GearController : LayeredController
 			rotAmount = RotationSpeed * throwRotationIncrease;
 		else
 			rotAmount = RotationSpeed;
-		_rotation = new Vector3(0,0,_rotation.z-rotAmount);
+		_rotation = new Vector3(0,0,_rotation.z-rotAmount*Time.fixedDeltaTime*Utility.getFPS());
 		transform.localRotation = Quaternion.Euler(_rotation);
 	}
 
@@ -65,12 +65,13 @@ public class GearController : LayeredController
 
 	private void ThrowMove()
 	{
-		transform.position = Vector3.MoveTowards(transform.position, _throwTarget, _throwSpeed);
+		transform.position = Vector3.MoveTowards(transform.position, _throwTarget, _throwSpeed*Time.fixedDeltaTime*Utility.getFPS());
 	}
 
 	private void ReturnThrowMove()
 	{
-		transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, _throwSpeed);
+		transform.position = Vector3.MoveTowards(transform.position, Player.transform.position,
+			_throwSpeed*Time.fixedDeltaTime*Utility.getFPS());
 		if (transform.position == Player.transform.position)
 			_returning = false;
 	}

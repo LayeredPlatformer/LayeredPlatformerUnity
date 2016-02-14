@@ -8,8 +8,9 @@ public class PlayerController : TimeAffected
 	private GearController _smallGear;
 	private GameObject _bigGearPrefab;
 	private GameObject _smallGearPrefab;
+
 	private float _bigGearSpeed = .6f;
-	private float _smallGearSpeed = .4f;
+	private float _smallGearSpeed = .3f;
 	private float _bigGearTravelTime = .2f;
 	private float _smallGearTravelTime = .3f;
 	private float _bigGearDefaultRotationSpeed = 1f;
@@ -42,16 +43,18 @@ public class PlayerController : TimeAffected
 	// Update is called once per frame
 	public void Update()
 	{
+        base.Step();
+
         if (!isParent)
             return;
-
-        base.Step();
 
 		if (Input.GetKeyDown(KeyCode.F))
 			Layer++;
 
-        if (Input.GetKeyDown(KeyCode.S))
-            ShadowBlink();
+		if (Input.GetKeyDown(KeyCode.S))
+		{
+			ShadowBlink();
+		}
 
 		if (Input.GetMouseButtonDown(1))
 		{

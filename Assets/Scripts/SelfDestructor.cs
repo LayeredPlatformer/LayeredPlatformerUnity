@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SelfDestructor : MonoBehaviour
 {
-	public int Lifetime = 1;
+	public float Lifetime = 1f;
 
 	void Start()
 	{
