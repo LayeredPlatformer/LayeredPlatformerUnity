@@ -8,10 +8,10 @@ public class PlayerController : TimeAffected
 	private GearController _smallGear;
 	private GameObject _bigGearPrefab;
 	private GameObject _smallGearPrefab;
-	private float _bigGearSpeed = 1f;
-	private float _smallGearSpeed = 1f;
+	private float _bigGearSpeed = .6f;
+	private float _smallGearSpeed = .4f;
 	private float _bigGearTravelTime = .2f;
-	private float _smallGearTravelTime = .5f;
+	private float _smallGearTravelTime = .3f;
 	private float _bigGearDefaultRotationSpeed = 1f;
 	private float _smallGearDefaultRotationSpeed = 2f;
 	private float _bigGearMaxDist = 2f;
