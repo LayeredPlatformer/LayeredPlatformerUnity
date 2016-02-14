@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ColorLayer
   - Fire
+  - Gear
   layers:
   - Default
   - TransparentFX
