@@ -39,9 +39,7 @@ public class TimeAffected : LayeredController
 		_counter++;
 
         if (CanUpdatePast)
-        {
             Shadow.transform.position = _previousPositions[(_counter + _previousPositions.Length) % _previousPositions.Length];
-        }
 	}
 	
 	public void ToggleCanUpdatePast()
@@ -70,13 +68,9 @@ public class TimeAffected : LayeredController
 	public void ToggleOpacity()
 	{
         if (_rend.color.a == .5f)
-        {
             _rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, 1f);
-        }
         else
-        {
             _rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, .5f);
-        }
 	}
 
     protected void ShadowBlink()

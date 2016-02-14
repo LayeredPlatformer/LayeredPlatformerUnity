@@ -13,7 +13,7 @@ public class GearController : LayeredController
 	private float _throwSpeed;
 	private Vector3 _throwTarget;
 	private Vector3 _rotation = Vector3.zero;
-	private int throwRotationIncrease = 10;
+	private int throwRotationIncrease = 5;
 	private float _forceAmplifier = 100f;
 
 	// Use this for initialization
