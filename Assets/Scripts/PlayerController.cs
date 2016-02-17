@@ -26,6 +26,7 @@ public class PlayerController : TimeAffected
             return;
 
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
+        GetComponent<LayeredController>().LayerChangedEventHandler += UpdateMusicOnLayerChange;
         Initialize();
 
 		_bigGearPrefab = (GameObject) Resources.Load("BigGear");
@@ -80,9 +81,15 @@ public class PlayerController : TimeAffected
 		for (int i = 0; i < colorLayers.Length; i++)
 		{
 			var layeredController = colorLayers[i].GetComponent<LayeredController>();
-            var opacity = layeredController.Layer == Layer ? 1f : 0.5f;
-            SetGameObjectChildrenOpacity(colorLayers[i], opacity);
+			var opacity = layeredController.Layer == Layer ? 1f : 0.5f;
+			SetGameObjectChildrenOpacity(colorLayers[i], opacity);
 		}
+	}
+
+	private void UpdateMusicOnLayerChange(object sender, EventArgs args)
+	{
+		// change game music
+		Debug.Log("change the music!");
 	}
 
 	private static void SetGameObjectChildrenOpacity(GameObject gameObject, float opacity)
