@@ -8,6 +8,7 @@ public class PlayerController : TimeAffected
 	private GearController _smallGear;
 	private GameObject _bigGearPrefab;
 	private GameObject _smallGearPrefab;
+	private CameraController _camera;
 
 	private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
@@ -25,6 +26,7 @@ public class PlayerController : TimeAffected
         if (!isParent)
             return;
 
+		_camera = Camera.main.GetComponent<CameraController>();
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateMusicOnLayerChange;
         Initialize();
@@ -54,6 +56,7 @@ public class PlayerController : TimeAffected
 
 		if (Input.GetKeyDown(KeyCode.S))
 		{
+			_camera.pan(Shadow.transform.position, Shadow.getShadowBlinkDuration());
 			ShadowBlink();
 		}
 

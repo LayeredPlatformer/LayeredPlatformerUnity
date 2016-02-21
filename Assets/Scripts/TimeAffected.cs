@@ -15,9 +15,9 @@ public class TimeAffected : LayeredController
 	private SpriteRenderer _rend;
 	private Component[] _components = new Component[0];
 	private Vector3[] _previousPositions;
-	private float _shadowBlinkDuration = .1f;
-	private float _shadowBlinkSlowAmount = .1f;
 	private GameObject _shadowBlinkEffect;
+	private float _shadowBlinkDuration = .08f;
+	private float _shadowBlinkSlowAmount = .2f;
 
 	// Use this for initialization
 	protected new void Initialize()
@@ -93,7 +93,7 @@ public class TimeAffected : LayeredController
 		Shadow.createPortal();
 		createPortal();
 		ShadowBlinking = true;
-		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkDuration/2);
+		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkDuration);
 	}
 
 	private void ShadowBlinkStart()
@@ -120,6 +120,11 @@ public class TimeAffected : LayeredController
 	public void createPortal()
 	{
 		Portal = (GameObject) Instantiate(_shadowBlinkEffect, transform.position, Quaternion.identity);
+	}
+
+	public float getShadowBlinkDuration()
+	{
+		return _shadowBlinkDuration;
 	}
 
 }
