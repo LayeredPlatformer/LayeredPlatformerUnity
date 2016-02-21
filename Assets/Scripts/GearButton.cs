@@ -19,7 +19,7 @@ public class GearButton : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == Gear)
+		if (collider.gameObject.tag.Equals(Gear))
         {
             //The large gear entered the box. Do something.
             Debug.Log("The gear hit the box.");
