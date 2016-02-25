@@ -16,7 +16,8 @@ public class TimeAffected : LayeredController
 	private Component[] _components = new Component[0];
 	private Vector3[] _previousPositions;
 	private GameObject _shadowBlinkEffect;
-	private float _shadowBlinkDuration = .08f;
+	private float _shadowBlinkFirstHalfDuration = .04f;
+	private float _shadowBlinkSecondHalfDuration = .06f;
 	private float _shadowBlinkSlowAmount = .2f;
 
 	// Use this for initialization
@@ -89,11 +90,11 @@ public class TimeAffected : LayeredController
 	{
 		if (ShadowBlinking)
 			return;
-		Invoke("ShadowBlinkStart", _shadowBlinkDuration/2);
+		Invoke("ShadowBlinkStart", _shadowBlinkFirstHalfDuration);
+		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkFirstHalfDuration+_shadowBlinkSecondHalfDuration);
 		Shadow.createPortal();
 		createPortal();
 		ShadowBlinking = true;
-		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkDuration);
 	}
 
 	private void ShadowBlinkStart()
@@ -104,9 +105,9 @@ public class TimeAffected : LayeredController
 
 	private void SlowTime(float amount, float duration)
 	{
+		Invoke("RestoreTime", duration);
 		Time.timeScale = amount;
 		Time.fixedDeltaTime = .02f * amount;
-		Invoke("RestoreTime", duration);
 	}
 
 	private void RestoreTime()
@@ -124,7 +125,7 @@ public class TimeAffected : LayeredController
 
 	public float getShadowBlinkDuration()
 	{
-		return _shadowBlinkDuration;
+		return _shadowBlinkFirstHalfDuration;
 	}
 
 }
