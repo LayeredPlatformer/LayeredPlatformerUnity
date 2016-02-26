@@ -44,8 +44,8 @@ GameObject:
   - 54: {fileID: 5436468}
   - 114: {fileID: 11418872}
   - 65: {fileID: 6525304}
-  - 114: {fileID: 11489438}
   - 114: {fileID: 11474722}
+  - 114: {fileID: 11489438}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -193,6 +193,7 @@ MonoBehaviour:
   _layerLabel: 0
   isParent: 1
   UpdateDelaySeconds: 1
+  Portal: {fileID: 0}
 --- !u!212 &21278140
 SpriteRenderer:
   m_ObjectHideFlags: 1

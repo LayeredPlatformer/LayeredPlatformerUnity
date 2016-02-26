@@ -10,7 +10,7 @@ public class SpikePokersController : MonoBehaviour
 	private float _outRate = 1f;
 	private float _inRate = .2f;
 	private float _impactForce = 1000f;
-	private float _damage = 1f;
+	private float _damage = .1f;
 
 	void Start ()
 	{
@@ -30,7 +30,7 @@ public class SpikePokersController : MonoBehaviour
 	}
 
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
 		Targetable targetable = collider.gameObject.GetComponent<Targetable>();
 		if (targetable != null)

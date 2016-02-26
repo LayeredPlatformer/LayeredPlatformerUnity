@@ -49,9 +49,10 @@ public class Targetable : MonoBehaviour
 	public void DealDamage (float amount, Vector3 sourcePosition, float impactForce) 
 	{
 		_canHeal = false;
-		CancelInvoke ("resetCanHeal");
-		Invoke ("resetCanHeal", _healDelay);
+		CancelInvoke ("ResetCanHeal");
+		Invoke ("ResetCanHeal", _healDelay);
 		_health -= amount;
+		Debug.Log("health: " + _health);
 		if (IsDead())
 		{
 			Vector3 dieDirection = transform.position - sourcePosition;
