@@ -53,8 +53,12 @@
      <Compile Include="Assets\Scripts\LayeredController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SelfDestructor.cs" />
+     <Compile Include="Assets\Scripts\SpikeEmitterController.cs" />
+     <Compile Include="Assets\Scripts\SpikePokersController.cs" />
+     <Compile Include="Assets\Scripts\Spinner.cs" />
      <Compile Include="Assets\Scripts\Targetable.cs" />
      <Compile Include="Assets\Scripts\TimeAffected.cs" />
+     <Compile Include="Assets\Scripts\TrapDoorTrigger.cs" />
      <Compile Include="Assets\Scripts\UnityProvided\PlatformCharacter3D.cs" />
      <Compile Include="Assets\Scripts\UnityProvided\Platformer3DUserControl.cs" />
      <Compile Include="Assets\Scripts\Utility.cs" />

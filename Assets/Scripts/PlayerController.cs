@@ -8,6 +8,8 @@ public class PlayerController : TimeAffected
 	private GearController _smallGear;
 	private GameObject _bigGearPrefab;
 	private GameObject _smallGearPrefab;
+	private CameraController _camera;
+	private Targetable _targetable;
 
 	private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
@@ -19,16 +21,21 @@ public class PlayerController : TimeAffected
 	private float _smallGearDamage = 1f;
 	private float _bigGearDamage = 3f;
 
+	private Texture _oilScreen;
+
 	// Use this for initialization
 	public void Start()
 	{
         if (!isParent)
             return;
 
+		_targetable = gameObject.GetComponent<Targetable>();
+		_camera = Camera.main.GetComponent<CameraController>();
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateMusicOnLayerChange;
         Initialize();
 
+		_oilScreen = (Texture) Resources.Load("OilScreen");
 		_bigGearPrefab = (GameObject) Resources.Load("BigGear");
 		_smallGearPrefab = (GameObject) Resources.Load("SmallGear");
 		_bigGear = Instantiate(_bigGearPrefab).GetComponent<GearController>();
@@ -54,6 +61,7 @@ public class PlayerController : TimeAffected
 
 		if (Input.GetKeyDown(KeyCode.S))
 		{
+			_camera.pan(Shadow.transform.position, Shadow.getShadowBlinkDuration());
 			ShadowBlink();
 		}
 
@@ -101,6 +109,16 @@ public class PlayerController : TimeAffected
 			layerColor.a = opacity;
 			renderer.material.color = layerColor;
 		}
+	}
+
+	void OnGUI()
+	{
+        if (!isParent)
+            return;
+		Color temp = GUI.color;
+		temp.a = 1-(_targetable.GetHealth()/_targetable.GetMaxHealth());
+		GUI.color = temp;
+		GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), _oilScreen);
 	}
 
 }
