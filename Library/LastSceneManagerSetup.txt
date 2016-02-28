@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Parallax3D.unity
+- path: Assets/TitleScreen.unity
   isLoaded: 1
   isActive: 1
