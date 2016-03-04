@@ -96,6 +96,8 @@ public class PlayerController : TimeAffected
 
 	private void UpdateMusicOnLayerChange(object sender, EventArgs args)
 	{
+        var layerChangedArgs = (LayerChangedEventArgs)args;
+        
 		// change game music
 		Debug.Log("change the music!");
 	}
