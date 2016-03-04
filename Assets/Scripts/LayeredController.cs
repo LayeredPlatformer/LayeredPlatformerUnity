@@ -21,8 +21,9 @@ public class LayeredController : MonoBehaviour
         }
         set
         {
+            var oldLayer = _layer;
             _layer = value;
-            OnLayerChanged(value);
+            OnLayerChanged(value, oldLayer);
         }
     }
 
@@ -49,11 +50,11 @@ public class LayeredController : MonoBehaviour
 
 	}
 
-    protected virtual void OnLayerChanged(Layer newLayer)
+    protected virtual void OnLayerChanged(Layer newLayer, Layer oldLayer)
     {
         if (LayerChangedEventHandler != null)
         {
-            LayerChangedEventHandler(this, new LayerChangedEventArgs { NewLayer = newLayer });
+            LayerChangedEventHandler(this, new LayerChangedEventArgs { NewLayer = newLayer, OldLayer = oldLayer });
         }
     }
 
@@ -66,5 +67,6 @@ public class LayeredController : MonoBehaviour
     public class LayerChangedEventArgs : EventArgs
     {
         public Layer NewLayer { get; set; }
+        public Layer OldLayer { get; set; }
     }
 }
