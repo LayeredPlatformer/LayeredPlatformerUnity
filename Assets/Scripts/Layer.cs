@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class Layer
 {
-    public enum Labels { Red, Blue, Green }
+    public enum Labels { Front, Middle, Back }
 
     public int Index { get; private set; }
 
@@ -15,9 +15,9 @@ public class Layer
 
     public static Layer[] AllLayers =
     {
-        new Layer(index: 0, z: 0, label: Labels.Red),
-        new Layer(index: 1, z: 3, label: Labels.Blue),
-        new Layer(index: 2, z: 6, label: Labels.Green)
+        new Layer(index: 0, z: 0, label: Labels.Front),
+        new Layer(index: 1, z: 3, label: Labels.Middle),
+        new Layer(index: 2, z: 6, label: Labels.Back)
     };
 
     public static Layer FindByZ(float z)
