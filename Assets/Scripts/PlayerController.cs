@@ -32,7 +32,7 @@ public class PlayerController : TimeAffected
 
 		_targetable = gameObject.GetComponent<Targetable>();
 		_camera = Camera.main.GetComponent<CameraController>();
-        _musicController = gameObject.GetComponent<MusicController>();
+        //_musicController = gameObject.GetComponent<MusicController>();
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateMusicOnLayerChange;
         Initialize();
@@ -99,7 +99,7 @@ public class PlayerController : TimeAffected
 	private void UpdateMusicOnLayerChange(object sender, EventArgs args)
 	{
         var layerChangedArgs = (LayerChangedEventArgs)args;
-        _musicController.LayerChange(Layer.Index);
+        //_musicController.LayerChange(Layer.Index);
 		// change game music
 		Debug.Log("change the music!");
 	}
