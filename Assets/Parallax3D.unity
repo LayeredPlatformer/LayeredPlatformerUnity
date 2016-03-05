@@ -482,7 +482,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 471232, guid: f2e98a95871f64777ac0dda67992da50, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2e98a95871f64777ac0dda67992da50, type: 2}
@@ -614,7 +614,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477432, guid: ca7c4ca9707d347dc90f125a9e6811a0, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 175312, guid: ca7c4ca9707d347dc90f125a9e6811a0, type: 2}
       propertyPath: m_Name
@@ -668,7 +668,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474018, guid: afb603416f1934558aa5fecd003b678c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 181068, guid: afb603416f1934558aa5fecd003b678c, type: 2}
       propertyPath: m_Name
@@ -820,7 +820,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474018, guid: afb603416f1934558aa5fecd003b678c, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: afb603416f1934558aa5fecd003b678c, type: 2}
@@ -1233,21 +1233,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 150652, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
   m_PrefabInternal: {fileID: 929995996}
---- !u!114 &449451289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 449451279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cda8c44b1f7ecbe47ae867038a6ad07e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ice: {fileID: 24555730, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
-  steampunk: {fileID: 24500003, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
-  apocalypse: {fileID: 24590604, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
-  bpm: 100
 --- !u!1 &468568288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,7 +2014,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2104,7 +2089,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2179,7 +2164,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2319,10 +2304,6 @@ Prefab:
     - target: {fileID: 439644, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
       propertyPath: m_RootOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 11474722, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
-      propertyPath: DesiredHealAmount
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
@@ -3464,6 +3445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 449451279}
+  DistanceFromPlayer: 10
 --- !u!1001 &1747028869
 Prefab:
   m_ObjectHideFlags: 0
@@ -4371,7 +4353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477432, guid: ca7c4ca9707d347dc90f125a9e6811a0, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 175312, guid: ca7c4ca9707d347dc90f125a9e6811a0, type: 2}
       propertyPath: m_Name
