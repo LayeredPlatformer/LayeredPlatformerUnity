@@ -3,25 +3,37 @@ using System.Collections;
 
 public class Targetable : MonoBehaviour
 {
-
 	public float DesiredHealth = 0f;
 	public GameObject[] DeadBodies;
 	public float DeadBodyForce = 10f;
 	public float DesiredHealAmount = 0f;
 
-	float _maxHealth;
-	float _health;
-	float _healAmount;
-	bool _canHeal;
-	int _healTimer;
-	int _healDelay = 3;
+    public float Health
+    {
+        get { return _health; }
+        private set
+        {
+            _health = Mathf.Max(Mathf.Min(MaxHealth, value), 0);
+        }
+    }
+
+    public bool IsDead
+    {
+        get { return Health == 0; }
+    }
+
+    public float MaxHealth { get; private set; }
+    public float HealAmount { get; private set; }
+
+    private float _health;
+    private bool _canHeal;
+    private int _healTimer;
+	private int _healDelay = 3;
 
 	void Start()
 	{
-		if (DesiredHealth > 0)
-			InitializeHealth(DesiredHealth);
-		if (DesiredHealAmount > 0)
-			InitializeHealAmount(DesiredHealAmount);
+		InitializeHealth(DesiredHealth);
+		InitializeHealAmount(DesiredHealAmount);
 	}
 
 	void Update()
@@ -31,19 +43,19 @@ public class Targetable : MonoBehaviour
 
 	public void InitializeHealAmount(float h)
 	{
-		_healAmount = h;
+        HealAmount = Mathf.Max(h, 0);
 	}
 
 	public void InitializeHealth(float h)
 	{
-		_maxHealth = h;
-		_health = h;
+        MaxHealth = Mathf.Max(h, 0);
+		Health = h;
 	}
 
 	protected virtual void Step()
 	{
-		if (_canHeal)
-			Heal(_healAmount);
+		if (_canHeal && Health < MaxHealth)
+			Heal(HealAmount);
 	}
 
 	public void DealDamage (float amount, Vector3 sourcePosition, float impactForce) 
@@ -51,9 +63,11 @@ public class Targetable : MonoBehaviour
 		_canHeal = false;
 		CancelInvoke ("ResetCanHeal");
 		Invoke ("ResetCanHeal", _healDelay);
-		_health -= amount;
-		Debug.Log("health: " + _health);
-		if (IsDead())
+
+		Health -= amount;
+		Debug.Log("health: " + Health);
+
+		if (IsDead)
 		{
 			Vector3 dieDirection = transform.position - sourcePosition;
 			Die(dieDirection, impactForce);
@@ -62,19 +76,13 @@ public class Targetable : MonoBehaviour
 
 	public void Heal(float amount)
 	{
-		_health += amount;
-		if (_health > _maxHealth)
-			_health = _maxHealth;
+		Health += amount;
+        Debug.Log("Health: " + Health);
 	}
 
-	bool IsDead ()
+	public virtual void Die(Vector3 direction, float impactForce) 
 	{
-		return _health <= 0;
-	}
-
-	virtual public void Die (Vector3 direction, float impactForce) 
-	{
-		for (int i=0; i<DeadBodies.Length; i++)
+		for (int i = 0; i < DeadBodies.Length; i++)
 		{
 			GameObject body = (GameObject) Instantiate(DeadBodies[i], transform.position, transform.localRotation);
 			body.transform.localScale = transform.localScale;
@@ -92,18 +100,8 @@ public class Targetable : MonoBehaviour
 		Destroy(this);
 	}
 
-	void ResetCanHeal ()
+	private void ResetCanHeal()
 	{
 		_canHeal = true;
-	}
-
-	public float GetMaxHealth()
-	{
-		return _maxHealth;
-	}
-
-	public float GetHealth()
-	{
-		return _health;
 	}
 }

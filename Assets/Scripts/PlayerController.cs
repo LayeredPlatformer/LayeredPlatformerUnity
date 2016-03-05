@@ -121,7 +121,7 @@ public class PlayerController : TimeAffected
         if (!isParent)
             return;
 		Color temp = GUI.color;
-		temp.a = 1-(_targetable.GetHealth()/_targetable.GetMaxHealth());
+		temp.a = 1-(_targetable.Health/_targetable.MaxHealth);
 		GUI.color = temp;
 		GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), _oilScreen);
 	}

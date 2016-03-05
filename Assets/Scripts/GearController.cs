@@ -84,8 +84,7 @@ public class GearController : LayeredController
 		if (targetable)
 		{
 			targetable.DealDamage(Damage, transform.position, Damage*_forceAmplifier);
-			Debug.Log("health: " + targetable.GetHealth());
+			Debug.Log("health: " + targetable.Health);
 		}
 	}
-
 }
