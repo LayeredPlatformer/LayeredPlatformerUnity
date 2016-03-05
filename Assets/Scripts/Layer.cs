@@ -16,8 +16,8 @@ public class Layer
     public static Layer[] AllLayers =
     {
         new Layer(index: 0, z: 0, label: Labels.Front),
-        new Layer(index: 1, z: 3, label: Labels.Middle),
-        new Layer(index: 2, z: 6, label: Labels.Back)
+        new Layer(index: 1, z: 2, label: Labels.Middle),
+        new Layer(index: 2, z: 4, label: Labels.Back)
     };
 
     public static Layer FindByZ(float z)

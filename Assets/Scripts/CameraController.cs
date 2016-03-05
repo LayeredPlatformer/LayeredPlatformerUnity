@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
 	private Vector3 _panPos;
 	private float _panRate;
 
+    public float DistanceFromPlayer = 10;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -19,7 +21,7 @@ public class CameraController : MonoBehaviour
 	void Update()
 	{
 		if (!_panning)
-			transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
+			transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z - DistanceFromPlayer);
 		else
 		{
 			float oldZ = transform.position.z;
