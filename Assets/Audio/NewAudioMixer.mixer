@@ -10,11 +10,19 @@ AudioMixerController:
   m_MasterGroup: {fileID: 24300001}
   m_Snapshots:
   - {fileID: 24500003}
+  - {fileID: 24555730}
+  - {fileID: 24590604}
   m_StartSnapshot: {fileID: 24500003}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_ExposedParameters: []
-  m_AudioMixerGroupViews: []
+  m_AudioMixerGroupViews:
+  - guids:
+    - 298baed129d74c544beffaf792997f04
+    - fdc43734d5804d144a3eca61e46220de
+    - e2b679e8078dd844aa1ef7bcf0a5624f
+    - 8b0dfe85a8292954ba26cc3543c7a18e
+    name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500003}
 --- !u!243 &24300001
@@ -25,11 +33,65 @@ AudioMixerGroupController:
   m_Name: Master
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 298baed129d74c544beffaf792997f04
-  m_Children: []
+  m_Children:
+  - {fileID: 24324694}
+  - {fileID: 24329304}
+  - {fileID: 24399576}
   m_Volume: cb99c385fd0f86f48ae97e92973cd4ad
   m_Pitch: ded81c0f0ba80ee4bb9774ac567eac1a
   m_Effects:
   - {fileID: 24400002}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24324694
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Ice
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: fdc43734d5804d144a3eca61e46220de
+  m_Children: []
+  m_Volume: 3c9a64c61630c3d4ba58d1ce7ebef129
+  m_Pitch: 4f05c7e3983550542b2fcac5eb5b1f81
+  m_Effects:
+  - {fileID: 24440014}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24329304
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Steampunk
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: e2b679e8078dd844aa1ef7bcf0a5624f
+  m_Children: []
+  m_Volume: 06f63a0d5d07dfc40bdd45d8b3164fd2
+  m_Pitch: 032d074f6f65d204a87ff4415545cdef
+  m_Effects:
+  - {fileID: 24483600}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24399576
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Apocalypse
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 8b0dfe85a8292954ba26cc3543c7a18e
+  m_Children: []
+  m_Volume: 76b461c15a44cf24a9279fdfd51fceb0
+  m_Pitch: 1e0fcdda9c3d81946a046667e3a3114e
+  m_Effects:
+  - {fileID: 24480696}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -47,13 +109,78 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &24440014
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: afeace40e11009043bdf4df1a91535f9
+  m_EffectName: Attenuation
+  m_MixLevel: 74309e0e905963a45928742c4c801ad2
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &24480696
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 764e1ad24e55d3745b98c4778c36a89c
+  m_EffectName: Attenuation
+  m_MixLevel: 0a56a640ecefdff4f9e394ef549499fb
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &24483600
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: a3e8df69c4e01a544a93eb25f3d96b62
+  m_EffectName: Attenuation
+  m_MixLevel: b3902af86c4128a44a08014cc4d5c7c8
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!245 &24500003
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Snapshot
+  m_Name: Steampunk
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 74f6e9f8c6316a74bae485fda90dbbb8
-  m_FloatValues: {}
+  m_FloatValues:
+    76b461c15a44cf24a9279fdfd51fceb0: -80
+    3c9a64c61630c3d4ba58d1ce7ebef129: -80
+  m_TransitionOverrides: {}
+--- !u!245 &24555730
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Ice
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 2445319793867774d8043db22e8b55bf
+  m_FloatValues:
+    76b461c15a44cf24a9279fdfd51fceb0: -80
+    06f63a0d5d07dfc40bdd45d8b3164fd2: -80
+  m_TransitionOverrides: {}
+--- !u!245 &24590604
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Apocalypse
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: bb06b2c1135ebb04b962f2f68397f5a7
+  m_FloatValues:
+    3c9a64c61630c3d4ba58d1ce7ebef129: -80
+    06f63a0d5d07dfc40bdd45d8b3164fd2: -80
   m_TransitionOverrides: {}
