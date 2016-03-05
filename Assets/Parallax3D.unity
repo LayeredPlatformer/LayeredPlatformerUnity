@@ -1233,10 +1233,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 150652, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
   m_PrefabInternal: {fileID: 929995996}
---- !u!4 &449451288 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 439644, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
-  m_PrefabInternal: {fileID: 929995996}
 --- !u!114 &449451289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1965,11 +1961,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 781716468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 24.183956, y: 8.103767, z: 0}
+  m_LocalScale: {x: 1.7715329, y: 1.7715304, z: 1}
   m_Children: []
-  m_Father: {fileID: 449451288}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
 --- !u!82 &781716470
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2322,7 +2318,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 439644, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 11474722, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
       propertyPath: DesiredHealAmount
