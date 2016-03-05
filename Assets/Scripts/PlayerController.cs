@@ -30,12 +30,13 @@ public class PlayerController : TimeAffected
         if (!isParent)
             return;
 
+        Initialize();
+
 		_targetable = gameObject.GetComponent<Targetable>();
 		_camera = Camera.main.GetComponent<CameraController>();
-        //_musicController = gameObject.GetComponent<MusicController>();
+        _musicController = gameObject.GetComponent<MusicController>();
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateMusicOnLayerChange;
-        Initialize();
 
 		_oilScreen = (Texture) Resources.Load("OilScreen");
 		_bigGearPrefab = (GameObject) Resources.Load("BigGear");
@@ -99,7 +100,7 @@ public class PlayerController : TimeAffected
 	private void UpdateMusicOnLayerChange(object sender, EventArgs args)
 	{
         var layerChangedArgs = (LayerChangedEventArgs)args;
-        //_musicController.LayerChange(Layer.Index);
+        _musicController.LayerChange(Layer.Index);
 		// change game music
 		Debug.Log("change the music!");
 	}
