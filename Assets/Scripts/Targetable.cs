@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Targetable : MonoBehaviour
 {
-	public float DesiredHealth = 0f;
+    public event EventHandler DeathEventHandler;
+
+    public float DesiredHealth = 0f;
 	public GameObject[] DeadBodies;
 	public float DeadBodyForce = 10f;
 	public float DesiredHealAmount = 0f;
@@ -54,7 +57,7 @@ public class Targetable : MonoBehaviour
 
 	protected virtual void Step()
 	{
-		if (_canHeal && Health < MaxHealth)
+		if (_canHeal && HealAmount > 0 && Health < MaxHealth)
 			Heal(HealAmount);
 	}
 
@@ -69,7 +72,8 @@ public class Targetable : MonoBehaviour
 
 		if (IsDead)
 		{
-			Vector3 dieDirection = transform.position - sourcePosition;
+            OnDeath();
+            Vector3 dieDirection = transform.position - sourcePosition;
 			Die(dieDirection, impactForce);
 		}
 	}
@@ -90,8 +94,8 @@ public class Targetable : MonoBehaviour
 			Rigidbody[] rbs = body.GetComponentsInChildren<Rigidbody>();
 			for (int j = 0; j < rbs.Length; j++)
 			{
-				Vector3 randDir = new Vector3 (Random.Range(-DeadBodyForce, DeadBodyForce),
-					Random.Range(-DeadBodyForce, DeadBodyForce), 0);
+				Vector3 randDir = new Vector3 (UnityEngine.Random.Range(-DeadBodyForce, DeadBodyForce),
+                    UnityEngine.Random.Range(-DeadBodyForce, DeadBodyForce), 0);
 				rbs[j].AddForce(direction * impactForce);
 			}
 		}
@@ -100,7 +104,15 @@ public class Targetable : MonoBehaviour
 		Destroy(this);
 	}
 
-	private void ResetCanHeal()
+    protected virtual void OnDeath()
+    {
+        if (DeathEventHandler != null)
+        {
+            DeathEventHandler(this, new EventArgs());
+        }
+    }
+
+    private void ResetCanHeal()
 	{
 		_canHeal = true;
 	}
