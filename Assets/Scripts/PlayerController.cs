@@ -120,9 +120,16 @@ public class PlayerController : TimeAffected
     private void OnDeath(object sender, EventArgs args)
     {
         Debug.Log("Player died");
+        ShadowMetParentHandler += ShadowMetParentAfterDeath;
     }
 
-	void OnGUI()
+    private void ShadowMetParentAfterDeath(object sender, EventArgs args)
+    {
+        Debug.Log("After death, shadow met parent");
+        ShadowMetParentHandler -= ShadowMetParentAfterDeath;
+    }
+
+    void OnGUI()
 	{
         if (!isParent)
             return;
