@@ -63,16 +63,24 @@ public class Targetable : MonoBehaviour
 	{
 		_canHeal = false;
 		CancelInvoke ("ResetCanHeal");
-		Invoke ("ResetCanHeal", _healDelay);
+		
+        // Don't deal damage and/or die if already dead
+        if (!IsDead)
+        {
+            Health -= amount;
+            Debug.Log("health: " + Health);
 
-		Health -= amount;
-		Debug.Log("health: " + Health);
-
-		if (IsDead)
-		{
-            Vector3 dieDirection = transform.position - sourcePosition;
-            OnDeath(dieDirection, impactForce);
-		}
+            if (IsDead)
+            {
+                Vector3 dieDirection = transform.position - sourcePosition;
+                OnDeath(dieDirection, impactForce);
+            }
+            else
+            {
+                // Reseat healing if still alive.
+                Invoke("ResetCanHeal", _healDelay);
+            }
+        }
 	}
 
 	public void Heal(float amount)
