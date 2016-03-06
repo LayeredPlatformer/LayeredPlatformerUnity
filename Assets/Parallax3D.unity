@@ -2050,7 +2050,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11489438, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
+      propertyPath: ShadowBlinkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 153e8770609b86d4cb9fccaff42fdd8c, type: 3}
+    m_RemovedComponents:
+    - {fileID: 11403332, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &955213870
