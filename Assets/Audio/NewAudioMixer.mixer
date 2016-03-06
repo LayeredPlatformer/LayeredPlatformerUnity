@@ -109,6 +109,19 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &24406612
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 9f049116cce22ac43b424f58bc2ddb83
+  m_EffectName: Send
+  m_MixLevel: 1360fbf5b3049954d989eb2b1bad76f0
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &24440014
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
