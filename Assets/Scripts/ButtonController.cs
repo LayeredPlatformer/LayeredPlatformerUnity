@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GearButton : MonoBehaviour {
-
-    public string Gear = "Gear";
+public class ButtonController : MonoBehaviour
+{
+	public Triggerable Triggerable;
 
 	// Use this for initialization
 	void Start () 
@@ -19,10 +19,9 @@ public class GearButton : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-		if (collider.gameObject.tag.Equals(Gear))
+		if (collider.gameObject.tag.Equals("Gear"))
         {
-            //The large gear entered the box. Do something.
-            Debug.Log("The gear hit the box.");
+			Triggerable.Trigger();
         }
     }
 }
