@@ -17,7 +17,7 @@ public class ButtonController : MonoBehaviour
 	
 	}
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
 		if (collider.gameObject.tag.Equals("Gear"))
         {

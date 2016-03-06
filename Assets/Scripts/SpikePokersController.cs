@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpikePokersController : MonoBehaviour
+public class SpikePokersController : DamageOnTouch
 {
 	private bool _isOut = false;
 	private float _outTime = 2f;
@@ -9,8 +9,6 @@ public class SpikePokersController : MonoBehaviour
 	private float _minY = 0f;
 	private float _outRate = 1f;
 	private float _inRate = .2f;
-	private float _impactForce = 1000f;
-	private float _damage = .1f;
 
 	void Start ()
 	{
@@ -28,14 +26,6 @@ public class SpikePokersController : MonoBehaviour
 			transform.localPosition = new Vector3(0, transform.localPosition.y - _inRate, 0);
 		}
 	}
-
-
-    void OnTriggerStay(Collider collider)
-    {
-		Targetable targetable = collider.gameObject.GetComponent<Targetable>();
-		if (targetable != null)
-			targetable.DealDamage(_damage, transform.position, _impactForce);
-    }
 
 	public void goOut()
 	{
