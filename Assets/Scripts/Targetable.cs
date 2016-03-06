@@ -7,8 +7,6 @@ public class Targetable : MonoBehaviour
     public event EventHandler DeathEventHandler;
 
     public float DesiredHealth = 0f;
-	public GameObject[] DeadBodies;
-	public float DeadBodyForce = 10f;
 	public float DesiredHealAmount = 0f;
 
     public float Health
@@ -72,9 +70,8 @@ public class Targetable : MonoBehaviour
 
 		if (IsDead)
 		{
-            OnDeath();
             Vector3 dieDirection = transform.position - sourcePosition;
-			Die(dieDirection, impactForce);
+            OnDeath(dieDirection, impactForce);
 		}
 	}
 
@@ -84,31 +81,12 @@ public class Targetable : MonoBehaviour
         Debug.Log("Health: " + Health);
 	}
 
-	public virtual void Die(Vector3 direction, float impactForce) 
-	{
-		for (int i = 0; i < DeadBodies.Length; i++)
-		{
-			GameObject body = (GameObject) Instantiate(DeadBodies[i], transform.position, transform.localRotation);
-			body.transform.localScale = transform.localScale;
-			body.transform.rotation = transform.rotation;
-			Rigidbody[] rbs = body.GetComponentsInChildren<Rigidbody>();
-			for (int j = 0; j < rbs.Length; j++)
-			{
-				Vector3 randDir = new Vector3 (UnityEngine.Random.Range(-DeadBodyForce, DeadBodyForce),
-                    UnityEngine.Random.Range(-DeadBodyForce, DeadBodyForce), 0);
-				rbs[j].AddForce(direction * impactForce);
-			}
-		}
-
-		Destroy(gameObject);
-		Destroy(this);
-	}
-
-    protected virtual void OnDeath()
+    protected virtual void OnDeath(Vector3 direction, float impactForce)
     {
+        Debug.Log("OnDeath()");
         if (DeathEventHandler != null)
         {
-            DeathEventHandler(this, new EventArgs());
+            DeathEventHandler(this, new DeathEventArgs { Direction = direction, ImpactForce = impactForce });
         }
     }
 
@@ -116,4 +94,10 @@ public class Targetable : MonoBehaviour
 	{
 		_canHeal = true;
 	}
+}
+
+public class DeathEventArgs : EventArgs
+{
+    public Vector3 Direction { get; set; }
+    public float ImpactForce { get; set; }
 }

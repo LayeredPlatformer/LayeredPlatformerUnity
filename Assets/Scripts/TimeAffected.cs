@@ -11,6 +11,17 @@ public class TimeAffected : LayeredController
 	public GameObject Portal = null;
     public AudioClip ShadowBlinkSound;
 
+    public bool ShadowAtParent
+    {
+        get
+        {
+            if (isParent)
+                return Shadow.transform.position == transform.position;
+            else
+                return false;
+        }
+    }
+
 	protected bool CanUpdatePast = false;
 	protected TimeAffected Shadow;
 	protected bool ShadowBlinking = false;
@@ -55,13 +66,15 @@ public class TimeAffected : LayeredController
 		_previousPositions[_counter % (_previousPositions.Length)] = transform.position;
 		_counter++;
 
-        bool shadowAlreadyAtParent = Shadow.transform.position == transform.position;
+        bool shadowAlreadyAtParent = ShadowAtParent;
 
-		if (CanUpdatePast && !ShadowBlinking)
+        if (CanUpdatePast && !ShadowBlinking)
+        {
             Shadow.transform.position = _previousPositions[(_counter + _previousPositions.Length) % _previousPositions.Length];
 
-        if (!shadowAlreadyAtParent && Shadow.transform.position == transform.position)
-            OnShadowMetParent();
+            if (!shadowAlreadyAtParent && ShadowAtParent)
+                OnShadowMetParent();
+        }
 	}
 	
 	public void ToggleCanUpdatePast()

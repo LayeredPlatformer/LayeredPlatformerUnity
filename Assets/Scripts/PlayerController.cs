@@ -129,7 +129,7 @@ public class PlayerController : TimeAffected
         Debug.Log("After death, shadow met parent");
         ShadowMetParentHandler -= ShadowMetParentAfterDeath;
         // TODO send player back to checkpoint
-        // _targetable.DeathEventHandler += OnDeath;
+        _targetable.DeathEventHandler += OnDeath;
     }
 
     void OnGUI()
