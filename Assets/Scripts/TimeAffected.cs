@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class TimeAffected : LayeredController
 {
+    public event EventHandler ShadowMetParentHandler;
+
 	public bool isParent = true;
 	public float UpdateDelaySeconds = 1;
 	public GameObject Portal = null;
@@ -52,8 +55,13 @@ public class TimeAffected : LayeredController
 		_previousPositions[_counter % (_previousPositions.Length)] = transform.position;
 		_counter++;
 
+        bool shadowAlreadyAtParent = Shadow.transform.position == transform.position;
+
 		if (CanUpdatePast && !ShadowBlinking)
             Shadow.transform.position = _previousPositions[(_counter + _previousPositions.Length) % _previousPositions.Length];
+
+        if (!shadowAlreadyAtParent && Shadow.transform.position == transform.position)
+            OnShadowMetParent();
 	}
 	
 	public void ToggleCanUpdatePast()
@@ -99,7 +107,16 @@ public class TimeAffected : LayeredController
 		ShadowBlinking = true;
 	}
 
-	private void ShadowBlinkStart()
+    protected virtual void OnShadowMetParent()
+    {
+        Debug.Log("Shadow met parent");
+        if (ShadowMetParentHandler != null)
+        {
+            ShadowMetParentHandler(this, new EventArgs());
+        }
+    }
+
+    private void ShadowBlinkStart()
 	{
 		transform.position = Shadow.transform.position;
         Layer = Layer.FindByZ(transform.position.z);

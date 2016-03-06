@@ -33,6 +33,7 @@ public class PlayerController : TimeAffected
         Initialize();
 
 		_targetable = gameObject.GetComponent<Targetable>();
+        _targetable.DeathEventHandler += OnDeath;
 		_camera = Camera.main.GetComponent<CameraController>();
         _musicController = gameObject.GetComponent<MusicController>();
         GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
@@ -115,6 +116,11 @@ public class PlayerController : TimeAffected
 			renderer.material.color = layerColor;
 		}
 	}
+
+    private void OnDeath(object sender, EventArgs args)
+    {
+        Debug.Log("Player died");
+    }
 
 	void OnGUI()
 	{
