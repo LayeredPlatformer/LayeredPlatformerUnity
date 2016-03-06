@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: cda8c44b1f7ecbe47ae867038a6ad07e
-timeCreated: 1457134282
+timeCreated: 1457217866
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ice: {fileID: 24555730, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
+  - steampunk: {fileID: 24500003, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
+  - apocalypse: {fileID: 24590604, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

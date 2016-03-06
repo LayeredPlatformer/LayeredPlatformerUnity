@@ -6,6 +6,7 @@ public class TimeAffected : LayeredController
 	public bool isParent = true;
 	public float UpdateDelaySeconds = 1;
 	public GameObject Portal = null;
+    public AudioClip ShadowBlinkSound;
 
 	protected bool CanUpdatePast = false;
 	protected TimeAffected Shadow;
@@ -90,6 +91,7 @@ public class TimeAffected : LayeredController
 	{
 		if (ShadowBlinking)
 			return;
+        AudioSource.PlayClipAtPoint(ShadowBlinkSound, transform.position, 10);
 		Invoke("ShadowBlinkStart", _shadowBlinkFirstHalfDuration);
 		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkFirstHalfDuration+_shadowBlinkSecondHalfDuration);
 		Shadow.createPortal();
