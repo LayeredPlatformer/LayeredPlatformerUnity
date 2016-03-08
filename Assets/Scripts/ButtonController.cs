@@ -7,18 +7,6 @@ public class ButtonController : MonoBehaviour
 	public bool PlayerActivates = false;
 	public bool GearActivates = true;
 
-	// Use this for initialization
-	void Start () 
-    {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-	
-	}
-
     void OnTriggerStay(Collider collider)
     {
 		GearController gc = collider.GetComponent<GearController>();
