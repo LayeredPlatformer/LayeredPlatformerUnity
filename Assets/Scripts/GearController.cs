@@ -87,4 +87,9 @@ public class GearController : LayeredController
 			Debug.Log("health: " + targetable.Health);
 		}
 	}
+
+	public bool isBeingThrown()
+	{
+		return _throwing || _returning;
+	}
 }

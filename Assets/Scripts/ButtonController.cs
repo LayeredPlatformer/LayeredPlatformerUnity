@@ -19,7 +19,8 @@ public class ButtonController : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-		if (collider.gameObject.tag.Equals("Gear"))
+		GearController gc = collider.GetComponent<GearController>();
+		if (gc && gc.isBeingThrown())
         {
 			foreach (Triggerable t in Triggerables)
 				t.Trigger();
