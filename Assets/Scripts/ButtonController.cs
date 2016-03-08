@@ -3,25 +3,19 @@ using System.Collections;
 
 public class ButtonController : MonoBehaviour
 {
-	public Triggerable Triggerable;
-
-	// Use this for initialization
-	void Start () 
-    {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-	
-	}
+	public Triggerable[] Triggerables;
+	public bool PlayerActivates = false;
+	public bool GearActivates = true;
 
     void OnTriggerStay(Collider collider)
     {
-		if (collider.gameObject.tag.Equals("Gear"))
+		GearController gc = collider.GetComponent<GearController>();
+		PlayerController player = collider.GetComponent<PlayerController>();
+		if ((GearActivates && gc && gc.isBeingThrown()) ||
+			(PlayerActivates && player))
         {
-			Triggerable.Trigger();
+			foreach (Triggerable t in Triggerables)
+				t.Trigger();
         }
     }
 }

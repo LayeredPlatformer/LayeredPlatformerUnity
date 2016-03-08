@@ -5,9 +5,8 @@ public class GateController : Triggerable
 {
 	public float RetractDistance = 5f;
 	public float RetractRate = .1f;
-	public GateController._directions RetractDirection;
+	public Utility.Directions RetractDirection;
 
-	public enum _directions {up, down, left, right};
 	private bool _retracting = false;
 	private float _distanceRetracted = 0;
 
@@ -19,16 +18,16 @@ public class GateController : Triggerable
 			Vector3 t = transform.position;
 			switch(RetractDirection)
 			{
-				case _directions.up:
+				case Utility.Directions.up:
 					t.y += RetractRate;
 					break;
-				case _directions.down:
+				case Utility.Directions.down:
 					t.y -= RetractRate;
 					break;
-				case _directions.left:
+				case Utility.Directions.left:
 					t.x -= RetractRate;
 					break;
-				case _directions.right:
+				case Utility.Directions.right:
 					t.x += RetractRate;
 					break;
 			}

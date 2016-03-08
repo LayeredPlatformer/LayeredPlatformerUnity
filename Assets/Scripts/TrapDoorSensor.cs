@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrapDoorTrigger : MonoBehaviour
+public class TrapDoorSensor : MonoBehaviour
 {
-	public Rigidbody trapDoorRigidBody;
+	public Triggerable Triggerable;
 
 	private float _releaseTime = .5f;
 
@@ -11,11 +11,6 @@ public class TrapDoorTrigger : MonoBehaviour
 	{
 		if (!collider.GetComponent<PlayerController>())
 			return;
-		Invoke("ReleaseDoor", _releaseTime);
-	}
-
-	void ReleaseDoor()
-	{
-		trapDoorRigidBody.isKinematic = false;
+		Triggerable.Invoke("Trigger", _releaseTime);
 	}
 }

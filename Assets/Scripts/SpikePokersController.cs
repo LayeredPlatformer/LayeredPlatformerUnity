@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpikePokersController : DamageOnTouch
+public class SpikePokersController : Triggerable
 {
 	private bool _isOut = false;
 	private float _outTime = 2f;
@@ -10,11 +10,6 @@ public class SpikePokersController : DamageOnTouch
 	private float _outRate = 1f;
 	private float _inRate = .2f;
 
-	void Start ()
-	{
-	
-	}
-	
 	void Update ()
 	{
 		if (_isOut && transform.localPosition.y < _maxY)
@@ -27,7 +22,7 @@ public class SpikePokersController : DamageOnTouch
 		}
 	}
 
-	public void goOut()
+	public override void Trigger()
 	{
 		if (transform.localPosition.y > _minY)
 			return;
