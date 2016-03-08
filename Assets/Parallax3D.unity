@@ -490,6 +490,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 11406400, guid: f2e98a95871f64777ac0dda67992da50, type: 2}
+      propertyPath: Triggerable
+      value: 
+      objectReference: {fileID: 2063079819}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2e98a95871f64777ac0dda67992da50, type: 2}
   m_IsPrefabParent: 0
@@ -1414,6 +1418,10 @@ Prefab:
       objectReference: {fileID: 95568461}
     - target: {fileID: 11468436, guid: 89fd90b90a63a49348571f7bf1f8f375, type: 2}
       propertyPath: PlayerTriggers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468436, guid: 89fd90b90a63a49348571f7bf1f8f375, type: 2}
+      propertyPath: PlayerActivates
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3786,6 +3794,14 @@ Prefab:
       propertyPath: PlayerTriggers
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11468436, guid: 89fd90b90a63a49348571f7bf1f8f375, type: 2}
+      propertyPath: GearActivates
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468436, guid: 89fd90b90a63a49348571f7bf1f8f375, type: 2}
+      propertyPath: PlayerActivates
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 89fd90b90a63a49348571f7bf1f8f375, type: 2}
   m_IsPrefabParent: 0
@@ -4585,6 +4601,29 @@ SpriteRenderer:
   m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &2063079817 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 136336, guid: f2e98a95871f64777ac0dda67992da50, type: 2}
+  m_PrefabInternal: {fileID: 180253016}
+--- !u!114 &2063079819 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11455840, guid: f2e98a95871f64777ac0dda67992da50,
+    type: 2}
+  m_PrefabInternal: {fileID: 180253016}
+  m_Script: {fileID: 11500000, guid: 649dc1cddd4a24b299cea5ee478d509c, type: 3}
+--- !u!114 &2063079822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2063079817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511ba225c211a4cff9f14c8555a8f5d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 0.1
+  _impactForce: 1000
 --- !u!1 &2112235528
 GameObject:
   m_ObjectHideFlags: 0

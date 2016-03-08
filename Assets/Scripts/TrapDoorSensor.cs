@@ -11,11 +11,6 @@ public class TrapDoorSensor : MonoBehaviour
 	{
 		if (!collider.GetComponent<PlayerController>())
 			return;
-		Invoke("ReleaseDoor", _releaseTime);
-	}
-
-	void ReleaseDoor()
-	{
-		Triggerable.Trigger();
+		Triggerable.Invoke("Trigger", _releaseTime);
 	}
 }

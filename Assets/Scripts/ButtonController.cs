@@ -4,8 +4,8 @@ using System.Collections;
 public class ButtonController : MonoBehaviour
 {
 	public Triggerable[] Triggerables;
-	public bool PlayerTriggers = false;
-	public bool GearTriggers = true;
+	public bool PlayerActivates = false;
+	public bool GearActivates = true;
 
 	// Use this for initialization
 	void Start () 
@@ -23,8 +23,8 @@ public class ButtonController : MonoBehaviour
     {
 		GearController gc = collider.GetComponent<GearController>();
 		PlayerController player = collider.GetComponent<PlayerController>();
-		if ((GearTriggers && gc && gc.isBeingThrown()) ||
-			(PlayerTriggers && player))
+		if ((GearActivates && gc && gc.isBeingThrown()) ||
+			(PlayerActivates && player))
         {
 			foreach (Triggerable t in Triggerables)
 				t.Trigger();
