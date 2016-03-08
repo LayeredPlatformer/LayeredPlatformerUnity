@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ButtonController : MonoBehaviour
 {
-	public Triggerable Triggerable;
+	public Triggerable[] Triggerables;
 
 	// Use this for initialization
 	void Start () 
@@ -21,7 +21,8 @@ public class ButtonController : MonoBehaviour
     {
 		if (collider.gameObject.tag.Equals("Gear"))
         {
-			Triggerable.Trigger();
+			foreach (Triggerable t in Triggerables)
+				t.Trigger();
         }
     }
 }
