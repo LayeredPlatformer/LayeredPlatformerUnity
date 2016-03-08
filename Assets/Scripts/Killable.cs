@@ -9,6 +9,11 @@ public class Killable : Targetable
 
 	public void Start ()
 	{
+        DeathEventHandler += (sender, args) =>
+        {
+            var deathArgs = (DeathEventArgs)args;
+            Die(deathArgs.Direction, deathArgs.ImpactForce);
+        };
 	}
 
 	public void Update ()
@@ -16,7 +21,7 @@ public class Killable : Targetable
 		base.Step();
 	}
 
-	protected override void OnDeath(Vector3 direction, float impactForce)
+	protected virtual void Die(Vector3 direction, float impactForce)
 	{
 		Debug.Log("dying");
 		for (int i = 0; i < DeadBodies.Length; i++)
