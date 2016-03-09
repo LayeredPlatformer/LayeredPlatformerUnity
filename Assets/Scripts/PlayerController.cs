@@ -146,7 +146,6 @@ public class PlayerController : MonoBehaviour
         if (_timeAffected.ShadowAtParent)
         {
             Debug.Log("Player died with shadow");
-            _targetable.InitializeHealth(_targetable.DesiredHealth);
             ReturnToCheckpoint();
         }
         else
@@ -169,7 +168,6 @@ public class PlayerController : MonoBehaviour
     private void ShadowMetParentAfterDeath(object sender, EventArgs args)
     {
         Debug.Log("After death, shadow met parent");
-        _targetable.InitializeHealth(_targetable.DesiredHealth);
         ReturnToCheckpoint();
 
         _targetable.DeathEventHandler += OnDeath;
@@ -187,6 +185,8 @@ public class PlayerController : MonoBehaviour
 
     private void ReturnToCheckpoint()
     {
+        _camera.pan(_checkpoint, 3);
+        _targetable.InitializeHealth(_targetable.DesiredHealth);
         gameObject.transform.position = _checkpoint;
         _layeredController.Layer = Layer.FindByZ(_checkpoint.z);
     }
