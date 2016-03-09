@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LoadScene : MonoBehaviour {
@@ -7,16 +8,7 @@ public class LoadScene : MonoBehaviour {
 
     public void Load()
     {
-        Application.LoadLevel(Destination);
+        SceneManager.LoadScene(Destination);
+//        Application.LoadLevel(Destination);
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
