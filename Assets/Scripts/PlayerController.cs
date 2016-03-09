@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class PlayerController : TimeAffected
+public class PlayerController : MonoBehaviour
 {
 	private GearController _bigGear;
 	private GearController _smallGear;
@@ -11,6 +11,8 @@ public class PlayerController : TimeAffected
 	private CameraController _camera;
 	private Targetable _targetable;
     private MusicController _musicController;
+	private TimeAffected _timeAffected;
+	private LayeredController _layeredController;
 
 	private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
@@ -27,11 +29,8 @@ public class PlayerController : TimeAffected
 	// Use this for initialization
 	public void Start()
 	{
-        if (!isParent)
-            return;
-
-        Initialize();
-
+		_timeAffected = GetComponent<TimeAffected>();
+		_layeredController= GetComponent<LayeredController>();
 		_targetable = gameObject.GetComponent<Targetable>();
         _targetable.DeathEventHandler += OnDeath;
 		_camera = Camera.main.GetComponent<CameraController>();
@@ -55,31 +54,28 @@ public class PlayerController : TimeAffected
 	// Update is called once per frame
 	public void Update()
 	{
-        base.Step();
-
-        if (!isParent)
-            return;
-
 		if (Input.GetKeyDown(KeyCode.F))
-			Layer++;
+			_layeredController.Layer++;
 
 		if (Input.GetKeyDown(KeyCode.S))
 		{
-			_camera.pan(Shadow.transform.position, Shadow.getShadowBlinkDuration());
-			ShadowBlink();
+			_camera.pan(_timeAffected.Shadow.transform.position, _timeAffected.Shadow.getShadowBlinkDuration());
+			_timeAffected.ShadowBlink();
 		}
 
 		if (Input.GetMouseButtonDown(1))
 		{
 			Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-				new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z+Layer.Z));
+				new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+					-Camera.main.transform.position.z+_layeredController.Layer.Z));
 			_smallGear.Throw(worldPos, _smallGearSpeed, _smallGearTravelTime);
 		}
 
 		if (Input.GetMouseButtonDown(0))
 		{
 			Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-				new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z+Layer.Z));
+				new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+					-Camera.main.transform.position.z+_layeredController.Layer.Z));
 			Ray dir = new Ray(transform.position, worldPos - transform.position);
 			Vector3 attackPos = dir.GetPoint(_bigGearMaxDist);
 			_bigGear.Throw(attackPos, _bigGearSpeed, _bigGearTravelTime);
@@ -93,15 +89,15 @@ public class PlayerController : TimeAffected
 		for (int i = 0; i < colorLayers.Length; i++)
 		{
 			var layeredController = colorLayers[i].GetComponent<LayeredController>();
-			var opacity = layeredController.Layer == Layer ? 1f : 0.5f;
+			var opacity = layeredController.Layer == _layeredController.Layer ? 1f : 0.5f;
 			SetGameObjectChildrenOpacity(colorLayers[i], opacity);
 		}
 	}
 
 	private void UpdateMusicOnLayerChange(object sender, EventArgs args)
 	{
-        var layerChangedArgs = (LayerChangedEventArgs)args;
-        _musicController.LayerChange(Layer.Index);
+        var layerChangedArgs = (LayeredController.LayerChangedEventArgs)args;
+        _musicController.LayerChange(_layeredController.Layer.Index);
 		// change game music
 		Debug.Log("change the music!");
 	}
@@ -121,21 +117,19 @@ public class PlayerController : TimeAffected
     {
         Debug.Log("Player died");
         _targetable.DeathEventHandler -= OnDeath;
-        ShadowMetParentHandler += ShadowMetParentAfterDeath;
+        _timeAffected.ShadowMetParentHandler += ShadowMetParentAfterDeath;
     }
 
     private void ShadowMetParentAfterDeath(object sender, EventArgs args)
     {
         Debug.Log("After death, shadow met parent");
-        ShadowMetParentHandler -= ShadowMetParentAfterDeath;
+        _timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
         // TODO send player back to checkpoint
         _targetable.DeathEventHandler += OnDeath;
     }
 
     void OnGUI()
 	{
-        if (!isParent)
-            return;
 		Color temp = GUI.color;
 		temp.a = 1-(_targetable.Health/_targetable.MaxHealth);
 		GUI.color = temp;

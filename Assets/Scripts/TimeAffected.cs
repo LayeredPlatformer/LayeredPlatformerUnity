@@ -10,6 +10,19 @@ public class TimeAffected : LayeredController
 	public float UpdateDelaySeconds = 1;
 	public GameObject Portal = null;
     public AudioClip ShadowBlinkSound;
+	public TimeAffected Shadow;
+
+	protected bool CanUpdatePast = false;
+	protected bool ShadowBlinking = false;
+
+	private int _counter = 0;
+	private SpriteRenderer _rend;
+	private Component[] _components = new Component[0];
+	private Vector3[] _previousPositions;
+	private GameObject _shadowBlinkEffect;
+	private float _shadowBlinkFirstHalfDuration = .04f;
+	private float _shadowBlinkSecondHalfDuration = .06f;
+	private float _shadowBlinkSlowAmount = .2f;
 
     public bool ShadowAtParent
     {
@@ -22,18 +35,15 @@ public class TimeAffected : LayeredController
         }
     }
 
-	protected bool CanUpdatePast = false;
-	protected TimeAffected Shadow;
-	protected bool ShadowBlinking = false;
+	void Start()
+	{
+		Initialize();
+	}
 
-	private int _counter = 0;
-	private SpriteRenderer _rend;
-	private Component[] _components = new Component[0];
-	private Vector3[] _previousPositions;
-	private GameObject _shadowBlinkEffect;
-	private float _shadowBlinkFirstHalfDuration = .04f;
-	private float _shadowBlinkSecondHalfDuration = .06f;
-	private float _shadowBlinkSlowAmount = .2f;
+	void Update()
+	{
+		Step();
+	}
 
 	// Use this for initialization
 	protected new void Initialize()
@@ -108,7 +118,7 @@ public class TimeAffected : LayeredController
             _rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, .5f);
 	}
 
-    protected void ShadowBlink()
+    public void ShadowBlink()
 	{
 		if (ShadowBlinking)
 			return;
