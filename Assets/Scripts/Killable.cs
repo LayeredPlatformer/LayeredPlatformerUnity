@@ -9,6 +9,9 @@ public class Killable : Targetable
 
 	public void Start ()
 	{
+        InitializeHealth(DesiredHealth);
+        InitializeHealAmount(DesiredHealAmount);
+
         DeathEventHandler += (sender, args) =>
         {
             var deathArgs = (DeathEventArgs)args;

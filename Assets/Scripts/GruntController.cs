@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class GruntController : Killable
+public class GruntController : MonoBehaviour
 {
 	
 }

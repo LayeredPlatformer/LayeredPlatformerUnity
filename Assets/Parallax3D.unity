@@ -831,6 +831,25 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: afb603416f1934558aa5fecd003b678c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &237934018 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 181068, guid: afb603416f1934558aa5fecd003b678c, type: 2}
+  m_PrefabInternal: {fileID: 237934017}
+--- !u!114 &237934019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 237934018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f00a6a045a74b82bb797da67ca2ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DesiredHealth: 10
+  DesiredHealAmount: 0
+  DeadBodies: []
+  DeadBodyForce: 10
 --- !u!114 &263762302 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11457844, guid: 900283e2fd63e4a979279e9a8b611b2d,

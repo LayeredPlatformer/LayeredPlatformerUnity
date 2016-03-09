@@ -14,6 +14,7 @@ GameObject:
   - 65: {fileID: 6571152}
   - 114: {fileID: 11418814}
   - 114: {fileID: 11404688}
+  - 114: {fileID: 11489924}
   m_Layer: 0
   m_Name: Grunt
   m_TagString: ColorLayer
@@ -71,11 +72,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12148b16447c42c8a72a130e47f330a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DesiredHealth: 10
-  DesiredHealAmount: 0
-  DeadBodies:
-  - {fileID: 189982, guid: 064b1e53a125648b98212575e2095073, type: 2}
-  DeadBodyForce: 10
 --- !u!114 &11418814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +95,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12148b16447c42c8a72a130e47f330a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DesiredHealth: 0
+--- !u!114 &11489924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f00a6a045a74b82bb797da67ca2ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DesiredHealth: 10
   DesiredHealAmount: 0
   DeadBodies: []
   DeadBodyForce: 10

@@ -89,7 +89,7 @@ public class Targetable : MonoBehaviour
         Debug.Log("Health: " + Health);
 	}
 
-    protected virtual void OnDeath(Vector3 direction, float impactForce)
+    private void OnDeath(Vector3 direction, float impactForce)
     {
         Debug.Log("OnDeath()");
         if (DeathEventHandler != null)
