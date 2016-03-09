@@ -185,10 +185,11 @@ public class PlayerController : MonoBehaviour
 
     private void ReturnToCheckpoint()
     {
-        _camera.pan(_checkpoint, 3);
-        _targetable.InitializeHealth(_targetable.DesiredHealth);
-        gameObject.transform.position = _checkpoint;
-        _layeredController.Layer = Layer.FindByZ(_checkpoint.z);
+        _camera.pan(_checkpoint, 3, () => { 
+            _layeredController.Layer = Layer.FindByZ(_checkpoint.z);
+            _targetable.InitializeHealth(_targetable.DesiredHealth);
+            gameObject.transform.position = _checkpoint;
+        });
     }
 
     public void SaveCheckpoint()

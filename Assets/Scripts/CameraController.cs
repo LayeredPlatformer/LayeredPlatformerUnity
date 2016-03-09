@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CameraController : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class CameraController : MonoBehaviour
 		}
 	}
 
-	public void pan(Vector3 pos, float seconds)
+	public void pan(Vector3 pos, float seconds, Action callback = null)
 	{
 		_panning = true;
 		_panPos = pos;
@@ -38,7 +39,8 @@ public class CameraController : MonoBehaviour
 		_panRate = Vector3.Distance(pos, transform.position)/(seconds);
 		//TODO: idk why my equations for pan rate don't work: 3 is a magic number that fixes it
 		Invoke("stopPan", seconds);
-	}
+        InvokeAction.Invoke(callback, seconds);
+    }
 
 	private void stopPan()
 	{
