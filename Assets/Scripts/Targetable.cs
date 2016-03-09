@@ -9,6 +9,10 @@ public class Targetable : MonoBehaviour
     public float DesiredHealth = 0f;
 	public float DesiredHealAmount = 0f;
 
+    [HideInInspector]
+    public bool Invulnerable = false;
+
+
     public float Health
     {
         get { return _health; }
@@ -61,6 +65,9 @@ public class Targetable : MonoBehaviour
 
 	public void DealDamage (float amount, Vector3 sourcePosition, float impactForce) 
 	{
+        if (Invulnerable)
+            return;
+
 		_canHeal = false;
 		CancelInvoke ("ResetCanHeal");
 

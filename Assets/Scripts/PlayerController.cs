@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 	public void Start()
 	{
 		_timeAffected = GetComponent<TimeAffected>();
+        _timeAffected.ShadowBlinkHandler += OnShadowBlink;
 		_layeredController= GetComponent<LayeredController>();
 		_targetable = gameObject.GetComponent<Targetable>();
         _targetable.DeathEventHandler += OnDeath;
@@ -90,8 +91,23 @@ public class PlayerController : MonoBehaviour
 
     public void InitiateShadowBlink()
     {
+        Debug.Log("ShadowBlink!");
         _camera.pan(_timeAffected.Shadow.transform.position, _timeAffected.Shadow.getShadowBlinkDuration());
         _timeAffected.ShadowBlink();
+
+        if (_targetable.IsDead && !_timeAffected.ShadowAtParent)
+        {
+            _timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
+            _targetable.DeathEventHandler += OnDeath;
+            _targetable.InitializeHealth(_targetable.DesiredHealth);
+            ComponentsSetEnabled(true);
+        }
+    }
+
+    public void OnShadowBlink(object sender, EventArgs args)
+    {
+        var blinkArgs = (ShadowBlinkEventArgs)args;
+        _targetable.Invulnerable = blinkArgs.IsShadowBlinking;
     }
 
 	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)

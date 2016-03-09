@@ -5,6 +5,7 @@ using System;
 public class TimeAffected : LayeredController
 {
     public event EventHandler ShadowMetParentHandler;
+    public event EventHandler ShadowBlinkHandler;
 
 	public bool isParent = true;
 	public float UpdateDelaySeconds = 1;
@@ -122,12 +123,15 @@ public class TimeAffected : LayeredController
 	{
 		if (ShadowBlinking)
 			return;
+
         AudioSource.PlayClipAtPoint(ShadowBlinkSound, transform.position, 10);
 		Invoke("ShadowBlinkStart", _shadowBlinkFirstHalfDuration);
 		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkFirstHalfDuration+_shadowBlinkSecondHalfDuration);
 		Shadow.createPortal();
 		createPortal();
 		ShadowBlinking = true;
+
+        OnShadowBlink();
 	}
 
     protected virtual void OnShadowMetParent()
@@ -136,6 +140,14 @@ public class TimeAffected : LayeredController
         if (ShadowMetParentHandler != null)
         {
             ShadowMetParentHandler(this, new EventArgs());
+        }
+    }
+
+    private void OnShadowBlink()
+    {
+        if (ShadowBlinkHandler != null)
+        {
+            ShadowBlinkHandler(this, new ShadowBlinkEventArgs { IsShadowBlinking = ShadowBlinking });
         }
     }
 
@@ -158,7 +170,8 @@ public class TimeAffected : LayeredController
 		Time.fixedDeltaTime = .02f;
 		ShadowBlinking = false;
 		Destroy(Shadow.Portal);
-	}
+        OnShadowBlink();
+    }
 
 	public void createPortal()
 	{
@@ -170,4 +183,9 @@ public class TimeAffected : LayeredController
 		return _shadowBlinkFirstHalfDuration;
 	}
 
+}
+
+public class ShadowBlinkEventArgs : EventArgs
+{
+    public bool IsShadowBlinking { get; set; }
 }
