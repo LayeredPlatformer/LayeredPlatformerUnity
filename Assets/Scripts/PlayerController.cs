@@ -60,14 +60,12 @@ public class PlayerController : TimeAffected
         if (!isParent)
             return;
 
-		if (Input.GetKeyDown(KeyCode.F))
-			Layer++;
+        if (Input.GetKeyDown(KeyCode.F))
+            InitiateLayerStep();
 
 		if (Input.GetKeyDown(KeyCode.S))
-		{
-			_camera.pan(Shadow.transform.position, Shadow.getShadowBlinkDuration());
-			ShadowBlink();
-		}
+            InitiateShadowBlink();
+        
 
 		if (Input.GetMouseButtonDown(1))
 		{
@@ -85,6 +83,17 @@ public class PlayerController : TimeAffected
 			_bigGear.Throw(attackPos, _bigGearSpeed, _bigGearTravelTime);
 		}
 	}
+
+    public void InitiateLayerStep()
+    {
+        Layer++;
+    }
+
+    public void InitiateShadowBlink()
+    {
+        _camera.pan(Shadow.transform.position, Shadow.getShadowBlinkDuration());
+        ShadowBlink();
+    }
 
 	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)
 	{
