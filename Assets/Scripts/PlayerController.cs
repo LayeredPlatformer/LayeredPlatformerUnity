@@ -54,11 +54,6 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	public void Update()
 	{
-        base.Step();
-
-        if (!isParent)
-            return;
-
         if (Input.GetKeyDown(KeyCode.F))
             InitiateLayerStep();
 
@@ -87,13 +82,13 @@ public class PlayerController : MonoBehaviour
 
     public void InitiateLayerStep()
     {
-        Layer++;
+        _layeredController.Layer++;
     }
 
     public void InitiateShadowBlink()
     {
-        _camera.pan(Shadow.transform.position, Shadow.getShadowBlinkDuration());
-        ShadowBlink();
+        _camera.pan(_timeAffected.Shadow.transform.position, _timeAffected.Shadow.getShadowBlinkDuration());
+        _timeAffected.ShadowBlink();
     }
 
 	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)
