@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private MusicController _musicController;
 	private TimeAffected _timeAffected;
 	private LayeredController _layeredController;
+    private Vector3 _checkpoint;
 
 	private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
@@ -49,6 +50,8 @@ public class PlayerController : MonoBehaviour
 		_smallGear.RotationSpeed = _smallGearDefaultRotationSpeed;
 		_bigGear.Damage = _bigGearDamage;
 		_smallGear.Damage = _smallGearDamage;
+
+        _checkpoint = gameObject.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -124,17 +127,38 @@ public class PlayerController : MonoBehaviour
 
     private void OnDeath(object sender, EventArgs args)
     {
-        Debug.Log("Player died");
-        _targetable.DeathEventHandler -= OnDeath;
-        _timeAffected.ShadowMetParentHandler += ShadowMetParentAfterDeath;
+        if (_timeAffected.ShadowAtParent)
+        {
+            Debug.Log("Player died with shadow");
+            _targetable.InitializeHealth(_targetable.DesiredHealth);
+            gameObject.transform.position = _checkpoint;
+        }
+        else
+        {
+            Debug.Log("Player died without shadow");
+            _targetable.DeathEventHandler -= OnDeath;
+            _timeAffected.ShadowMetParentHandler += ShadowMetParentAfterDeath;
+            ComponentsSetEnabled(false);
+        }
+    }
+
+    private void ComponentsSetEnabled(bool enabled)
+    {
+        GetComponent<PlatformCharacter3D>().enabled = enabled;
+        GetComponent<Platformer3DUserControl>().enabled = enabled;
+        GetComponent<BoxCollider>().enabled = enabled;
+        GetComponent<Rigidbody>().isKinematic = !enabled;
     }
 
     private void ShadowMetParentAfterDeath(object sender, EventArgs args)
     {
         Debug.Log("After death, shadow met parent");
-        _timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
-        // TODO send player back to checkpoint
+        _targetable.InitializeHealth(_targetable.DesiredHealth);
+        gameObject.transform.position = _checkpoint;
+
         _targetable.DeathEventHandler += OnDeath;
+        _timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
+        ComponentsSetEnabled(true);
     }
 
     void OnGUI()
