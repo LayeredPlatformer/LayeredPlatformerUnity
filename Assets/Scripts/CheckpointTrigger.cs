@@ -6,6 +6,9 @@ public class CheckpointTrigger : MonoBehaviour
 	// Use this for initialization
 	void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Checkpoint encountered! "+ other.name);
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().SaveCheckpoint();
+        }
     }
 }

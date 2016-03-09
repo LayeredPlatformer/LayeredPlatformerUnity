@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 		_bigGear.Damage = _bigGearDamage;
 		_smallGear.Damage = _smallGearDamage;
 
-        _checkpoint = gameObject.transform.position;
+        SaveCheckpoint();
 	}
 	
 	// Update is called once per frame
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player died with shadow");
             _targetable.InitializeHealth(_targetable.DesiredHealth);
-            gameObject.transform.position = _checkpoint;
+            ReturnToCheckpoint();
         }
         else
         {
@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("After death, shadow met parent");
         _targetable.InitializeHealth(_targetable.DesiredHealth);
-        gameObject.transform.position = _checkpoint;
+        ReturnToCheckpoint();
 
         _targetable.DeathEventHandler += OnDeath;
         _timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
@@ -169,4 +169,15 @@ public class PlayerController : MonoBehaviour
 		GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), _oilScreen);
 	}
 
+    private void ReturnToCheckpoint()
+    {
+        gameObject.transform.position = _checkpoint;
+        _layeredController.Layer = Layer.FindByZ(_checkpoint.z);
+    }
+
+    public void SaveCheckpoint()
+    {
+        Debug.Log("Checkpoint saved");
+        _checkpoint = gameObject.transform.position;
+    }
 }
