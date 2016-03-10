@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
 		_panning = true;
 		_panPos = pos;
 		// R = D/T
-		_panRate = Vector3.Distance(pos, transform.position)/(seconds);
+		_panRate = Vector3.Distance(pos, transform.position) * 3/(seconds);
 		//TODO: idk why my equations for pan rate don't work: 3 is a magic number that fixes it
 		Invoke("stopPan", seconds);
         InvokeAction.Invoke(callback, seconds);
