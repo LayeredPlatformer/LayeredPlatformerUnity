@@ -45,8 +45,7 @@ public class BatController : MonoBehaviour
 		{
 			tdir = tdir.normalized*FlapPower;
 			Vector3 rand = new Vector3(Random.Range(randomFlapForceMin, randomFlapForceMax),
-				Random.Range(randomFlapForceMin, randomFlapForceMax),
-				Random.Range(randomFlapForceMin, randomFlapForceMax));
+				Random.Range(randomFlapForceMin, randomFlapForceMax), 0);
 			tdir += rand;
 			rb.AddForce(tdir);
 		}
