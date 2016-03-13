@@ -39,9 +39,15 @@ public class Layer
         return AllLayers[(old.Index - 1 + AllLayers.Length) % AllLayers.Length];
     }
 
-    private Layer(int index, float z, Labels label) {
+    private Layer(int index, float z, Labels label)
+	{
         Index = index;
         Z = z;
         Label = label;
     }
+
+	public bool Equals(Layer l)
+	{
+		return l.Z == Z;
+	}
 }
