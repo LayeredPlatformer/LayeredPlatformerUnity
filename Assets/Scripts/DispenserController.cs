@@ -22,6 +22,7 @@ public class DispenserController : Triggerable
 	{
 		if (_dispensing)
 		{
+            _dispenseLocation = transform.Find("DispenseLocation").transform.position;
 			SelfDestructor sd = (SelfDestructor) Instantiate(DispenseItem, _dispenseLocation, Quaternion.identity);
 			GameObject g = sd.gameObject;
 			Rigidbody rb = g.GetComponent<Rigidbody>();

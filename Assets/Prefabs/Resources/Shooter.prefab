@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 414994}
   m_Layer: 0
   m_Name: DispenseLocation
-  m_TagString: Untagged
+  m_TagString: ShooterAIDispenser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,6 +29,7 @@ GameObject:
   - 65: {fileID: 6504276}
   - 54: {fileID: 5476158}
   - 114: {fileID: 11460808}
+  - 114: {fileID: 11446632}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -43,7 +44,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.22, y: 0, z: 0}
+  m_LocalPosition: {x: -0.9, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 475398}
@@ -55,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 94.13, y: 2.7, z: 3}
+  m_LocalPosition: {x: 71.2, y: 3.4, z: 3}
   m_LocalScale: {x: 1.8427502, y: 1.4912798, z: 10}
   m_Children:
   - {fileID: 414994}
@@ -68,7 +69,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195238}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -104,6 +105,21 @@ MonoBehaviour:
   DispenseDelay: 0.5
   DispenseSpeed: 200
   DispenseItemLifetime: 3
+--- !u!114 &11446632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65f59e7a9781b14a9cf80fefaa6ca5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.05
+  Range: 5
+  maxRange: 10
+  ShooterTransform: {fileID: 0}
 --- !u!114 &11460808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f00a6a045a74b82bb797da67ca2ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DesiredHealth: 4
+  DesiredHealth: 9
   DesiredHealAmount: 0
   Invulnerable: 0
   DeadBodies: []
