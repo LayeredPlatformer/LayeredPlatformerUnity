@@ -673,6 +673,7 @@ GameObject:
   - 224: {fileID: 1030877531}
   - 222: {fileID: 1030877533}
   - 114: {fileID: 1030877532}
+  - 114: {fileID: 1030877534}
   m_Layer: 5
   m_Name: Right Gear
   m_TagString: Untagged
@@ -730,6 +731,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1030877530}
+--- !u!114 &1030877534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1030877530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5de2744462d4ec8bc3a7dca4e7372b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotSpeed: 1
 --- !u!1 &1190715326
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,7 +972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.069516666, g: 0.50735295, b: 0.03357483, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1051,6 +1064,7 @@ GameObject:
   - 224: {fileID: 2122938144}
   - 222: {fileID: 2122938146}
   - 114: {fileID: 2122938145}
+  - 114: {fileID: 2122938147}
   m_Layer: 5
   m_Name: Left Gear
   m_TagString: Untagged
@@ -1108,3 +1122,15 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2122938143}
+--- !u!114 &2122938147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2122938143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5de2744462d4ec8bc3a7dca4e7372b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotSpeed: 1
