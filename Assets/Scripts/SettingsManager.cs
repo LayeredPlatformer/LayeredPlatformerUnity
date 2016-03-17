@@ -4,39 +4,32 @@ using System.Collections;
 
 public class SettingsManager : MonoBehaviour
 {
-	//TODO: update to follow c# conventions (capitals, etc)
-    public GameObject[] toDisable;
-    public GameObject returnDestination;
-    public bool rightHandMode;
-    public Text modeText;
-    public Text modeButtonText;
+    public GameObject[] ToDisable;
+//    public GameObject ReturnDestination;
+    public bool RightHandMode;
+    public Text ModeText;
+    public Text ModeButtonText;
 
 	// Use this for initialization
 	void Start ()
 	{
-        foreach (GameObject o in toDisable)
+        foreach (GameObject o in ToDisable)
             o.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	    
 	}
 
     public void ToggleControlMode()
     {
-        if(rightHandMode)
+        if(RightHandMode)
         {
-            rightHandMode = false;
-            modeText.text = "Current mode: Left Handed";
-            modeButtonText.text = "Switch to Right Handed";
+            RightHandMode = false;
+            ModeText.text = "Current mode: Left Handed";
+            ModeButtonText.text = "Switch to Right Handed";
         }
         else
         {
-            rightHandMode = true;
-            modeText.text = "Current mode: Right Handed";
-            modeButtonText.text = "Switch to Left Handed";
+            RightHandMode = true;
+            ModeText.text = "Current mode: Right Handed";
+            ModeButtonText.text = "Switch to Left Handed";
         }
     }
 }

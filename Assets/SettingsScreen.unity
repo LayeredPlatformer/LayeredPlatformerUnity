@@ -281,9 +281,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1225126723}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1712558474}
+        m_MethodName: ToggleControlMode
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1389,7 +1389,7 @@ GameObject:
   - 222: {fileID: 1232110639}
   - 114: {fileID: 1232110638}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Mode Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2197,7 +2197,7 @@ GameObject:
   - 222: {fileID: 1678269293}
   - 114: {fileID: 1678269292}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Back Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2286,13 +2286,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cac5054648a6e48bd18c4ce790cb2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toDisable:
+  ToDisable:
   - {fileID: 2042628546}
   - {fileID: 1225126723}
-  returnDestination: {fileID: 0}
-  rightHandMode: 1
-  modeText: {fileID: 464570242}
-  modeButtonText: {fileID: 1232110638}
+  RightHandMode: 1
+  ModeText: {fileID: 464570242}
+  ModeButtonText: {fileID: 1232110638}
 --- !u!224 &1712558475
 RectTransform:
   m_ObjectHideFlags: 0

@@ -7,68 +7,40 @@ using System.IO;
 public class TypeStoryText : MonoBehaviour {
 
 	// TODO follow c# naming conventions
-    public TextAsset filename;
-    public Text text;
+    public TextAsset FileName;
+    public Text BoxText;
     public float TypeInterval;
-    public int counter;
-    private string fileText = "";
-    private bool typing = false;
-    private bool typed = false;
+    public int Counter;
+    private string _fileText = "";
+    private bool _typing = false;
+    private bool _typed = false;
 
 	//TODO: eventually clean up commented code
 	
     public void Start()
     {
-        if (filename != null)
-            fileText = filename.text;
-//        fileText = content();
+        if (FileName != null)
+            _fileText = FileName.text;
+//        _fileText = content();
     }
-
- /*   public string content()
-    {
-        Console.WriteLine("Trying to read file.");
-        string output = "";
-        try
-        {
-            using (StreamReader stream = new StreamReader(filename))
-            {
-                output = stream.ReadToEnd();
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Could not read file.");
-            Console.WriteLine(e.Message);
-        }
-        return output;
-    }*/
 	
 	// Update is called once per frame
 	void Update () {
-        //        if (fileText.Equals(""))
-        //            fileText = content();
-		//TODO: remove brackets on single lined conditionals
-        if (!typing && !typed) //begin typing text
-        {
-            StartCoroutine(typeText(fileText));
-        }
-        else if(typing)
-        {
+        if (!_typing && !_typed) 
+            StartCoroutine(typeText(_fileText));//begin typing text
+        else if(_typing)
             if(Input.anyKeyDown) //if a key is pressed, finish typing
-            {
-                typed = true;//will interrupt coroutine on next pass and type all remaining text.
-            }
-        }
+                _typed = true;//will interrupt coroutine on next pass and type all remaining text.
         //Console.WriteLine("updating");
 	}
 
     public void OnClick()
     {
-        if(typing) //if still typing, finish typing
+        if(_typing) //if still typing, finish typing
         {
-            typed = true;//interrupt coroutine to type all remaining text instantly.
+            _typed = true;//interrupt coroutine to type all remaining text instantly.
         }
-        else if (typed)//if done typing, move to next scene
+        else if (_typed)//if done typing, move to next scene
         {
             //Put load scene stuff here.
         }
@@ -76,17 +48,17 @@ public class TypeStoryText : MonoBehaviour {
 
     private IEnumerator typeText(string textString)
     {
-        text.text = "";
-        typing = true;
-        counter = 0;
-        while (counter < textString.Length && !typed) 
+        BoxText.text = "";
+        _typing = true;
+        Counter = 0;
+        while (Counter < textString.Length && !_typed) 
         {
-            text.text += textString[counter];
-            counter++;
+            BoxText.text += textString[Counter];
+            Counter++;
             yield return new WaitForSeconds(TypeInterval);
         }
-        text.text = textString;
-        typed = true;
-        typing = false;
+        BoxText.text = textString;
+        _typed = true;
+        _typing = false;
     }
 }
