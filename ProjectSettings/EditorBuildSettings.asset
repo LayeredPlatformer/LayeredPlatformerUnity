@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TitleScreen.unity
+    path: Assets/Scenes/TitleScreen.unity
   - enabled: 1
-    path: Assets/SettingsScreen.unity
+    path: Assets/Scenes/SettingsScreen.unity
   - enabled: 1
-    path: Assets/Credits.unity
+    path: Assets/Scenes/Credits.unity
   - enabled: 1
-    path: Assets/Parallax3D.unity
+    path: Assets/Scenes/Parallax3D.unity
   - enabled: 1
     path: Assets/Parallax.unity
   - enabled: 1

@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.2, y: 3.4, z: 3}
+  m_LocalPosition: {x: 71.2, y: 2.53, z: 3}
   m_LocalScale: {x: 1.8427502, y: 1.4912798, z: 10}
   m_Children:
   - {fileID: 414994}
@@ -76,7 +76,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &6504276
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -105,6 +105,7 @@ MonoBehaviour:
   DispenseDelay: 0.5
   DispenseSpeed: 200
   DispenseItemLifetime: 3
+  Dispensing: 1
 --- !u!114 &11446632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,10 +117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65f59e7a9781b14a9cf80fefaa6ca5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.05
-  Range: 5
-  maxRange: 10
-  ShooterTransform: {fileID: 0}
+  Speed: 150
+  MinRange: 0
+  MaxRange: 10
+  XOffset: 1.5
+  YOffset: 0.5
 --- !u!114 &11460808
 MonoBehaviour:
   m_ObjectHideFlags: 1
