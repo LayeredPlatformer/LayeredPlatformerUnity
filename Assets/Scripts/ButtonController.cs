@@ -7,6 +7,8 @@ public class ButtonController : MonoBehaviour
 	public bool PlayerActivates = false;
 	public bool GearActivates = true;
 
+	//TODO: ontriggerenter or ontriggerstay (permanent or not)
+
     void OnTriggerStay(Collider collider)
     {
 		GearController gc = collider.GetComponent<GearController>();

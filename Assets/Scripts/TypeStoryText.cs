@@ -6,20 +6,21 @@ using System.IO;
 
 public class TypeStoryText : MonoBehaviour {
 
+	// TODO follow c# naming conventions
     public TextAsset filename;
     public Text text;
-    public float typeSpeed;
+    public float TypeInterval;
     public int counter;
     private string fileText = "";
     private bool typing = false;
     private bool typed = false;
+
+	//TODO: eventually clean up commented code
 	
     public void Start()
     {
         if (filename != null)
-        {
             fileText = filename.text;
-        }
 //        fileText = content();
     }
 
@@ -46,6 +47,7 @@ public class TypeStoryText : MonoBehaviour {
 	void Update () {
         //        if (fileText.Equals(""))
         //            fileText = content();
+		//TODO: remove brackets on single lined conditionals
         if (!typing && !typed) //begin typing text
         {
             StartCoroutine(typeText(fileText));
@@ -81,7 +83,7 @@ public class TypeStoryText : MonoBehaviour {
         {
             text.text += textString[counter];
             counter++;
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSeconds(TypeInterval);
         }
         text.text = textString;
         typed = true;

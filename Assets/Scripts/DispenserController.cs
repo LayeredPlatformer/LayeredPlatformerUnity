@@ -8,8 +8,8 @@ public class DispenserController : Triggerable
 	public float DispenseDelay = .5f;
 	public float DispenseSpeed = 5f;
 	public float DispenseItemLifetime = 3f;
+	public bool Dispensing = true;
 
-	private bool _dispensing = true;
 	private Vector3 _dispenseLocation;
 
 	void Start ()
@@ -20,7 +20,7 @@ public class DispenserController : Triggerable
 	
 	void Dispense()
 	{
-		if (_dispensing)
+		if (Dispensing)
 		{
             _dispenseLocation = transform.Find("DispenseLocation").transform.position;
 			SelfDestructor sd = (SelfDestructor) Instantiate(DispenseItem, _dispenseLocation, Quaternion.identity);
@@ -34,12 +34,12 @@ public class DispenserController : Triggerable
 
 	void ResumeDispensing()
 	{
-		_dispensing = true;
+		Dispensing = true;
 	}
 
 	public override void Trigger ()
 	{
-		_dispensing = false;
+		Dispensing = false;
 		CancelInvoke("ResumeDispensing");
 		Invoke("ResumeDispensing", TriggerDelay);
 	}

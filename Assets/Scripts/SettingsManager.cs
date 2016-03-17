@@ -2,8 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class SettingsManager : MonoBehaviour {
-
+public class SettingsManager : MonoBehaviour
+{
+	//TODO: update to follow c# conventions (capitals, etc)
     public GameObject[] toDisable;
     public GameObject returnDestination;
     public bool rightHandMode;
@@ -11,15 +12,15 @@ public class SettingsManager : MonoBehaviour {
     public Text modeButtonText;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
         foreach (GameObject o in toDisable)
-        {
             o.SetActive(false);
-        }
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 	    
 	}
 
