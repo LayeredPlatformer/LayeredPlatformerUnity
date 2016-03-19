@@ -46,8 +46,8 @@ GameObject:
   - 65: {fileID: 6525304}
   - 114: {fileID: 11474722}
   - 114: {fileID: 11489438}
+  - 114: {fileID: 11403332}
   - 114: {fileID: 11460978}
-  - 114: {fileID: 11422382}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -92,7 +92,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 85.98, y: 4.5, z: 0}
+  m_LocalPosition: {x: 24.183956, y: 8.103767, z: 0}
   m_LocalScale: {x: 1.7715329, y: 1.7715304, z: 1}
   m_Children:
   - {fileID: 457958}
@@ -393,6 +393,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11403332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda8c44b1f7ecbe47ae867038a6ad07e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ice: {fileID: 24555730, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
+  steampunk: {fileID: 24500003, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
+  apocalypse: {fileID: 24590604, guid: c1f2d7dbda55ffe43b54bb918f9105a5, type: 2}
+  bpm: 100
 --- !u!114 &11418872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,23 +437,6 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &11422382
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a62a253539d43f3beac6a67b198218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _layerLabel: 0
-  isParent: 1
-  UpdateDelaySeconds: 1
-  Portal: {fileID: 145478, guid: dcd1ee1b558084404be203f8dd1fc65f, type: 2}
-  ShadowBlinkSound: {fileID: 8300000, guid: 153e8770609b86d4cb9fccaff42fdd8c, type: 3}
-  Shadow: {fileID: 0}
 --- !u!114 &11460978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -466,8 +464,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DesiredHealth: 5
+  DeadBodies: []
+  DeadBodyForce: 10
   DesiredHealAmount: 0.1
-  Invulnerable: 0
 --- !u!114 &11489438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -479,6 +478,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cde5f939d13b42b18eb8479c415e321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _layerLabel: 0
+  isParent: 1
+  UpdateDelaySeconds: 1
+  Portal: {fileID: 0}
 --- !u!212 &21278140
 SpriteRenderer:
   m_ObjectHideFlags: 1
