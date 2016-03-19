@@ -6,11 +6,13 @@ public class CameraController : MonoBehaviour
 {
 	public GameObject Player;
 
-	private bool _panning = false;
-	private Vector3 _panPos;
+	private bool _isPanning = false;
+	private Vector3 _panDestination;
 	private float _panRate;
+    private Action _panCallback;
 
     public float DistanceFromPlayer = 10;
+    public float PanCompletionThreshold = 0.5f;
 
 	// Use this for initialization
 	void Start()
@@ -21,28 +23,40 @@ public class CameraController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!_panning)
-			transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z - DistanceFromPlayer);
-		else
-		{
-			Vector3 moved = Vector3.MoveTowards(transform.position, _panPos, _panRate*Time.deltaTime);
-			transform.position = new Vector3(moved.x, moved.y, moved.z);
-		}
+        if (_isPanning)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _panDestination, _panRate * Time.deltaTime);
+            if (Vector3.Distance(transform.position, _panDestination) < PanCompletionThreshold)
+            {
+                _isPanning = false;
+                if (_panCallback != null)
+                    _panCallback();
+            }
+        }
+        else
+            transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, Player.transform.position.z - DistanceFromPlayer);
 	}
 
-	public void pan(Vector3 pos, float seconds, Action callback = null)
+	public void PanByTime(Vector3 destination, float seconds, Action callback = null)
 	{
-		_panning = true;
-		_panPos = new Vector3(pos.x, pos.y, pos.z - DistanceFromPlayer);
+        if (_isPanning)
+            return;
+
+		_isPanning = true;
+		_panDestination = new Vector3(destination.x, destination.y, destination.z - DistanceFromPlayer);
 		// R = D/T
-		_panRate = Vector3.Distance(_panPos, transform.position)/(seconds);
-		Invoke("stopPan", seconds);
-        InvokeAction.Invoke(callback, seconds);
+		_panRate = Vector3.Distance(_panDestination, transform.position)/(seconds);
+        _panCallback = callback;
     }
 
-	private void stopPan()
-	{
-		_panning = false;
-	}
+    public void PanByRate(Vector3 destination, float panRate, Action callback = null)
+    {
+        if (_isPanning)
+            return;
 
+        _isPanning = true;
+        _panDestination = new Vector3(destination.x, destination.y, destination.z - DistanceFromPlayer);
+        _panRate = panRate;
+        _panCallback = callback;
+    }
 }

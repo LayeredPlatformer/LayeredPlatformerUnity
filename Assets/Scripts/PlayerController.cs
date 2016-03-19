@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 	public void Update()
 	{
         if (Input.GetKeyDown(KeyCode.F))
-            InitiateLayerStep();
+            InitiateLayerJump();
 
 		if (Input.GetKeyDown(KeyCode.S))
             InitiateShadowBlink();
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-    public void InitiateLayerStep()
+    public void InitiateLayerJump()
     {
         _layeredController.Layer++;
     }
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     public void InitiateShadowBlink()
     {
         Debug.Log("ShadowBlink!");
-        _camera.pan(_timeAffected.Shadow.transform.position, _timeAffected.Shadow.getShadowBlinkDuration());
+        _camera.PanByTime(_timeAffected.Shadow.transform.position, _timeAffected.Shadow.getShadowBlinkDuration());
         _timeAffected.ShadowBlink();
 
         if (_targetable.IsDead && !_timeAffected.ShadowAtParent)
@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
     private void ReturnToCheckpoint()
     {
-        _camera.pan(_checkpoint, 3, () => { 
+        _camera.PanByRate(_checkpoint, 20.0f, () => { 
             _layeredController.Layer = Layer.FindByZ(_checkpoint.z);
             _targetable.InitializeHealth(_targetable.DesiredHealth);
             gameObject.transform.position = _checkpoint;
