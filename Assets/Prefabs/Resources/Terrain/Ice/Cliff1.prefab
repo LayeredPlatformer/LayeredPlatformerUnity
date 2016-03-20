@@ -26,7 +26,7 @@ GameObject:
   - 4: {fileID: 461368}
   - 212: {fileID: 21276732}
   m_Layer: 0
-  m_Name: IceCliff1
+  m_Name: Cliff1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
