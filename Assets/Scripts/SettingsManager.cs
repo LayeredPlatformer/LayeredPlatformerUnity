@@ -6,7 +6,7 @@ using System.Collections;
 public class SettingsManager : MonoBehaviour
 {
     public GameObject[] ToDisable;
-    public static string ReturnDestination;
+    public static string ReturnDestination = "TitleScreen";
     public bool RightHandMode;
     public Text ModeText;
     public Text ModeButtonText;
