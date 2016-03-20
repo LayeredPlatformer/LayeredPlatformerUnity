@@ -1711,23 +1711,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 150652, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
   m_PrefabInternal: {fileID: 929995996}
---- !u!114 &449451290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 449451279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a62a253539d43f3beac6a67b198218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _layerLabel: 0
-  isParent: 1
-  UpdateDelaySeconds: 1
-  Portal: {fileID: 145478, guid: dcd1ee1b558084404be203f8dd1fc65f, type: 2}
-  ShadowBlinkSound: {fileID: 8300000, guid: 153e8770609b86d4cb9fccaff42fdd8c, type: 3}
-  Shadow: {fileID: 0}
 --- !u!1 &468568288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,14 +3004,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 439644, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 19
       objectReference: {fileID: 0}
-    - target: {fileID: 11489438, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
-      propertyPath: ShadowBlinkSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 153e8770609b86d4cb9fccaff42fdd8c, type: 3}
-    m_RemovedComponents:
-    - {fileID: 11403332, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0adbe4e9808994c9594127aa91b508b5, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &931415625
@@ -5169,6 +5147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 449451279}
   DistanceFromPlayer: 10
+  PanCompletionThreshold: 0.5
 --- !u!1001 &1716611605
 Prefab:
   m_ObjectHideFlags: 0

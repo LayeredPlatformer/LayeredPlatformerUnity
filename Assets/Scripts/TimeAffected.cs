@@ -49,7 +49,6 @@ public class TimeAffected : LayeredController
 	// Use this for initialization
 	protected new void Initialize()
 	{
-		base.Initialize();
 		_rend = GetComponent<SpriteRenderer>();
 		_shadowBlinkEffect = (GameObject) Resources.Load("ShadowBlinkEffect");
 		_previousPositions = new Vector3[(int)(60*UpdateDelaySeconds)];
@@ -63,6 +62,7 @@ public class TimeAffected : LayeredController
 			Shadow.Initialize();
 			Shadow.ToggleReality();
 		}
+		base.Initialize();
 	}
 
 	protected new void Step()
