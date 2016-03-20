@@ -8,7 +8,11 @@ public class LoadScene : MonoBehaviour {
 
     public void Load()
     {
+        string returnDest=SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(Destination);
-//        Application.LoadLevel(Destination);
+        if(Destination=="SettingsScreen")
+        {
+            SettingsManager.ReturnDestination = returnDest;
+        }
     }
 }

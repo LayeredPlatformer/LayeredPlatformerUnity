@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SettingsManager : MonoBehaviour
 {
     public GameObject[] ToDisable;
-//    public GameObject ReturnDestination;
+    public static string ReturnDestination = "TitleScreen";
     public bool RightHandMode;
     public Text ModeText;
     public Text ModeButtonText;
@@ -31,5 +32,10 @@ public class SettingsManager : MonoBehaviour
             ModeText.text = "Current mode: Right Handed";
             ModeButtonText.text = "Switch to Left Handed";
         }
+    }
+
+    public void Load()
+    {
+        SceneManager.LoadScene(ReturnDestination);
     }
 }
