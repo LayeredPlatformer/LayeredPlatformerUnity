@@ -17,3 +17,7 @@ EditorBuildSettings:
     path: Assets/Parallax.unity
   - enabled: 0
     path: Assets/Arena.unity
+  - enabled: 1
+    path: Assets/Scenes/StoryScreen.unity
+  - enabled: 1
+    path: Assets/Scenes/PauseScreen.unity
