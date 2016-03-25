@@ -23,6 +23,7 @@ public class LayeredController : MonoBehaviour
         {
             var oldLayer = _layer;
             _layer = value;
+            _layerLabel = value.Label;
             OnLayerChanged(value, oldLayer);
         }
     }
