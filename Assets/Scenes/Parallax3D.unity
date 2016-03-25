@@ -1304,8 +1304,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -41.14, y: -13.16}
-  m_SizeDelta: {x: 8.72, y: 2.58}
+  m_AnchoredPosition: {x: -54.6, y: -41.5}
+  m_SizeDelta: {x: 7, y: 2.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &147173760
 MonoBehaviour:
@@ -1339,9 +1339,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'AWSD or arrows to move.
-
-    Space to jump'
+  m_Text: Use the Directional Pad to jump and change direction.
 --- !u!222 &147173761
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1888,12 +1886,13 @@ RectTransform:
   - {fileID: 223958347}
   - {fileID: 1986229654}
   - {fileID: 1216976409}
+  - {fileID: 896388626}
   m_Father: {fileID: 588164714}
   m_RootOrder: 45
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 154.4, y: 12.1}
-  m_SizeDelta: {x: 102.5, y: 70}
+  m_AnchoredPosition: {x: 168.5, y: 39.6}
+  m_SizeDelta: {x: 267.1, y: 125.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &217636650
 MonoBehaviour:
@@ -1989,7 +1988,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -30.84, y: -1.29}
+  m_AnchoredPosition: {x: -44.9, y: -29}
   m_SizeDelta: {x: 8.72, y: 2.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223958348
@@ -2024,7 +2023,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press F to change layers
+  m_Text: Press the Layer Jump button
 --- !u!222 &223958349
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7045,6 +7044,79 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3b0b659c2b070f41932225a75490397, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &896388625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 896388626}
+  - 222: {fileID: 896388628}
+  - 114: {fileID: 896388627}
+  m_Layer: 5
+  m_Name: Fifth Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &896388626
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 896388625}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 217636649}
+  m_RootOrder: 4
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 84.85, y: -27.17}
+  m_SizeDelta: {x: 7, y: 2.73}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &896388627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 896388625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.78431374, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Looks like you need to double Layer Jump!
+--- !u!222 &896388628
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 896388625}
 --- !u!1001 &903702801
 Prefab:
   m_ObjectHideFlags: 0
@@ -8795,7 +8867,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.6, y: -9.2}
+  m_AnchoredPosition: {x: 25.6, y: -36.9}
   m_SizeDelta: {x: 8.72, y: 2.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1216976410
@@ -8830,9 +8902,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Left click for close attack
+  m_Text: 'Tap enemy for close range attack
 
-    Right click for ranged attack'
+    Swipe to enemy for ranged attack'
 --- !u!222 &1216976411
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14103,8 +14175,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20.38, y: 6.56}
-  m_SizeDelta: {x: 8.72, y: 2.58}
+  m_AnchoredPosition: {x: 5.8, y: -21.1}
+  m_SizeDelta: {x: 9.76, y: 2.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1986229655
 MonoBehaviour:
@@ -14138,7 +14210,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press S or Down arrow to ShadowBlink
+  m_Text: Press the ShadowBlink button if you need to quickly go back to where you
+    were
 --- !u!222 &1986229656
 CanvasRenderer:
   m_ObjectHideFlags: 0
