@@ -75,7 +75,7 @@ public class Targetable : MonoBehaviour
         if (!IsDead)
         {
             Health -= amount;
-            Debug.Log("health: " + Health);
+//            Debug.Log("health: " + Health);
 
             if (IsDead)
             {
@@ -93,7 +93,7 @@ public class Targetable : MonoBehaviour
 	public void Heal(float amount)
 	{
 		Health += amount;
-        Debug.Log("Health: " + Health);
+//        Debug.Log("Health: " + Health);
 	}
 
     private void OnDeath(Vector3 direction, float impactForce)

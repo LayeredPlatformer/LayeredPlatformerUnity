@@ -95,18 +95,11 @@ public class TimeAffected : LayeredController
 
 	public void ToggleReality()
 	{
-		if (_components.Length == 0)
+		foreach (Component component in GetComponents<Component>())
 		{
-			_components = GetComponents<Component>();
-			for (int i=0; i<_components.Length; i++)
-			{
-				if (!(_components[i] is Renderer || _components[i] is TimeAffected
-					|| _components[i] is Transform || _components[i] is PlatformCharacter3D))
-				{
-					Destroy(_components[i]);
-//					Debug.Log("removed component: " + i);
-				}
-			}
+			if (component is PlayerController || component is BoxCollider || component is Rigidbody
+				|| component is PlayerMovement)
+				Destroy(component);
 		}
 		ToggleOpacity();
 	}

@@ -10,10 +10,10 @@ public class PlayerController : MonoBehaviour
 	private GameObject _smallGearPrefab;
 	private CameraController _camera;
 	private Targetable _targetable;
-    private MusicController _musicController;
+	private MusicController _musicController;
 	private TimeAffected _timeAffected;
 	private LayeredController _layeredController;
-    private Vector3 _checkpoint;
+	private Vector3 _checkpoint;
 
 	private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
@@ -159,8 +159,6 @@ public class PlayerController : MonoBehaviour
 
     private void ComponentsSetEnabled(bool enabled)
     {
-        GetComponent<PlatformCharacter3D>().enabled = enabled;
-        GetComponent<Platformer3DUserControl>().enabled = enabled;
         GetComponent<BoxCollider>().enabled = enabled;
         GetComponent<Rigidbody>().isKinematic = !enabled;
     }

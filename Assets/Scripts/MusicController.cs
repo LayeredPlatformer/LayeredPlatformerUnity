@@ -28,7 +28,7 @@ public class MusicController : MonoBehaviour
 
     public void LayerChange(int layer)
     {
-        _layerToMusicMap[layer].TransitionTo(_transitionIn);       
+        _layerToMusicMap[layer].TransitionTo(_transitionIn); 
     }
 
 }
