@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
 	float _playerHeight;
 	float _playerWidth;
 
+	const int _obstacleLayer = 9;
+	const int _obstacleLayerMask = 1 << _obstacleLayer;
+
 	enum states {idle, forward};
 
 	void Start()
@@ -35,15 +38,7 @@ public class PlayerMovement : MonoBehaviour
 		// left move
 		if (Input.GetKey(KeyCode.A))
 		{
-			Vector3 leftPosUpper = new Vector3(transform.position.x-_movementDistance,
-				transform.position.y+_playerHeight/2, transform.position.z);
-			Vector3 leftPosLower = new Vector3(transform.position.x-_movementDistance,
-				transform.position.y-_playerHeight/2, transform.position.z);
-			bool leftClear = !Physics.Raycast(leftPosUpper, -transform.up, _playerHeight)
-				&& !Physics.Raycast(leftPosLower, transform.up, _playerHeight);
-//			Debug.DrawRay(leftPosUpper, -transform.up*_playerHeight);
-//			Debug.DrawRay(leftPosLower, transform.up*_playerHeight);
-			if (leftClear)
+			if (leftClear() || !bottomClear(_jumpDistance))
 			{
 				_rb.AddForce(-transform.right*_movementSpeed);
 				_animator.SetInteger("state", (int) states.forward);
@@ -54,15 +49,7 @@ public class PlayerMovement : MonoBehaviour
 		// right move
 		if (Input.GetKey(KeyCode.D))
 		{
-			Vector3 rightPosUpper = new Vector3(transform.position.x+_movementDistance,
-				transform.position.y+_playerHeight/2, transform.position.z);
-			Vector3 rightPosLower = new Vector3(transform.position.x+_movementDistance,
-				transform.position.y-_playerHeight/2, transform.position.z);
-			bool rightClear = !Physics.Raycast(rightPosUpper, -transform.up, _playerHeight)
-				&& !Physics.Raycast(rightPosLower, transform.up, _playerHeight);
-//			Debug.DrawRay(rightPosUpper, -transform.up*_playerHeight);
-//			Debug.DrawRay(rightPosLower, transform.up*_playerHeight);
-			if (rightClear)
+			if (rightClear() || !bottomClear(_jumpDistance))
 			{
 				_rb.AddForce(transform.right*_movementSpeed);
 				_animator.SetInteger("state", (int) states.forward);
@@ -73,15 +60,7 @@ public class PlayerMovement : MonoBehaviour
 		// jump
 		if (_canJump && Input.GetKeyDown(KeyCode.W)) 
 		{
-			Vector3 bottomPosLeft = new Vector3(transform.position.x-_playerWidth/2,
-				transform.position.y, transform.position.z);
-			Vector3 bottomPosRight = new Vector3(transform.position.x+_playerWidth/2,
-				transform.position.y, transform.position.z);
-			bool bottomClear = !Physics.Raycast(bottomPosLeft, -transform.up, _jumpDistance)
-				&& !Physics.Raycast(bottomPosRight, -transform.up, _jumpDistance);
-//			Debug.DrawRay(bottomPosLeft, -transform.up*_jumpDistance);
-//			Debug.DrawRay(bottomPosRight, -transform.up*_jumpDistance);
-			if (!bottomClear)
+			if (!bottomClear(_jumpDistance))
 			{
 				_rb.AddForce(transform.up*_jumpSpeed);
 				_canJump = false;
@@ -90,16 +69,39 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		// float
+		if (!bottomClear(_floatDistance))
+			_rb.AddForce(transform.up*_floatForce);
+	}
+
+	bool leftClear()
+	{
+		Vector3 leftPosUpper = new Vector3(transform.position.x-_movementDistance,
+			transform.position.y+_playerHeight/2, transform.position.z);
+		Vector3 leftPosLower = new Vector3(transform.position.x-_movementDistance,
+			transform.position.y-_playerHeight/2, transform.position.z);
+		return !Physics.Raycast(leftPosUpper, -transform.up, _playerHeight, _obstacleLayerMask)
+			&& !Physics.Raycast(leftPosLower, transform.up, _playerHeight, _obstacleLayerMask);
+	}
+
+	bool rightClear()
+	{
+		Vector3 rightPosUpper = new Vector3(transform.position.x+_movementDistance,
+			transform.position.y+_playerHeight/2, transform.position.z);
+		Vector3 rightPosLower = new Vector3(transform.position.x+_movementDistance,
+			transform.position.y-_playerHeight/2, transform.position.z);
+		return !Physics.Raycast(rightPosUpper, -transform.up, _playerHeight, _obstacleLayerMask)
+			&& !Physics.Raycast(rightPosLower, transform.up, _playerHeight, _obstacleLayerMask);
+	}
+
+
+	bool bottomClear(float amount)
+	{
 		Vector3 bottomPosLeft2 = new Vector3(transform.position.x-_playerWidth/2,
 			transform.position.y, transform.position.z);
 		Vector3 bottomPosRight2 = new Vector3(transform.position.x+_playerWidth/2,
 			transform.position.y, transform.position.z);
-		bool bottomClear2 = !Physics.Raycast(bottomPosLeft2, -transform.up, _floatDistance)
-			&& !Physics.Raycast(bottomPosRight2, -transform.up, _floatDistance);
-//		Debug.DrawRay(bottomPosLeft2, -transform.up*_floatDistance);
-//		Debug.DrawRay(bottomPosRight2, -transform.up*_floatDistance);
-		if (!bottomClear2)
-			_rb.AddForce(transform.up*_floatForce);
+		return !Physics.Raycast(bottomPosLeft2, -transform.up, amount, _obstacleLayerMask)
+			&& !Physics.Raycast(bottomPosRight2, -transform.up, amount, _obstacleLayerMask);
 	}
 
 	void restoreCanJump()
