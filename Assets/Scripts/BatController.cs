@@ -19,7 +19,7 @@ public class BatController : MonoBehaviour
 	{
 		Invoke("Flap", FlapPeriod);
 		rb = gameObject.GetComponent<Rigidbody>();
-		Player = GameObject.FindGameObjectWithTag("Player").transform;
+		Player = GameObject.Find("Player").transform;
 	}
 	
 	void Flap()

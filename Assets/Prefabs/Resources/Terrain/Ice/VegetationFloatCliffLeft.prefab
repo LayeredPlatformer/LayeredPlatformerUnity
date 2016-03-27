@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21299058}
   - 65: {fileID: 6536230}
   m_Layer: 0
-  m_Name: vegetation-float-cliff-left
+  m_Name: VegetationFloatCliffLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21292392}
   - 65: {fileID: 6505486}
   m_Layer: 0
-  m_Name: vegetation-float-2
+  m_Name: VegetationFloat2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

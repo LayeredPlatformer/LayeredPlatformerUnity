@@ -18,7 +18,7 @@ public class RangedEnemy : MonoBehaviour
 	void Start () 
     {
         _rb = gameObject.GetComponent<Rigidbody>();
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.Find("Player").transform;
         _spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 	
