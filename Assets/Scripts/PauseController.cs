@@ -6,7 +6,8 @@ using System;
 public class PauseController : MonoBehaviour
     {
     public bool paused;
-    private CanvasGroup _pauseCanvasGroup;
+    public CanvasGroup _pauseCanvasGroup;
+    
 
     public bool isPaused
     {
@@ -17,7 +18,6 @@ public class PauseController : MonoBehaviour
     }
     public void start()
     {
-        _pauseCanvasGroup = GetComponent<CanvasGroup>();
         paused = false;
     }
     public void Pause()
