@@ -14,8 +14,10 @@ public class PlayerController : MonoBehaviour
 	private TimeAffected _timeAffected;
 	private LayeredController _layeredController;
 	private Vector3 _checkpoint;
+    public GameObject _pauseController;
+    private PauseController _pause;
 
-	private float _bigGearSpeed = .6f;
+    private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
 	private float _bigGearTravelTime = .2f;
 	private float _smallGearTravelTime = .3f;
@@ -30,8 +32,10 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	public void Start()
 	{
-		_timeAffected = GetComponent<TimeAffected>();
+        _pause = _pauseController.GetComponent<PauseController>();
+        _timeAffected = GetComponent<TimeAffected>();
         _timeAffected.ShadowBlinkHandler += OnShadowBlink;
+        _timeAffected.PassPauseController(_pause);
 		_layeredController= GetComponent<LayeredController>();
 		_targetable = gameObject.GetComponent<Targetable>();
         _targetable.DeathEventHandler += OnDeath;
@@ -44,13 +48,17 @@ public class PlayerController : MonoBehaviour
 		_bigGearPrefab = (GameObject) Resources.Load("BigGear");
 		_smallGearPrefab = (GameObject) Resources.Load("SmallGear");
 		_bigGear = Instantiate(_bigGearPrefab).GetComponent<GearController>();
+        _bigGear.PassPauseController(_pause);
 		_smallGear = Instantiate(_smallGearPrefab).GetComponent<GearController>();
-		_bigGear.Player = this;
+        _smallGear.PassPauseController(_pause);
+        _bigGear.Player = this;
 		_smallGear.Player = this;
 		_bigGear.RotationSpeed = _bigGearDefaultRotationSpeed;
 		_smallGear.RotationSpeed = _smallGearDefaultRotationSpeed;
 		_bigGear.Damage = _bigGearDamage;
 		_smallGear.Damage = _smallGearDamage;
+
+        
 
         SaveCheckpoint();
 	}
@@ -58,30 +66,34 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	public void Update()
 	{
-        if (Input.GetKeyDown(KeyCode.F))
-            InitiateLayerJump();
+        if (!_pause.isPaused)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+                InitiateLayerJump();
 
-		if (Input.GetKeyDown(KeyCode.S))
-            InitiateShadowBlink();
-        
+            if (Input.GetKeyDown(KeyCode.S))
+                InitiateShadowBlink();
 
-		if (Input.GetMouseButtonDown(1))
-		{
-			Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-				new Vector3(Input.mousePosition.x, Input.mousePosition.y,
-					-Camera.main.transform.position.z+_layeredController.Layer.Z));
-			_smallGear.Throw(worldPos, _smallGearSpeed, _smallGearTravelTime);
-		}
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-				new Vector3(Input.mousePosition.x, Input.mousePosition.y,
-					-Camera.main.transform.position.z+_layeredController.Layer.Z));
-			Ray dir = new Ray(transform.position, worldPos - transform.position);
-			Vector3 attackPos = dir.GetPoint(_bigGearMaxDist);
-			_bigGear.Throw(attackPos, _bigGearSpeed, _bigGearTravelTime);
-		}
+            if (Input.GetMouseButtonDown(1))
+            {
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(
+                    new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+                        -Camera.main.transform.position.z + _layeredController.Layer.Z));
+                _smallGear.Throw(worldPos, _smallGearSpeed, _smallGearTravelTime);
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(
+                    new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+                        -Camera.main.transform.position.z + _layeredController.Layer.Z));
+                Ray dir = new Ray(transform.position, worldPos - transform.position);
+                Vector3 attackPos = dir.GetPoint(_bigGearMaxDist);
+                _bigGear.Throw(attackPos, _bigGearSpeed, _bigGearTravelTime);
+            }
+        }
+
 	}
 
     public void InitiateLayerJump()

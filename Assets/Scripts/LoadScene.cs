@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LoadScene : MonoBehaviour {
+    private bool paused = false;
 
     public string Destination;
 

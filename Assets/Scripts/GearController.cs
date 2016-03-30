@@ -15,25 +15,34 @@ public class GearController : LayeredController
 	private Vector3 _rotation = Vector3.zero;
 	private int throwRotationIncrease = 5;
 	private float _forceAmplifier = 100f;
+    private PauseController _pauseController;
 
-	// Use this for initialization
-	void Start()
+    // Use this for initialization
+    void Start()
 	{
 		base.Initialize();
 		_rb = GetComponent<Rigidbody>();
 	}
-	
-	// Update is called once per frame
-	void Update()
+
+    public void PassPauseController(PauseController input)
+    {
+        _pauseController = input;
+    }
+
+    // Update is called once per frame
+    void Update()
 	{
-		base.Step();
-		Rotate();
-		if (_throwing)
-			ThrowMove();
-		else if (_returning)
-			ReturnThrowMove();
-		else
-			transform.position = Player.transform.position;
+        if (!_pauseController.isPaused)
+        {
+            base.Step();
+            Rotate();
+            if (_throwing)
+                ThrowMove();
+            else if (_returning)
+                ReturnThrowMove();
+            else
+                transform.position = Player.transform.position;
+        }
 	}
 
 	void Rotate()

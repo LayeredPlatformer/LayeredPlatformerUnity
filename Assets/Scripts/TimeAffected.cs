@@ -12,6 +12,7 @@ public class TimeAffected : LayeredController
 	public GameObject Portal = null;
     public AudioClip ShadowBlinkSound;
 	public TimeAffected Shadow;
+    
 
 	protected bool CanUpdatePast = false;
 	protected bool ShadowBlinking = false;
@@ -21,7 +22,9 @@ public class TimeAffected : LayeredController
 	private Component[] _components = new Component[0];
 	private Vector3[] _previousPositions;
 	private GameObject _shadowBlinkEffect;
-	private float _shadowBlinkFirstHalfDuration = .04f;
+    private PauseController _pauseController;
+
+    private float _shadowBlinkFirstHalfDuration = .04f;
 	private float _shadowBlinkSecondHalfDuration = .06f;
 	private float _shadowBlinkSlowAmount = .2f;
 
@@ -43,7 +46,8 @@ public class TimeAffected : LayeredController
 
 	void Update()
 	{
-		Step();
+        if(!_pauseController.isPaused)
+            Step();
 	}
 
 	// Use this for initialization
@@ -176,6 +180,10 @@ public class TimeAffected : LayeredController
 		return _shadowBlinkFirstHalfDuration;
 	}
 
+    public void PassPauseController(PauseController input)
+    {
+        _pauseController = input;
+    }
 }
 
 public class ShadowBlinkEventArgs : EventArgs
