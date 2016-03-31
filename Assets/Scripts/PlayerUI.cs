@@ -16,6 +16,7 @@ public class PlayerUI: MonoBehaviour
 	const float _joyStickBuffer = 128f;
 	const float _joyStickSize = 64f;
 	const float _joyStickPadSize = _joyStickSize + _joyStickRange;
+	const float _joyStickActionThreshold = 20f;
 	Rect _shadowBlinkRect = new Rect (Screen.width - _buttonWidth, Screen.height - _buttonHeight, _buttonWidth, _buttonHeight);
 	Rect _layerJumpRect = new Rect (Screen.width - _buttonWidth * 2, Screen.height - _buttonHeight, _buttonWidth, _buttonHeight);
 	Rect _joyStickPadRect;
@@ -65,33 +66,42 @@ public class PlayerUI: MonoBehaviour
 			_joyStickDragOffset = mousePos - _joyStickOrigin;
 			if (_joyStickDragOffset.magnitude > _joyStickRange)
 				_joyStickDragOffset = _joyStickDragOffset.normalized * _joyStickRange;
+			movePlayerWithJoyStick ();
 		} else if (!_player.PauseController.isPaused)
 		{
+			if (Input.GetMouseButtonDown (1))
+				_player.ThrowBigGear ();
+			if (Input.GetMouseButtonDown (0))
+				_player.ThrowSmallGear ();
 			if (Input.GetKeyDown (KeyCode.S))
-				pressShadowBlink();
+				pressShadowBlink ();
 			if (Input.GetKeyDown (KeyCode.F))
 				pressLayerJump ();
 
-
-			if (Input.GetMouseButtonDown (1))
-				_player.ThrowBigGear ();
-
-			if (Input.GetMouseButtonDown (0))
-				_player.ThrowSmallGear ();
+			// simulate the joystick when using keyboard movement
+			if (Input.GetKey (KeyCode.A))
+				moveJoyStickLeft ();
+			else if (Input.GetKey (KeyCode.D))
+				moveJoyStickRight ();
+			else
+				resetHorJoyStick ();
+			
+			if (Input.GetKey (KeyCode.W))
+				moveJoyStickUp ();
+			else
+				resetVertJoyStick ();
 		}
 
-		// simulate the joystick when using keyboard movement
-		if (Input.GetKey (KeyCode.A))
-			moveJoyStickLeft ();
-		else if (Input.GetKey (KeyCode.D))
-			moveJoyStickRight ();
-		else
-			resetHorJoyStick ();
-			
-		if (Input.GetKey (KeyCode.W))
-			moveJoyStickUp ();
-		else
-			resetVertJoyStick ();
+	}
+
+	void movePlayerWithJoyStick ()
+	{
+		if (_joyStickDragOffset.x < -_joyStickActionThreshold)
+			_playerMovement.moveLeft ();
+		if (_joyStickDragOffset.x > _joyStickActionThreshold)
+			_playerMovement.moveRight ();
+		if (_joyStickDragOffset.y < -_joyStickActionThreshold)
+			_playerMovement.jump ();
 	}
 
 	void moveJoyStickLeft ()
