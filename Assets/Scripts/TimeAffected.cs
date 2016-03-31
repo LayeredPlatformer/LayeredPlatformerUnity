@@ -4,13 +4,13 @@ using System;
 
 public class TimeAffected : LayeredController
 {
-    public event EventHandler ShadowMetParentHandler;
-    public event EventHandler ShadowBlinkHandler;
+	public event EventHandler ShadowMetParentHandler;
+	public event EventHandler ShadowBlinkHandler;
 
 	public bool isParent = true;
 	public float UpdateDelaySeconds = 1;
 	public GameObject Portal = null;
-    public AudioClip ShadowBlinkSound;
+	public AudioClip ShadowBlinkSound;
 	public TimeAffected Shadow;
     
 
@@ -22,54 +22,54 @@ public class TimeAffected : LayeredController
 	private Component[] _components = new Component[0];
 	private Vector3[] _previousPositions;
 	private GameObject _shadowBlinkEffect;
-    private PauseController _pauseController;
+	private PauseController _pauseController;
 
-    private float _shadowBlinkFirstHalfDuration = .04f;
+	private float _shadowBlinkFirstHalfDuration = .04f;
 	private float _shadowBlinkSecondHalfDuration = .06f;
 	private float _shadowBlinkSlowAmount = .2f;
 
-    public bool ShadowAtParent
-    {
-        get
-        {
-            if (isParent)
-                return Shadow.transform.position == transform.position;
-            else
-                return false;
-        }
-    }
-
-	void Start()
+	public bool ShadowAtParent
 	{
-		Initialize();
+		get
+		{
+			if (isParent)
+				return Shadow.transform.position == transform.position;
+			else
+				return false;
+		}
 	}
 
-	void Update()
+	void Start ()
 	{
-        if(!_pauseController.isPaused)
-            Step();
+		Initialize ();
+	}
+
+	void Update ()
+	{
+//		if (!_pauseController.isPaused)
+			Step ();
 	}
 
 	// Use this for initialization
-	protected new void Initialize()
+	protected new void Initialize ()
 	{
-		_rend = GetComponent<SpriteRenderer>();
-		_shadowBlinkEffect = (GameObject) Resources.Load("ShadowBlinkEffect");
-		_previousPositions = new Vector3[(int)(60*UpdateDelaySeconds)];
+		_rend = GetComponent<SpriteRenderer> ();
+		_shadowBlinkEffect = (GameObject)Resources.Load ("ShadowBlinkEffect");
+		_previousPositions = new Vector3[(int)(60 * UpdateDelaySeconds)];
 
 		if (isParent)
 		{
-			Invoke("ToggleCanUpdatePast", UpdateDelaySeconds);
-			var otherGO = (GameObject) Instantiate(gameObject, transform.position, transform.localRotation);
-			Shadow = otherGO.GetComponent<TimeAffected>();
+			Invoke ("ToggleCanUpdatePast", UpdateDelaySeconds);
+			var otherGO = (GameObject)Instantiate (gameObject, transform.position, transform.localRotation);
+			Shadow = otherGO.GetComponent<TimeAffected> ();
 			Shadow.isParent = false;
-			Shadow.Initialize();
-			Shadow.ToggleReality();
+			Shadow.Initialize ();
+			Shadow.ToggleReality ();
 		}
-		base.Initialize();
+		base.Initialize ();
 	}
 
-	protected new void Step()
+	protected new void Step ()
 	{
 		if (Portal != null)
 			Portal.transform.position = transform.position;
@@ -77,116 +77,116 @@ public class TimeAffected : LayeredController
 		if (!isParent)
 			return;
 
-		base.Step();
-		_previousPositions[_counter % (_previousPositions.Length)] = transform.position;
+		base.Step ();
+		_previousPositions [_counter % (_previousPositions.Length)] = transform.position;
 		_counter++;
 
-        bool shadowAlreadyAtParent = ShadowAtParent;
+		bool shadowAlreadyAtParent = ShadowAtParent;
 
-        if (CanUpdatePast && !ShadowBlinking)
-        {
-            Shadow.transform.position = _previousPositions[(_counter + _previousPositions.Length) % _previousPositions.Length];
+		if (CanUpdatePast && !ShadowBlinking)
+		{
+			Shadow.transform.position = _previousPositions [(_counter + _previousPositions.Length) % _previousPositions.Length];
 
-            if (!shadowAlreadyAtParent && ShadowAtParent)
-                OnShadowMetParent();
-        }
+			if (!shadowAlreadyAtParent && ShadowAtParent)
+				OnShadowMetParent ();
+		}
 	}
-	
-	public void ToggleCanUpdatePast()
+
+	public void ToggleCanUpdatePast ()
 	{
 		CanUpdatePast = !CanUpdatePast;
 	}
 
-	public void ToggleReality()
+	public void ToggleReality ()
 	{
 		foreach (Component component in GetComponents<Component>())
 		{
 			if (component is PlayerController || component is BoxCollider || component is Rigidbody
-				|| component is PlayerMovement)
-				Destroy(component);
+			    || component is PlayerMovement)
+				Destroy (component);
 		}
-		ToggleOpacity();
+		ToggleOpacity ();
 	}
 
-	public void ToggleOpacity()
+	public void ToggleOpacity ()
 	{
-        if (_rend.color.a == .5f)
-            _rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, 1f);
-        else
-            _rend.color = new Color(_rend.color.r, _rend.color.g, _rend.color.b, .5f);
+		if (_rend.color.a == .5f)
+			_rend.color = new Color (_rend.color.r, _rend.color.g, _rend.color.b, 1f);
+		else
+			_rend.color = new Color (_rend.color.r, _rend.color.g, _rend.color.b, .5f);
 	}
 
-    public void ShadowBlink()
+	public void ShadowBlink ()
 	{
 		if (ShadowBlinking)
 			return;
 
-        AudioSource.PlayClipAtPoint(ShadowBlinkSound, transform.position, 10);
-		Invoke("ShadowBlinkStart", _shadowBlinkFirstHalfDuration);
-		SlowTime(_shadowBlinkSlowAmount, _shadowBlinkFirstHalfDuration+_shadowBlinkSecondHalfDuration);
-		Shadow.createPortal();
-		createPortal();
+		AudioSource.PlayClipAtPoint (ShadowBlinkSound, transform.position, 10);
+		Invoke ("ShadowBlinkStart", _shadowBlinkFirstHalfDuration);
+		SlowTime (_shadowBlinkSlowAmount, _shadowBlinkFirstHalfDuration + _shadowBlinkSecondHalfDuration);
+		Shadow.createPortal ();
+		createPortal ();
 		ShadowBlinking = true;
 
-        OnShadowBlink();
+		OnShadowBlink ();
 	}
 
-    protected virtual void OnShadowMetParent()
-    {
-        Debug.Log("Shadow met parent");
-        if (ShadowMetParentHandler != null)
-        {
-            ShadowMetParentHandler(this, new EventArgs());
-        }
-    }
+	protected virtual void OnShadowMetParent ()
+	{
+		Debug.Log ("Shadow met parent");
+		if (ShadowMetParentHandler != null)
+		{
+			ShadowMetParentHandler (this, new EventArgs ());
+		}
+	}
 
-    private void OnShadowBlink()
-    {
-        if (ShadowBlinkHandler != null)
-        {
-            ShadowBlinkHandler(this, new ShadowBlinkEventArgs { IsShadowBlinking = ShadowBlinking });
-        }
-    }
+	private void OnShadowBlink ()
+	{
+		if (ShadowBlinkHandler != null)
+		{
+			ShadowBlinkHandler (this, new ShadowBlinkEventArgs { IsShadowBlinking = ShadowBlinking });
+		}
+	}
 
-    private void ShadowBlinkStart()
+	private void ShadowBlinkStart ()
 	{
 		transform.position = Shadow.transform.position;
-        Layer = Layer.FindByZ(transform.position.z);
+		Layer = Layer.FindByZ (transform.position.z);
 	}
 
-	private void SlowTime(float amount, float duration)
+	private void SlowTime (float amount, float duration)
 	{
-		Invoke("RestoreTime", duration);
+		Invoke ("RestoreTime", duration);
 		Time.timeScale = amount;
 		Time.fixedDeltaTime = .02f * amount;
 	}
 
-	private void RestoreTime()
+	private void RestoreTime ()
 	{
 		Time.timeScale = 1f;
 		Time.fixedDeltaTime = .02f;
 		ShadowBlinking = false;
-		Destroy(Shadow.Portal);
-        OnShadowBlink();
-    }
-
-	public void createPortal()
-	{
-		Portal = (GameObject) Instantiate(_shadowBlinkEffect, transform.position, Quaternion.identity);
+		Destroy (Shadow.Portal);
+		OnShadowBlink ();
 	}
 
-	public float getShadowBlinkDuration()
+	public void createPortal ()
+	{
+		Portal = (GameObject)Instantiate (_shadowBlinkEffect, transform.position, Quaternion.identity);
+	}
+
+	public float getShadowBlinkDuration ()
 	{
 		return _shadowBlinkFirstHalfDuration;
 	}
 
-    public void PassPauseController(PauseController input)
-    {
-        _pauseController = input;
-    }
+	public void PassPauseController (PauseController input)
+	{
+		_pauseController = input;
+	}
 }
 
 public class ShadowBlinkEventArgs : EventArgs
 {
-    public bool IsShadowBlinking { get; set; }
+	public bool IsShadowBlinking { get; set; }
 }

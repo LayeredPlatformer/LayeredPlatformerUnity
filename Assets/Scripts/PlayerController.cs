@@ -14,10 +14,10 @@ public class PlayerController : MonoBehaviour
 	private TimeAffected _timeAffected;
 	private LayeredController _layeredController;
 	private Vector3 _checkpoint;
-    public GameObject _pauseController;
-    private PauseController _pause;
+	public GameObject _pauseController;
+	private PauseController _pause;
 
-    private float _bigGearSpeed = .6f;
+	private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
 	private float _bigGearTravelTime = .2f;
 	private float _smallGearTravelTime = .3f;
@@ -27,31 +27,28 @@ public class PlayerController : MonoBehaviour
 	private float _smallGearDamage = 1f;
 	private float _bigGearDamage = 3f;
 
-	private Texture _oilScreen;
-
 	// Use this for initialization
-	public void Start()
+	public void Start ()
 	{
-        _pause = _pauseController.GetComponent<PauseController>();
-        _timeAffected = GetComponent<TimeAffected>();
-        _timeAffected.ShadowBlinkHandler += OnShadowBlink;
-        _timeAffected.PassPauseController(_pause);
-		_layeredController= GetComponent<LayeredController>();
-		_targetable = gameObject.GetComponent<Targetable>();
-        _targetable.DeathEventHandler += OnDeath;
-		_camera = Camera.main.GetComponent<CameraController>();
-        _musicController = gameObject.GetComponent<MusicController>();
-        GetComponent<LayeredController>().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
-        GetComponent<LayeredController>().LayerChangedEventHandler += UpdateMusicOnLayerChange;
+		_pause = _pauseController.GetComponent<PauseController> ();
+		_timeAffected = GetComponent<TimeAffected> ();
+		_timeAffected.ShadowBlinkHandler += OnShadowBlink;
+		_timeAffected.PassPauseController (_pause);
+		_layeredController = GetComponent<LayeredController> ();
+		_targetable = gameObject.GetComponent<Targetable> ();
+		_targetable.DeathEventHandler += OnDeath;
+		_camera = Camera.main.GetComponent<CameraController> ();
+		_musicController = gameObject.GetComponent<MusicController> ();
+		GetComponent<LayeredController> ().LayerChangedEventHandler += UpdateLayerTransparencyOnLayerChange;
+		GetComponent<LayeredController> ().LayerChangedEventHandler += UpdateMusicOnLayerChange;
 
-		_oilScreen = (Texture) Resources.Load("OilScreen");
-		_bigGearPrefab = (GameObject) Resources.Load("BigGear");
-		_smallGearPrefab = (GameObject) Resources.Load("SmallGear");
-		_bigGear = Instantiate(_bigGearPrefab).GetComponent<GearController>();
-        _bigGear.PassPauseController(_pause);
-		_smallGear = Instantiate(_smallGearPrefab).GetComponent<GearController>();
-        _smallGear.PassPauseController(_pause);
-        _bigGear.Player = this;
+		_bigGearPrefab = (GameObject)Resources.Load ("BigGear");
+		_smallGearPrefab = (GameObject)Resources.Load ("SmallGear");
+		_bigGear = Instantiate (_bigGearPrefab).GetComponent<GearController> ();
+		_bigGear.PassPauseController (_pause);
+		_smallGear = Instantiate (_smallGearPrefab).GetComponent<GearController> ();
+		_smallGear.PassPauseController (_pause);
+		_bigGear.Player = this;
 		_smallGear.Player = this;
 		_bigGear.RotationSpeed = _bigGearDefaultRotationSpeed;
 		_smallGear.RotationSpeed = _smallGearDefaultRotationSpeed;
@@ -60,91 +57,91 @@ public class PlayerController : MonoBehaviour
 
         
 
-        SaveCheckpoint();
+		SaveCheckpoint ();
 	}
 	
 	// Update is called once per frame
-	public void Update()
+	public void Update ()
 	{
-        if (!_pause.isPaused)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-                InitiateLayerJump();
+		if (!_pause.isPaused)
+		{
+			if (Input.GetKeyDown (KeyCode.F))
+				InitiateLayerJump ();
 
-            if (Input.GetKeyDown(KeyCode.S))
-                InitiateShadowBlink();
+			if (Input.GetKeyDown (KeyCode.S))
+				InitiateShadowBlink ();
 
 
-            if (Input.GetMouseButtonDown(1))
-            {
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-                    new Vector3(Input.mousePosition.x, Input.mousePosition.y,
-                        -Camera.main.transform.position.z + _layeredController.Layer.Z));
-                _smallGear.Throw(worldPos, _smallGearSpeed, _smallGearTravelTime);
-            }
+			if (Input.GetMouseButtonDown (1))
+			{
+				Vector3 worldPos = Camera.main.ScreenToWorldPoint (
+					                               new Vector3 (Input.mousePosition.x, Input.mousePosition.y,
+						                               -Camera.main.transform.position.z + _layeredController.Layer.Z));
+				_smallGear.Throw (worldPos, _smallGearSpeed, _smallGearTravelTime);
+			}
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(
-                    new Vector3(Input.mousePosition.x, Input.mousePosition.y,
-                        -Camera.main.transform.position.z + _layeredController.Layer.Z));
-                Ray dir = new Ray(transform.position, worldPos - transform.position);
-                Vector3 attackPos = dir.GetPoint(_bigGearMaxDist);
-                _bigGear.Throw(attackPos, _bigGearSpeed, _bigGearTravelTime);
-            }
-        }
+			if (Input.GetMouseButtonDown (0))
+			{
+				Vector3 worldPos = Camera.main.ScreenToWorldPoint (
+					                               new Vector3 (Input.mousePosition.x, Input.mousePosition.y,
+						                               -Camera.main.transform.position.z + _layeredController.Layer.Z));
+				Ray dir = new Ray (transform.position, worldPos - transform.position);
+				Vector3 attackPos = dir.GetPoint (_bigGearMaxDist);
+				_bigGear.Throw (attackPos, _bigGearSpeed, _bigGearTravelTime);
+			}
+		}
 
 	}
 
-    public void InitiateLayerJump()
-    {
-        _layeredController.Layer++;
-    }
-
-    public void InitiateShadowBlink()
-    {
-        Debug.Log("ShadowBlink!");
-        _camera.PanByTime(_timeAffected.Shadow.transform.position, _timeAffected.Shadow.getShadowBlinkDuration());
-        _timeAffected.ShadowBlink();
-
-        if (_targetable.IsDead && !_timeAffected.ShadowAtParent)
-        {
-            _timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
-            _targetable.DeathEventHandler += OnDeath;
-            _targetable.InitializeHealth(_targetable.DesiredHealth);
-            ComponentsSetEnabled(true);
-        }
-    }
-
-    public void OnShadowBlink(object sender, EventArgs args)
-    {
-        var blinkArgs = (ShadowBlinkEventArgs)args;
-        _targetable.Invulnerable = blinkArgs.IsShadowBlinking;
-    }
-
-	private void UpdateLayerTransparencyOnLayerChange(object sender, EventArgs args)
+	public void InitiateLayerJump ()
 	{
-		var colorLayers = GameObject.FindGameObjectsWithTag("ColorLayer");
+		_layeredController.Layer++;
+	}
 
-		for (int i = 0; i < colorLayers.Length; i++)
+	public void InitiateShadowBlink ()
+	{
+		Debug.Log ("ShadowBlink!");
+		_camera.PanByTime (_timeAffected.Shadow.transform.position, _timeAffected.Shadow.getShadowBlinkDuration ());
+		_timeAffected.ShadowBlink ();
+
+		if (_targetable.IsDead && !_timeAffected.ShadowAtParent)
 		{
-			var layeredController = colorLayers[i].GetComponent<LayeredController>();
-			var opacity = layeredController.Layer == _layeredController.Layer ? 1f : 0.5f;
-			SetGameObjectChildrenOpacity(colorLayers[i], opacity);
+			_timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
+			_targetable.DeathEventHandler += OnDeath;
+			_targetable.InitializeHealth (_targetable.DesiredHealth);
+			ComponentsSetEnabled (true);
 		}
 	}
 
-	private void UpdateMusicOnLayerChange(object sender, EventArgs args)
+	public void OnShadowBlink (object sender, EventArgs args)
 	{
-        var layerChangedArgs = (LayeredController.LayerChangedEventArgs)args;
-        _musicController.LayerChange(_layeredController.Layer.Index);
-		// change game music
-		Debug.Log("change the music!");
+		var blinkArgs = (ShadowBlinkEventArgs)args;
+		_targetable.Invulnerable = blinkArgs.IsShadowBlinking;
 	}
 
-	private static void SetGameObjectChildrenOpacity(GameObject gameObject, float opacity)
+	private void UpdateLayerTransparencyOnLayerChange (object sender, EventArgs args)
 	{
-		var renderers = gameObject.GetComponentsInChildren<Renderer>();
+		var colorLayers = GameObject.FindGameObjectsWithTag ("ColorLayer");
+
+		for (int i = 0; i < colorLayers.Length; i++)
+		{
+			var layeredController = colorLayers [i].GetComponent<LayeredController> ();
+			var opacity = layeredController.Layer == _layeredController.Layer ? 1f : 0.5f;
+			SetGameObjectChildrenOpacity (colorLayers [i], opacity);
+		}
+	}
+
+	private void UpdateMusicOnLayerChange (object sender, EventArgs args)
+	{
+		var layerChangedArgs = (LayeredController.LayerChangedEventArgs)args;
+		_musicController.LayerChange (_layeredController.Layer.Index);
+		// change game music
+		Debug.Log ("change the music!");
+	}
+
+	private static void SetGameObjectChildrenOpacity (GameObject gameObject, float opacity)
+	{
+		var renderers = gameObject.GetComponentsInChildren<Renderer> ();
 		foreach (var renderer in renderers)
 		{
 			var layerColor = renderer.material.color;
@@ -153,58 +150,50 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-    private void OnDeath(object sender, EventArgs args)
-    {
-        if (_timeAffected.ShadowAtParent)
-        {
-            Debug.Log("Player died with shadow");
-            ReturnToCheckpoint();
-        }
-        else
-        {
-            Debug.Log("Player died without shadow");
-            _targetable.DeathEventHandler -= OnDeath;
-            _timeAffected.ShadowMetParentHandler += ShadowMetParentAfterDeath;
-            ComponentsSetEnabled(false);
-        }
-    }
-
-    private void ComponentsSetEnabled(bool enabled)
-    {
-        GetComponent<BoxCollider>().enabled = enabled;
-        GetComponent<Rigidbody>().isKinematic = !enabled;
-    }
-
-    private void ShadowMetParentAfterDeath(object sender, EventArgs args)
-    {
-        Debug.Log("After death, shadow met parent");
-        ReturnToCheckpoint();
-
-        _targetable.DeathEventHandler += OnDeath;
-        _timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
-        ComponentsSetEnabled(true);
-    }
-
-    void OnGUI()
+	private void OnDeath (object sender, EventArgs args)
 	{
-		Color temp = GUI.color;
-		temp.a = 1-(_targetable.Health/_targetable.MaxHealth);
-		GUI.color = temp;
-		GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), _oilScreen);
+		if (_timeAffected.ShadowAtParent)
+		{
+			Debug.Log ("Player died with shadow");
+			ReturnToCheckpoint ();
+		} else
+		{
+			Debug.Log ("Player died without shadow");
+			_targetable.DeathEventHandler -= OnDeath;
+			_timeAffected.ShadowMetParentHandler += ShadowMetParentAfterDeath;
+			ComponentsSetEnabled (false);
+		}
 	}
 
-    private void ReturnToCheckpoint()
-    {
-        _camera.PanByRate(_checkpoint, 20.0f, () => { 
-            _layeredController.Layer = Layer.FindByZ(_checkpoint.z);
-            _targetable.InitializeHealth(_targetable.DesiredHealth);
-            gameObject.transform.position = _checkpoint;
-        });
-    }
+	private void ComponentsSetEnabled (bool enabled)
+	{
+		GetComponent<BoxCollider> ().enabled = enabled;
+		GetComponent<Rigidbody> ().isKinematic = !enabled;
+	}
 
-    public void SaveCheckpoint()
-    {
-        Debug.Log("Checkpoint saved");
-        _checkpoint = gameObject.transform.position;
-    }
+	private void ShadowMetParentAfterDeath (object sender, EventArgs args)
+	{
+		Debug.Log ("After death, shadow met parent");
+		ReturnToCheckpoint ();
+
+		_targetable.DeathEventHandler += OnDeath;
+		_timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
+		ComponentsSetEnabled (true);
+	}
+		
+	private void ReturnToCheckpoint ()
+	{
+		_camera.PanByRate (_checkpoint, 20.0f, () =>
+		{ 
+			_layeredController.Layer = Layer.FindByZ (_checkpoint.z);
+			_targetable.InitializeHealth (_targetable.DesiredHealth);
+			gameObject.transform.position = _checkpoint;
+		});
+	}
+
+	public void SaveCheckpoint ()
+	{
+		Debug.Log ("Checkpoint saved");
+		_checkpoint = gameObject.transform.position;
+	}
 }
