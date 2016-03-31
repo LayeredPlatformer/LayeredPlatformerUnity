@@ -15,13 +15,13 @@ public class PlayerUI: MonoBehaviour
 	const float _buttonPressedDuration = .1f;
 	const float _joyStickBuffer = 128f;
 	const float _joyStickSize = 64f;
-	const float _joyStickPadSize = _joyStickSize+_joyStickRange;
-	Rect _shadowBlinkRect = new Rect(Screen.width-_buttonWidth, Screen.height-_buttonHeight, _buttonWidth, _buttonHeight);
-	Rect _layerJumpRect = new Rect(Screen.width-_buttonWidth*2, Screen.height-_buttonHeight, _buttonWidth, _buttonHeight);
+	const float _joyStickPadSize = _joyStickSize + _joyStickRange;
+	Rect _shadowBlinkRect = new Rect (Screen.width - _buttonWidth, Screen.height - _buttonHeight, _buttonWidth, _buttonHeight);
+	Rect _layerJumpRect = new Rect (Screen.width - _buttonWidth * 2, Screen.height - _buttonHeight, _buttonWidth, _buttonHeight);
 	Rect _joyStickPadRect;
 	bool _shadowBlinkPressed = false;
 	bool _layerJumpPressed = false;
-	Vector2 _joyStickOrigin = new Vector3(_joyStickBuffer, Screen.height-_joyStickBuffer);
+	Vector2 _joyStickOrigin = new Vector3 (_joyStickBuffer, Screen.height - _joyStickBuffer);
 	bool _draggingJoyStick = false;
 	PlayerMovement _playerMovement;
 
@@ -30,31 +30,31 @@ public class PlayerUI: MonoBehaviour
 
 	void Start ()
 	{
-		_player = GameObject.Find ("Player").GetComponent<PlayerController>();
-		_playerTargetable = _player.GetComponent<Targetable>();
-		_playerMovement = _player.GetComponent<PlayerMovement>();
+		_player = GameObject.Find ("Player").GetComponent<PlayerController> ();
+		_playerTargetable = _player.GetComponent<Targetable> ();
+		_playerMovement = _player.GetComponent<PlayerMovement> ();
 		_oilScreen = (Texture)Resources.Load ("OilScreen");
 		_shadowBlinkIcon = (Texture)Resources.Load ("ShadowBlinkIcon");
 		_layerJumpIcon = (Texture)Resources.Load ("LayerJumpIcon");
 		_joyStickIcon = (Texture)Resources.Load ("JoyStick");
 		_joyStickPadIcon = (Texture)Resources.Load ("JoyStickPad");
 
-		_joyStickPadRect = new Rect(_joyStickOrigin.x-_joyStickPadSize/2, _joyStickOrigin.y-_joyStickPadSize/2,
+		_joyStickPadRect = new Rect (_joyStickOrigin.x - _joyStickPadSize / 2, _joyStickOrigin.y - _joyStickPadSize / 2,
 			_joyStickPadSize, _joyStickPadSize);
 	}
 
-	void Update()
+	void Update ()
 	{
 		Vector2 mousePos = (Vector2)Input.mousePosition;
 		mousePos.y = Screen.height - mousePos.y;
 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown (0))
 		{
-			if (Vector2.Distance(mousePos, _joyStickOrigin) < _joyStickRange)
+			if (Vector2.Distance (mousePos, _joyStickOrigin) < _joyStickRange)
 				_draggingJoyStick = true;
 		}
 
-		if (Input.GetMouseButtonUp(0))
+		if (Input.GetMouseButtonUp (0))
 		{
 			_draggingJoyStick = false;
 			_joyStickDragOffset = Vector2.zero;
@@ -65,68 +65,84 @@ public class PlayerUI: MonoBehaviour
 			_joyStickDragOffset = mousePos - _joyStickOrigin;
 			if (_joyStickDragOffset.magnitude > _joyStickRange)
 				_joyStickDragOffset = _joyStickDragOffset.normalized * _joyStickRange;
-		}
-		else if (!_player.PauseController.isPaused)
+		} else if (!_player.PauseController.isPaused)
 		{
-			if (Input.GetKeyDown (KeyCode.F))
-				_player.InitiateLayerJump ();
-
 			if (Input.GetKeyDown (KeyCode.S))
-				_player.InitiateShadowBlink ();
+				pressShadowBlink();
+			if (Input.GetKeyDown (KeyCode.F))
+				pressLayerJump ();
+
 
 			if (Input.GetMouseButtonDown (1))
-				_player.ThrowBigGear();
+				_player.ThrowBigGear ();
 
 			if (Input.GetMouseButtonDown (0))
-				_player.ThrowSmallGear();
+				_player.ThrowSmallGear ();
 		}
 
-		if (Input.GetKey(KeyCode.A))
-			moveJoyStickLeft();
-		else if (Input.GetKey(KeyCode.D))
-			moveJoyStickRight();
+		// simulate the joystick when using keyboard movement
+		if (Input.GetKey (KeyCode.A))
+			moveJoyStickLeft ();
+		else if (Input.GetKey (KeyCode.D))
+			moveJoyStickRight ();
 		else
-			resetHorJoyStick();
+			resetHorJoyStick ();
 			
-		if (Input.GetKey(KeyCode.W))
-			moveJoyStickUp();
+		if (Input.GetKey (KeyCode.W))
+			moveJoyStickUp ();
 		else
-			resetVertJoyStick();
+			resetVertJoyStick ();
 	}
 
-	void moveJoyStickLeft()
+	void moveJoyStickLeft ()
 	{
 		_joyStickDragOffset.x = -_joyStickRange;
 	}
 
-	void moveJoyStickRight()
+	void moveJoyStickRight ()
 	{
 		_joyStickDragOffset.x = _joyStickRange;
 	}
 
-	void moveJoyStickUp()
+	void moveJoyStickUp ()
 	{
 		_joyStickDragOffset.y = -_joyStickRange;
 	}
 
-	void resetHorJoyStick()
+	void resetHorJoyStick ()
 	{
 		_joyStickDragOffset.x = 0;
 	}
 
-	void resetVertJoyStick()
+	void resetVertJoyStick ()
 	{
 		_joyStickDragOffset.y = 0;
 	}
 
-	void resetLayerJumpPressed()
+	void resetLayerJumpPressed ()
 	{
 		_layerJumpPressed = false;
 	}
 
-	void resetShadowBlinkPressed()
+	void resetShadowBlinkPressed ()
 	{
 		_shadowBlinkPressed = false;
+	}
+
+	void pressShadowBlink ()
+	{
+		_player.InitiateShadowBlink ();
+		_shadowBlinkPressed = true;
+		CancelInvoke ("resetShadowBlinkPressed");
+		Invoke ("resetShadowBlinkPressed", _buttonPressedDuration);
+	}
+
+	void pressLayerJump ()
+	{
+		_player.InitiateLayerJump ();
+		_layerJumpPressed = true;
+		CancelInvoke ("resetLayerJumpPressed");
+		Invoke ("resetLayerJumpPressed", _buttonPressedDuration);
 	}
 
 	void OnGUI ()
@@ -138,19 +154,13 @@ public class PlayerUI: MonoBehaviour
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), _oilScreen);
 
 		// Button press
-		if (GUI.Button(_shadowBlinkRect, ""))
+		if (GUI.Button (_shadowBlinkRect, ""))
 		{
-			_player.InitiateShadowBlink();
-			_shadowBlinkPressed = true;
-			CancelInvoke("resetShadowBlinkPressed");
-			Invoke("resetShadowBlinkPressed", _buttonPressedDuration);
+			pressShadowBlink ();
 		}
-		if (GUI.Button(_layerJumpRect, ""))
+		if (GUI.Button (_layerJumpRect, ""))
 		{
-			_player.InitiateLayerJump();
-			_layerJumpPressed = true;
-			CancelInvoke("resetLayerJumpPressed");
-			Invoke("resetLayerJumpPressed", _buttonPressedDuration);
+			pressLayerJump ();
 		}
 
 		// Button draw
@@ -158,18 +168,18 @@ public class PlayerUI: MonoBehaviour
 			GUI.color = Color.gray;
 		else
 			GUI.color = Color.white;
-		GUI.DrawTexture(_shadowBlinkRect, _shadowBlinkIcon);
+		GUI.DrawTexture (_shadowBlinkRect, _shadowBlinkIcon);
 		if (_layerJumpPressed)
 			GUI.color = Color.gray;
 		else
 			GUI.color = Color.white;
-		GUI.DrawTexture(_layerJumpRect, _layerJumpIcon);
+		GUI.DrawTexture (_layerJumpRect, _layerJumpIcon);
 
 		// Joystick
 		GUI.color = Color.white;
-		GUI.DrawTexture(_joyStickPadRect, _joyStickPadIcon);
-		Rect joyStickRect = new Rect(_joyStickOrigin.x-_joyStickSize/2+_joyStickDragOffset.x,
-			_joyStickOrigin.y-_joyStickSize/2+_joyStickDragOffset.y, _joyStickSize, _joyStickSize);
-		GUI.DrawTexture(joyStickRect, _joyStickIcon);
+		GUI.DrawTexture (_joyStickPadRect, _joyStickPadIcon);
+		Rect joyStickRect = new Rect (_joyStickOrigin.x - _joyStickSize / 2 + _joyStickDragOffset.x,
+			                    _joyStickOrigin.y - _joyStickSize / 2 + _joyStickDragOffset.y, _joyStickSize, _joyStickSize);
+		GUI.DrawTexture (joyStickRect, _joyStickIcon);
 	}
 }
