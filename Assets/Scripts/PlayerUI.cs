@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameUI : MonoBehaviour
+public class PlayerUI: MonoBehaviour
 {
 	PlayerController _player;
 	Targetable _playerTargetable;
@@ -15,7 +15,6 @@ public class GameUI : MonoBehaviour
 	const float _buttonPressedDuration = .1f;
 	const float _joyStickBuffer = 128f;
 	const float _joyStickSize = 64f;
-	const float _joyStickRange = 32;
 	const float _joyStickPadSize = _joyStickSize+_joyStickRange;
 	Rect _shadowBlinkRect = new Rect(Screen.width-_buttonWidth, Screen.height-_buttonHeight, _buttonWidth, _buttonHeight);
 	Rect _layerJumpRect = new Rect(Screen.width-_buttonWidth*2, Screen.height-_buttonHeight, _buttonWidth, _buttonHeight);
@@ -24,12 +23,16 @@ public class GameUI : MonoBehaviour
 	bool _layerJumpPressed = false;
 	Vector2 _joyStickOrigin = new Vector3(_joyStickBuffer, Screen.height-_joyStickBuffer);
 	bool _draggingJoyStick = false;
-	Vector2 _joyStickDragOffset = Vector2.zero;
+	PlayerMovement _playerMovement;
+
+	public const float _joyStickRange = 32;
+	public Vector2 _joyStickDragOffset = Vector2.zero;
 
 	void Start ()
 	{
 		_player = GameObject.Find ("Player").GetComponent<PlayerController>();
-		_playerTargetable = _player.GetComponent<Targetable> ();
+		_playerTargetable = _player.GetComponent<Targetable>();
+		_playerMovement = _player.GetComponent<PlayerMovement>();
 		_oilScreen = (Texture)Resources.Load ("OilScreen");
 		_shadowBlinkIcon = (Texture)Resources.Load ("ShadowBlinkIcon");
 		_layerJumpIcon = (Texture)Resources.Load ("LayerJumpIcon");
@@ -44,25 +47,76 @@ public class GameUI : MonoBehaviour
 	{
 		Vector2 mousePos = (Vector2)Input.mousePosition;
 		mousePos.y = Screen.height - mousePos.y;
+
 		if (Input.GetMouseButtonDown(0))
 		{
 			if (Vector2.Distance(mousePos, _joyStickOrigin) < _joyStickRange)
-			{
 				_draggingJoyStick = true;
-				Debug.Log("dragging");
-			}
 		}
+
 		if (Input.GetMouseButtonUp(0))
 		{
 			_draggingJoyStick = false;
 			_joyStickDragOffset = Vector2.zero;
 		}
+
 		if (_draggingJoyStick)
 		{
 			_joyStickDragOffset = mousePos - _joyStickOrigin;
 			if (_joyStickDragOffset.magnitude > _joyStickRange)
 				_joyStickDragOffset = _joyStickDragOffset.normalized * _joyStickRange;
 		}
+		else if (!_player.PauseController.isPaused)
+		{
+			if (Input.GetKeyDown (KeyCode.F))
+				_player.InitiateLayerJump ();
+
+			if (Input.GetKeyDown (KeyCode.S))
+				_player.InitiateShadowBlink ();
+
+			if (Input.GetMouseButtonDown (1))
+				_player.ThrowBigGear();
+
+			if (Input.GetMouseButtonDown (0))
+				_player.ThrowSmallGear();
+		}
+
+		if (Input.GetKey(KeyCode.A))
+			moveJoyStickLeft();
+		else if (Input.GetKey(KeyCode.D))
+			moveJoyStickRight();
+		else
+			resetHorJoyStick();
+			
+		if (Input.GetKey(KeyCode.W))
+			moveJoyStickUp();
+		else
+			resetVertJoyStick();
+	}
+
+	void moveJoyStickLeft()
+	{
+		_joyStickDragOffset.x = -_joyStickRange;
+	}
+
+	void moveJoyStickRight()
+	{
+		_joyStickDragOffset.x = _joyStickRange;
+	}
+
+	void moveJoyStickUp()
+	{
+		_joyStickDragOffset.y = -_joyStickRange;
+	}
+
+	void resetHorJoyStick()
+	{
+		_joyStickDragOffset.x = 0;
+	}
+
+	void resetVertJoyStick()
+	{
+		_joyStickDragOffset.y = 0;
 	}
 
 	void resetLayerJumpPressed()

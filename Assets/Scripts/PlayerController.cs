@@ -4,6 +4,8 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
+	public PauseController PauseController;
+
 	private GearController _bigGear;
 	private GearController _smallGear;
 	private GameObject _bigGearPrefab;
@@ -14,8 +16,6 @@ public class PlayerController : MonoBehaviour
 	private TimeAffected _timeAffected;
 	private LayeredController _layeredController;
 	private Vector3 _checkpoint;
-	public GameObject _pauseController;
-	private PauseController _pause;
 
 	private float _bigGearSpeed = .6f;
 	private float _smallGearSpeed = .3f;
@@ -30,10 +30,10 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	public void Start ()
 	{
-		_pause = _pauseController.GetComponent<PauseController> ();
+		PauseController = GameObject.Find("PauseCanvas").GetComponent<PauseController>();
 		_timeAffected = GetComponent<TimeAffected> ();
 		_timeAffected.ShadowBlinkHandler += OnShadowBlink;
-		_timeAffected.PassPauseController (_pause);
+		_timeAffected.PassPauseController (PauseController);
 		_layeredController = GetComponent<LayeredController> ();
 		_targetable = gameObject.GetComponent<Targetable> ();
 		_targetable.DeathEventHandler += OnDeath;
@@ -45,9 +45,9 @@ public class PlayerController : MonoBehaviour
 		_bigGearPrefab = (GameObject)Resources.Load ("BigGear");
 		_smallGearPrefab = (GameObject)Resources.Load ("SmallGear");
 		_bigGear = Instantiate (_bigGearPrefab).GetComponent<GearController> ();
-		_bigGear.PassPauseController (_pause);
+		_bigGear.PassPauseController (PauseController);
 		_smallGear = Instantiate (_smallGearPrefab).GetComponent<GearController> ();
-		_smallGear.PassPauseController (_pause);
+		_smallGear.PassPauseController (PauseController);
 		_bigGear.Player = this;
 		_smallGear.Player = this;
 		_bigGear.RotationSpeed = _bigGearDefaultRotationSpeed;
@@ -55,42 +55,30 @@ public class PlayerController : MonoBehaviour
 		_bigGear.Damage = _bigGearDamage;
 		_smallGear.Damage = _smallGearDamage;
 
-        
-
 		SaveCheckpoint ();
 	}
-	
-	// Update is called once per frame
+
 	public void Update ()
 	{
-		if (!_pause.isPaused)
-		{
-			if (Input.GetKeyDown (KeyCode.F))
-				InitiateLayerJump ();
 
-			if (Input.GetKeyDown (KeyCode.S))
-				InitiateShadowBlink ();
+	}
 
+	public void ThrowSmallGear ()
+	{
+		Vector3 worldPos = Camera.main.ScreenToWorldPoint (
+			                   new Vector3 (Input.mousePosition.x, Input.mousePosition.y,
+				                   -Camera.main.transform.position.z + _layeredController.Layer.Z));
+		_smallGear.Throw (worldPos, _smallGearSpeed, _smallGearTravelTime);
+	}
 
-			if (Input.GetMouseButtonDown (1))
-			{
-				Vector3 worldPos = Camera.main.ScreenToWorldPoint (
-					                               new Vector3 (Input.mousePosition.x, Input.mousePosition.y,
-						                               -Camera.main.transform.position.z + _layeredController.Layer.Z));
-				_smallGear.Throw (worldPos, _smallGearSpeed, _smallGearTravelTime);
-			}
-
-			if (Input.GetMouseButtonDown (0))
-			{
-				Vector3 worldPos = Camera.main.ScreenToWorldPoint (
-					                               new Vector3 (Input.mousePosition.x, Input.mousePosition.y,
-						                               -Camera.main.transform.position.z + _layeredController.Layer.Z));
-				Ray dir = new Ray (transform.position, worldPos - transform.position);
-				Vector3 attackPos = dir.GetPoint (_bigGearMaxDist);
-				_bigGear.Throw (attackPos, _bigGearSpeed, _bigGearTravelTime);
-			}
-		}
-
+	public void ThrowBigGear ()
+	{
+		Vector3 worldPos = Camera.main.ScreenToWorldPoint (
+			                   new Vector3 (Input.mousePosition.x, Input.mousePosition.y,
+				                   -Camera.main.transform.position.z + _layeredController.Layer.Z));
+		Ray dir = new Ray (transform.position, worldPos - transform.position);
+		Vector3 attackPos = dir.GetPoint (_bigGearMaxDist);
+		_bigGear.Throw (attackPos, _bigGearSpeed, _bigGearTravelTime);
 	}
 
 	public void InitiateLayerJump ()
@@ -180,7 +168,7 @@ public class PlayerController : MonoBehaviour
 		_timeAffected.ShadowMetParentHandler -= ShadowMetParentAfterDeath;
 		ComponentsSetEnabled (true);
 	}
-		
+
 	private void ReturnToCheckpoint ()
 	{
 		_camera.PanByRate (_checkpoint, 20.0f, () =>

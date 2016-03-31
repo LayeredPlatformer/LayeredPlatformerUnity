@@ -15,89 +15,89 @@ public class GearController : LayeredController
 	private Vector3 _rotation = Vector3.zero;
 	private int throwRotationIncrease = 5;
 	private float _forceAmplifier = 100f;
-    private PauseController _pauseController;
+	private PauseController _pauseController;
 
-    // Use this for initialization
-    void Start()
+	// Use this for initialization
+	void Start ()
 	{
-		base.Initialize();
-		_rb = GetComponent<Rigidbody>();
+		base.Initialize ();
+		_rb = GetComponent<Rigidbody> ();
 	}
 
-    public void PassPauseController(PauseController input)
-    {
-        _pauseController = input;
-    }
-
-    // Update is called once per frame
-    void Update()
+	public void PassPauseController (PauseController input)
 	{
-        if (!_pauseController.isPaused)
-        {
-            base.Step();
-            Rotate();
-            if (_throwing)
-                ThrowMove();
-            else if (_returning)
-                ReturnThrowMove();
-            else
-                transform.position = Player.transform.position;
-        }
+		_pauseController = input;
 	}
 
-	void Rotate()
+	// Update is called once per frame
+	void Update ()
+	{
+		if (!_pauseController.isPaused)
+		{
+			base.Step ();
+			Rotate ();
+			if (_throwing)
+				ThrowMove ();
+			else if (_returning)
+				ReturnThrowMove ();
+			else
+				transform.position = Player.transform.position;
+		}
+	}
+
+	void Rotate ()
 	{
 		float rotAmount;
 		if (_throwing)
 			rotAmount = RotationSpeed * throwRotationIncrease;
 		else
 			rotAmount = RotationSpeed;
-		_rotation = new Vector3(0,0,_rotation.z-rotAmount*Time.fixedDeltaTime*Utility.getFPS());
-		transform.localRotation = Quaternion.Euler(_rotation);
+		_rotation = new Vector3 (0, 0, _rotation.z - rotAmount * Time.fixedDeltaTime * Utility.getFPS ());
+		transform.localRotation = Quaternion.Euler (_rotation);
 	}
 
-	public void Throw(Vector3 target, float speed, float travelTime)
+	public void Throw (Vector3 target, float speed, float travelTime)
 	{
 		if (_throwing || _returning)
 			return;
 		_throwing = true;
 		_throwSpeed = speed;
 		_throwTarget = target;
-		Invoke("StartReturnThrow", travelTime);
+		Invoke ("StartReturnThrow", travelTime);
 	}
 
-	public void StartReturnThrow()
+	public void StartReturnThrow ()
 	{
 		_throwing = false;
 		_returning = true;
 	}
 
-	private void ThrowMove()
+	private void ThrowMove ()
 	{
-		transform.position = Vector3.MoveTowards(transform.position, _throwTarget, _throwSpeed*Time.fixedDeltaTime*Utility.getFPS());
+		transform.position = Vector3.MoveTowards (transform.position, _throwTarget, _throwSpeed * Time.fixedDeltaTime * Utility.getFPS ());
 	}
 
-	private void ReturnThrowMove()
+	private void ReturnThrowMove ()
 	{
-		transform.position = Vector3.MoveTowards(transform.position, Player.transform.position,
-			_throwSpeed*Time.fixedDeltaTime*Utility.getFPS());
+		transform.position = Vector3.MoveTowards (transform.position, Player.transform.position,
+			_throwSpeed * Time.fixedDeltaTime * Utility.getFPS ());
 		if (transform.position == Player.transform.position)
 			_returning = false;
 	}
 
-	void OnTriggerEnter(Collider collider)
+	void OnTriggerEnter (Collider collider)
 	{
-		if ((!_returning && !_throwing) || collider.GetComponent<PlayerController>())
+		if ((!_returning && !_throwing) || collider.GetComponent<PlayerController> ())
 			return;
-		Targetable targetable = collider.GetComponent<Targetable>();
+		Targetable targetable = collider.GetComponent<Targetable> ();
 		if (targetable)
 		{
-			targetable.DealDamage(Damage, transform.position, Damage*_forceAmplifier);
+			targetable.DealDamage (Damage, transform.position, Damage * _forceAmplifier);
 //			Debug.Log("health: " + targetable.Health);
 		}
 	}
 
-	public bool isBeingThrown()
+	public bool isBeingThrown ()
 	{
 		return _throwing || _returning;
 	}
