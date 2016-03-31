@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
 
 	public void Update ()
 	{
-
+		if (transform.position.y < 0)
+			OnDeath(null, null);
 	}
 
 	public void ThrowSmallGear ()
