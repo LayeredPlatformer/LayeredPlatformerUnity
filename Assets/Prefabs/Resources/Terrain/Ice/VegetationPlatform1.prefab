@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 427940}
   - 212: {fileID: 21214692}
   - 65: {fileID: 6585000}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VegetationFloat2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 447392}
   - 212: {fileID: 21270784}
   - 65: {fileID: 6521302}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VegetationFloat1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 428672}
   - 212: {fileID: 21206552}
   - 65: {fileID: 6522428}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VegetationFloatCliffLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 406332}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VegetationPlatform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - 4: {fileID: 450464}
   - 212: {fileID: 21278860}
   - 65: {fileID: 6533936}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VegetationFloatCliffRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 168318}

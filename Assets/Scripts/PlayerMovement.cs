@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 	Rigidbody _rb;
 	Animator _animator;
 	SpriteRenderer _sr;
-	float _movementSpeed = 30f;
+	float _movementSpeed = 50f;
 	float _jumpSpeed = 1600f;
 	float _floatForce = 50f;
 	float _floatDistance = 2f;
