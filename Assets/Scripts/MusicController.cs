@@ -15,6 +15,7 @@ public class MusicController : MonoBehaviour
     private float _transitionIn;
     private float _quarterNote;
     private Dictionary<int, AudioMixerSnapshot> _layerToMusicMap;
+    private Transform Player;
     // Use this for initialization
     void Start()
     {
@@ -24,6 +25,9 @@ public class MusicController : MonoBehaviour
         _layerToMusicMap.Add(0, apocalypse);
         _layerToMusicMap.Add(1, steampunk);
         _layerToMusicMap.Add(2, ice);
+        Player = GameObject.Find("Player").transform;
+        int initial_layer = Player.GetComponent<LayeredController>().Layer.Index;
+        _layerToMusicMap[initial_layer].TransitionTo(_transitionIn);
     }
 
     public void LayerChange(int layer)
