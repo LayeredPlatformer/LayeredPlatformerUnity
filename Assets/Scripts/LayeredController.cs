@@ -12,6 +12,7 @@ public class LayeredController : MonoBehaviour
 #pragma warning restore 0649
 
     private Layer _layer;
+    private bool _hasBeenInitialized = false;
 
     public Layer Layer
     {
@@ -40,10 +41,14 @@ public class LayeredController : MonoBehaviour
 		Step();
 	}
 
-	protected virtual void Initialize()
+	public virtual void Initialize()
 	{
-        LayerChangedEventHandler += UpdatePositionOnLayerChange;
-        Layer = Layer.FindByLabel(_layerLabel);
+        if (!_hasBeenInitialized)
+        {
+            LayerChangedEventHandler += UpdatePositionOnLayerChange;
+            Layer = Layer.FindByLabel(_layerLabel);
+            _hasBeenInitialized = true;
+        }
 	}
 
 	protected virtual void Step()
@@ -51,7 +56,7 @@ public class LayeredController : MonoBehaviour
 
 	}
 
-    protected virtual void OnLayerChanged(Layer newLayer, Layer oldLayer)
+    public virtual void OnLayerChanged(Layer newLayer, Layer oldLayer)
     {
         if (LayerChangedEventHandler != null)
         {

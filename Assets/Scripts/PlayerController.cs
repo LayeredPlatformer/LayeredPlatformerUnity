@@ -54,14 +54,16 @@ public class PlayerController : MonoBehaviour
 		_smallGear.RotationSpeed = _smallGearDefaultRotationSpeed;
 		_bigGear.Damage = _bigGearDamage;
 		_smallGear.Damage = _smallGearDamage;
+        _layeredController.Initialize();
 
-		SaveCheckpoint ();
+        UpdateLayerTransparencyOnLayerChange();
+        SaveCheckpoint ();
 	}
 
 	public void Update ()
 	{
 		if (transform.position.y < 0)
-			OnDeath(null, null);
+			OnDeath();
 	}
 
 	public void ThrowSmallGear ()
@@ -108,15 +110,16 @@ public class PlayerController : MonoBehaviour
 		_targetable.Invulnerable = blinkArgs.IsShadowBlinking;
 	}
 
-	private void UpdateLayerTransparencyOnLayerChange (object sender, EventArgs args)
+	private void UpdateLayerTransparencyOnLayerChange (object sender = null, EventArgs args = null)
 	{
 		var colorLayers = GameObject.FindGameObjectsWithTag ("ColorLayer");
 
-		for (int i = 0; i < colorLayers.Length; i++)
+		foreach (var colorLayer in colorLayers)
 		{
-			var layeredController = colorLayers [i].GetComponent<LayeredController> ();
+			var layeredController = colorLayer.GetComponent<LayeredController> ();
+            layeredController.Initialize();
 			var opacity = layeredController.Layer == _layeredController.Layer ? 1f : 0.5f;
-			SetGameObjectChildrenOpacity (colorLayers [i], opacity);
+			SetGameObjectChildrenOpacity (colorLayer, opacity);
 		}
 	}
 
@@ -139,7 +142,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void OnDeath (object sender, EventArgs args)
+	private void OnDeath (object sender = null, EventArgs args = null)
 	{
 		if (_timeAffected.ShadowAtParent)
 		{
