@@ -18,9 +18,10 @@ GameObject:
   - 114: {fileID: 11492244}
   - 114: {fileID: 11400908}
   - 114: {fileID: 11437368}
+  - 114: {fileID: 11489084}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +131,18 @@ MonoBehaviour:
   DesiredHealth: 5
   DesiredHealAmount: 0.1
   Invulnerable: 0
+--- !u!114 &11489084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df2a2f64f9c944bfb729c89c9842fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joyStickDragOffset: {x: 0, y: 0}
 --- !u!114 &11492244
 MonoBehaviour:
   m_ObjectHideFlags: 1

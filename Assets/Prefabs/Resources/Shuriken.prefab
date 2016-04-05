@@ -147,6 +147,7 @@ MonoBehaviour:
   Damage: 0.1
   ImpactForce: 1000
   SlowAmount: 0.1
+  isShuriken: 1
 --- !u!114 &11415716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,6 +219,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: isShuriken
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
