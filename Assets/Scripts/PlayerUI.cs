@@ -4,10 +4,14 @@ using System.Collections;
 public class PlayerUI: MonoBehaviour
 {
 	PlayerController _player;
+    TimeAffected _timeAffected;
 	Targetable _playerTargetable;
 	Texture _oilScreen;
 	Texture _shadowBlinkIcon;
 	Texture _layerJumpIcon;
+
+    Texture[] _layerJumpIcons = new Texture[3];
+
 	Texture _joyStickIcon;
 	Texture _joyStickPadIcon;
 	const float _buttonWidth = 64f;
@@ -32,12 +36,19 @@ public class PlayerUI: MonoBehaviour
 	void Start ()
 	{
 		_player = GameObject.Find ("Player").GetComponent<PlayerController> ();
-		_playerTargetable = _player.GetComponent<Targetable> ();
+        _timeAffected = GameObject.Find("Player").GetComponent<TimeAffected>();
+        _playerTargetable = _player.GetComponent<Targetable> ();
 		_playerMovement = _player.GetComponent<PlayerMovement> ();
 		_oilScreen = (Texture)Resources.Load ("OilScreen");
 		_shadowBlinkIcon = (Texture)Resources.Load ("ShadowBlinkIcon");
-		_layerJumpIcon = (Texture)Resources.Load ("LayerJumpIcon");
-		_joyStickIcon = (Texture)Resources.Load ("JoyStick");
+
+        _layerJumpIcons[0] = (Texture)Resources.Load("LayerJumpIconToFront");
+        _layerJumpIcons[1] = (Texture)Resources.Load("LayerJumpIconToMiddle");
+        _layerJumpIcons[2] = (Texture)Resources.Load("LayerJumpIconToBack");
+
+        _layerJumpIcon = _layerJumpIcons[1];
+
+        _joyStickIcon = (Texture)Resources.Load ("JoyStick");
 		_joyStickPadIcon = (Texture)Resources.Load ("JoyStickPad");
 
 		_joyStickPadRect = new Rect (_joyStickOrigin.x - _joyStickPadSize / 2, _joyStickOrigin.y - _joyStickPadSize / 2,
@@ -46,7 +57,8 @@ public class PlayerUI: MonoBehaviour
 
 	void Update ()
 	{
-		Vector2 mousePos = (Vector2)Input.mousePosition;
+        _layerJumpIcon = _layerJumpIcons[_timeAffected.Layer.Next.Index];
+        Vector2 mousePos = (Vector2)Input.mousePosition;
 		mousePos.y = Screen.height - mousePos.y;
 
 		if (Input.GetMouseButtonDown (0))

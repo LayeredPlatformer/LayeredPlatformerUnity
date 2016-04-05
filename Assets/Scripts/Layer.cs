@@ -13,6 +13,22 @@ public class Layer
 
     public Labels Label { get; private set; }
 
+    public Layer Next
+    {
+        get
+        {
+            return AllLayers[(Index + 1) % AllLayers.Length];
+        }
+    }
+
+    public Layer Previous
+    {
+        get
+        {
+            return AllLayers[(Index - 1 + AllLayers.Length) % AllLayers.Length];
+        }
+    }
+
     public static Layer[] AllLayers =
     {
         new Layer(index: 0, z: 0, label: Labels.Front),
@@ -32,11 +48,11 @@ public class Layer
 
     public static Layer operator ++(Layer old)
     {
-        return AllLayers[(old.Index + 1) % AllLayers.Length];
+        return old.Next;
     }
     public static Layer operator --(Layer old)
     {
-        return AllLayers[(old.Index - 1 + AllLayers.Length) % AllLayers.Length];
+        return old.Previous;
     }
 
     private Layer(int index, float z, Labels label)
