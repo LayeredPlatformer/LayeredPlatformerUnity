@@ -22,6 +22,14 @@ public class BatController : MonoBehaviour
 		Player = GameObject.Find("Player").transform;
 	}
 	
+    void Update()
+    {
+        Vector3 tpos = new Vector3(Player.position.x, Player.position.y + targetOffset, Player.position.z);
+        Vector3 tdir = tpos - transform.position;
+
+        transform.localRotation = Quaternion.Euler(0, tdir.x < 0 ? 0 : 180, 0);
+    }
+
 	void Flap()
 	{
 		Invoke("Flap", FlapPeriod);
