@@ -14,6 +14,7 @@ GameObject:
   - 54: {fileID: 5486160}
   - 114: {fileID: 11455520}
   - 65: {fileID: 6568930}
+  - 114: {fileID: 11415716}
   m_Layer: 0
   m_Name: Shuriken
   m_TagString: ColorLayer
@@ -57,8 +58,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.52605, y: 4.102326, z: 0}
-  m_LocalScale: {x: 0.19919884, y: 0.1991988, z: 0.1991988}
+  m_LocalPosition: {x: -60.592773, y: 24.652054, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.1991988}
   m_Children:
   - {fileID: 404328}
   m_Father: {fileID: 0}
@@ -88,7 +89,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 0.2}
+  m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6585558
 BoxCollider:
@@ -143,8 +144,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511ba225c211a4cff9f14c8555a8f5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0.1
-  _impactForce: 1000
+  Damage: 0.1
+  ImpactForce: 1000
+  SlowAmount: 0.1
+--- !u!114 &11415716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f00a6a045a74b82bb797da67ca2ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DesiredHealth: 15
+  DesiredHealAmount: 0
+  Invulnerable: 0
+  DeadBodies: []
+  DeadBodyForce: 10
 --- !u!114 &11455520
 MonoBehaviour:
   m_ObjectHideFlags: 1
