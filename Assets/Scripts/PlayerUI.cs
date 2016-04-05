@@ -14,15 +14,18 @@ public class PlayerUI: MonoBehaviour
 
 	Texture _joyStickIcon;
 	Texture _joyStickPadIcon;
-	const float _buttonWidth = 64f;
+	const float _buttonWidth = 90f;
 	const float _buttonHeight = _buttonWidth;
 	const float _buttonPressedDuration = .1f;
+    const float _buttonSeparation = 20f;
+    const float _buttonDistanceFromEdge = 70f;
+
 	const float _joyStickBuffer = 128f;
 	const float _joyStickSize = 64f;
 	const float _joyStickPadSize = _joyStickSize + _joyStickRange;
 	const float _joyStickActionThreshold = 20f;
-	Rect _shadowBlinkRect = new Rect (Screen.width - _buttonWidth, Screen.height - _buttonHeight, _buttonWidth, _buttonHeight);
-	Rect _layerJumpRect = new Rect (Screen.width - _buttonWidth * 2, Screen.height - _buttonHeight, _buttonWidth, _buttonHeight);
+	Rect _shadowBlinkRect = new Rect (Screen.width - _buttonDistanceFromEdge - _buttonWidth, Screen.height - _buttonHeight - _buttonDistanceFromEdge, _buttonWidth, _buttonHeight);
+	Rect _layerJumpRect = new Rect (Screen.width - _buttonDistanceFromEdge - _buttonSeparation - _buttonWidth * 2, Screen.height - _buttonHeight - _buttonDistanceFromEdge, _buttonWidth, _buttonHeight);
 	Rect _joyStickPadRect;
 	bool _shadowBlinkPressed = false;
 	bool _layerJumpPressed = false;
